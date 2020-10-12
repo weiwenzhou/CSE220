@@ -502,7 +502,7 @@ add_tail_segment: # int add_tail_segment(Gamestate* state, char direction, byte 
 		jal set_slot # set_slot(state:s0, tail_row:s1+off_row:s3, tail_col:s2+off_col:s4, char:v0)
 		
 		# increment state.length
-		lbu $v0, 4($sp) 
+		lbu $v0, 4($s0) 
 		addi $v0, $v0, 1 # increment
 		sb $v0, 4($sp) 
 	
