@@ -206,7 +206,62 @@ set_slot:
 	set_slot_done:
     jr $ra
 
-place_next_apple:
+place_next_apple: # int, int place_next_apple(Gamestate* state, byte[] apples, int apple_length
+	# a0 = state struct -> s0
+	# a1 = apples byte[] -> s1
+	# a2 = apple_length * 2 = length of apples array -> s2
+	# s3 = row of current apple
+	# s4 = col of current apple
+	addi $sp, $sp, -24 # allocate 24 bytes (6 registers)
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw $s4, 16($sp)
+	sw $ra, 20($sp)
+	
+	move $s0, $a0 # state struct
+	move $s1, $a1 # apples
+	move $s2, $a2 # apple_length
+	
+	find_apple_to_place_loop:
+		lbu $s3, 0($s1) # row
+		lbu $s4, 1($s2) # col
+		
+		move $a0, $s0
+		move $a1, $s3
+		move $a2, $s4
+		jal get_slot # get_slot(state:s0, row:s3, col:s4)
+		
+		bltz $v0, find_apple_to_place_loop_next # v0 < 0 -> error -> check next apple
+		li $t0, '.'
+		bne $v0, $t0, find_apple_to_place_loop_next # v0 != "." -> not an valid spot to place apple -> check next apple
+		# v0 = "." call set_slot
+		move $a0, $s0
+		move $a1, $s3
+		move $a2, $s4
+		li $a3, 'a'
+		jal set_slot # set_slot(state:s0, row:s3, col:s4, 'a')
+		
+		move $v0, $s3 # v0 = s3
+		move $v1, $s4 # v1 = s4
+		j place_next_apple_done 
+		
+		find_apple_to_place_loop_next:
+			addi $s1, $s1, 2  # increment apples 	
+			addi $s2, $s2, -1 # decrement apples count
+			bnez $s2, find_apple_to_place_loop # more apples to check
+	
+	place_next_apple_done:
+	# deallocate and recover register values
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $ra, 20($sp)
+	addi $sp, $sp, 24
+	
     jr $ra
 
 find_next_body_part:
