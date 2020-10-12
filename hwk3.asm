@@ -410,7 +410,7 @@ slide_body: # int slide_body(Gamestate* stae, byte head_row_delta, byte head_col
 			li $t0, ':'
 			bne $s2, $t0, move_rest_of_body # if s2 != ":" then try next else increment by 7 convert : to "A"
 			addi $s2, $s2, 7 
-			j move_rest_of_body # only get her if s2 = ":"
+			j move_rest_of_body # only get here if s2 = ":"
 			
 			slide_body_cleanup:
 				move $a0, $s0
@@ -432,7 +432,89 @@ slide_body: # int slide_body(Gamestate* stae, byte head_row_delta, byte head_col
 	addi $sp, $sp, 28
     jr $ra
 
-add_tail_segment:
+add_tail_segment: # int add_tail_segment(Gamestate* state, char direction, byte tail_row, byte tail_col)
+	# a0 = state struct -> s0
+	# a1 = char direction -> s3, s4 (row:t1, col:t2)
+	# a2 = tail_row -> s1
+	# a3 = tail_col -> s2
+	
+	# check if a1 is valid
+	li $t0, 'U' # (-1, 0)
+	li $t1, -1
+	li $t2, 0
+	beq $a1, $t0, valid_direction
+	li $t0, 'D' # ( 1, 0)
+	li $t1, 1
+	beq $a1, $t0, valid_direction
+	li $t0, 'L' # ( 0,-1)
+	li $t1, 0
+	li $t2, -1
+	beq $a1, $t0, valid_direction
+	li $t0, 'R' # ( 0, 1)
+	li $t2, 1
+	beq $a1, $t0, valid_direction
+	
+	li $v0, -1 
+	jr $ra # invalid direction
+	
+	valid_direction:
+	
+	addi $sp, $sp, -24 # allocate 24 bytes (6 registers)
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw $s4, 16($sp)
+	sw $ra, 20($sp)
+	
+	move $s0, $a0 # state
+	move $s1, $a2 # tail_row
+	move $s2, $a3 # tail_col
+	move $s3, $t1 # row_delta
+	move $s4, $t2 # col_delta
+	
+	move $a0, $s0
+	add $a1, $s1, $s3 # a1 = s1 + s3
+	add $a2, $s2, $s4 # a2 = s2 + s4
+	jal get_slot # get_slot(state:s0, tail_row:s1+off_row:s3, tail_col:s2+off_col:s4)
+	
+	move $t0, $v0
+	li $v0, -1
+	li $t1, '.'
+	bne $t0, $t1, add_tail_done # v0:t0 != "." -> can't add terminate
+	
+	# v0:t0 = "." check (s1,s2) for next char to add to tail
+	move $a0, $s0
+	move $a1, $s1
+	move $a2, $s2 
+	jal get_slot # get_slot(state:s0, row:s1, col:s2)
+	
+	addi $v0, $v0, 1 # increment v0 char 
+	li $t0, ':'
+	bne $v0, $t0, insert_tail # if s2 != ":" then insert the current char:v0 increment by 7 convert : to "A"
+	addi $s2, $s2, 7 # only get here if s2 = ":"
+	
+	insert_tail:
+		move $a0, $s0
+		add $a1, $s1, $s3 # a1 = s1 + s3
+		add $a2, $s2, $s4 # a2 = s2 + s4
+		move $a3, $v0
+		jal set_slot # set_slot(state:s0, tail_row:s1+off_row:s3, tail_col:s2+off_col:s4, char:v0)
+		
+		# increment state.length
+		lbu $v0, 4($sp) 
+		addi $v0, $v0, 1 # increment
+		sb $v0, 4($sp) 
+	
+	add_tail_done:
+	# deallocate and recover register values
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $ra, 20($sp)
+	addi $sp, $sp, 24
     jr $ra
 
 increase_snake_length:
