@@ -26,6 +26,13 @@ load_game: # int, int load_game(GameStates* state, string filename)
 	move $t2, $v0 # v0: file descriptor -> t2
 	bltz $t2, close_load_file_on_error # if t2:file_desc < 0 -> error return -1, -1
 	# read file
+	# zero out unsigned bytes in struct
+	sb $0, 0($t0) # num_rows
+	sb $0, 1($t0) # num_cols
+	sb $0, 2($t0) # head_row
+	sb $0, 3($t0) # head_col
+	sb $0, 4($t0) # length
+	
 	li $t8, 0 # set v0 = 0
 	li $t9, 0 # set v1 = 0
 	
@@ -66,9 +73,67 @@ load_game: # int, int load_game(GameStates* state, string filename)
 	bnez $t6, load_num_in_row # if not 0 keep getting numbers in row
 	
 	# read the rest
+	li $t1, 3 # offset for t0:struct
+	li $t5, 'a' # for searching for apple
+	li $t6, '#' # for searching for wall
+	load_game_board:
+		move $a0, $t2 # file_desc
+		move $a1, $sp # buffer
+		li $a2, 1 # read 1 character
+		li $v0, 14 # syscall for read
+		syscall
 	
+		beqz $v0, close_load_file # end of file 
+		bltz $v0, close_load_file_on_error # error while reading shouldn't occur but just checking
 	
+		lbu $t3, 0($sp) # char read
+		li $t4, '\r'
+		beq $t3, $t4, load_game_board # if t3 is \r ignore 
+		beq $t3, $t7, load_game_board # if t3 is \n ignore
 		
+		add $t4, $t0, $t1 # t4 = t0 (sort of base) + t1 (offset)
+		sb $t3, 0($t4) # store t3:char in t0:gameboard
+		addi $t1, $t1, 1 # increment t0
+		
+		li $t4, '.'  # decrease # of comparisons
+		beq $t3, $t4, load_game_board # t3 = '.'
+		seq $t4, $t3, $t6 # 1 if t3 = '#' else 0
+		add $t9, $t9, $t4 # t9 += t1
+		bnez $t4, load_game_board
+		seq $t4, $t3, $t5 # 1 if t3 = 'a' else 0
+		add $t8, $t8, $t4 # t8 += t1
+		bnez $t4, load_game_board
+		
+		li $t4, '1'
+		blt $t3, $t4, load_game_board # t3 < '1' -> not part of snake
+		li $t4, '9', 
+		ble $t3, $t4, increment_snake_length # '1' <= t3 <= '9' -> part of snake
+		li $t4, 'A'
+		blt $t3, $t4, load_game_board # t3 < 'A' -> not part of snake
+		li $t4, 'Z', 
+		ble $t3, $t4, increment_snake_length # 'A' <= t3 <= 'Z' -> part of snake
+		
+		j load_game_board
+		
+		increment_snake_length:
+			lbu $t4, 2($t0) # increment length
+			addi $t4, $t4, 1
+			sb $t4, 2($t0)
+			
+			li $t4, '1' 
+			bne $t3, $t4, load_game_board # t3 != '1'
+		add_head_to_struct:
+			addi $t1, $t1, -3 # subtract initial offset
+			lbu $t4, -1($t0) # get num_cols
+			div $t1, $t4 # t1/t4 -> LO = QUOTIENT(head_row) HO = REMAINDER(head_col)
+			mflo $t4 # head_row
+			sb $t4, 0($t0)
+			mfhi $t4 # head_col
+			sb $t4, 1($t0)
+			addi $t1, $t1, 3 # add back initial offset
+			
+			j load_game_board
+			
 	close_load_file_on_error:
 		li $t8, -1 # v0
 		li $t9, -1 # v1
