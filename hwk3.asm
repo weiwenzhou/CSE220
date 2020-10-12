@@ -149,7 +149,31 @@ load_game: # int, int load_game(GameStates* state, string filename)
 	addi $sp, $sp, 4
 	jr $ra
 
-get_slot:
+get_slot: # int get_slot(Gamestate* state, byte row, byte col) 
+	# a0 = state struct
+	# a1 = byte row (2's complement)
+	# a2 = byte col (2's complement)
+	li $v0, -1 # error
+	# check if a1:row is in the bounds [0, state.num_rows:0(a0) - 1] 
+	andi $t0, $a1, 0x80 # check if a1 is negative
+	bnez $t0, get_slot_done # the 8-bit is not 0 -> negative number
+	lbu $t0, 0($a0) # state.num_rows
+	bge $a1, $t0, get_slot_done # out of bounds -> error
+	
+	# check if a2:col is in the bounds [0, state.num_cols:1(a0) - 1] 
+	andi $t0, $a2, 0x80 # check if a2 is negative
+	bnez $t0, get_slot_done # the 8-bit is not 0 -> negative number
+	lbu $t0, 1($a0) # state.num_cols
+	bge $a2, $t0, get_slot_done # out of bounds -> error
+	
+	# valid row and col : t0 = state.num_cols
+	mul $t0, $t0, $a1 # t0 = t0 * a1 (row)
+	add $t0, $t0, $a2 # t0 = t0 + a2 (col)
+	addi $t0, $t0, 5 # offset for the first 5 bytes in state
+	add $t0, $t0, $a0 # base + offset
+	lbu $v0, 0($t0)
+	
+	get_slot_done:
     jr $ra
 
 set_slot:
