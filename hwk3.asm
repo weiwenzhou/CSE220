@@ -129,6 +129,7 @@ load_game: # int, int load_game(GameStates* state, string filename)
 			mflo $t4 # head_row
 			sb $t4, 0($t0)
 			mfhi $t4 # head_col
+			addi $t4, $t4, -1 # decrement by one because 0 is at the end of previous row
 			sb $t4, 1($t0)
 			addi $t1, $t1, 3 # add back initial offset
 			
