@@ -268,7 +268,65 @@ place_next_apple: # int, int place_next_apple(Gamestate* state, byte[] apples, i
 	
     jr $ra
 
-find_next_body_part:
+find_next_body_part: # int, int find_next_body_part(Gamestate* state, byte row, byte col, char target_part)
+	# a0 = state struct -> s0
+	# a1 = row (8-bit 2's complement) -> s1
+	# a2 = col (8-bit 2's complement) -> s2
+	# a3 = target part -> s3
+	addi $sp, $sp, -20 # allocate 20 bytes for 5 registers
+	sw $s0, 0($sp) # state
+	sw $s1, 4($sp) # row
+	sw $s2, 8($sp) # col
+	sw $s3, 12($sp) # char
+	sw $ra, 16($sp)
+	
+	move $s0, $a0
+	move $s1, $a1
+	move $s2, $a2
+	move $s3, $a3
+	# check up
+	addi $s1, $s1, -1 # row-1 to check up
+	move $a0, $s0
+	move $a1, $s1
+	move $a2, $s2
+	jal get_slot # get_slot(state:s0, row-1:s1, col:s2)
+	beq $v0, $s3, found_next_body # v0 = char:v3 -> found 
+	# check down
+	addi $s1, $s1, 2 # row-1+2 to check down
+	move $a0, $s0
+	move $a1, $s1
+	move $a2, $s2
+	jal get_slot # get_slot(state:s0, row+1:s1, col:s2)
+	beq $v0, $s3, found_next_body # v0 = char:v3 -> found 
+	# check left
+	addi $s1, $s1, -1 # row-1+2-1 to reset
+	addi $s2, $s2, -1 # col-1 to check left
+	move $a0, $s0
+	move $a1, $s1
+	move $a2, $s2
+	jal get_slot # get_slot(state:s0, row:s1, col-1:s2)
+	beq $v0, $s3, found_next_body # v0 = char:v3 -> found 
+	# check right
+	addi $s2, $s2, 2 # col-1+2 to check right
+	move $a0, $s0
+	move $a1, $s1
+	move $a2, $s2
+	jal get_slot # get_slot(state:s0, row:s1, col+1:s2)
+	beq $v0, $s3, found_next_body # v0 = char:v3 -> found 
+	# not found
+	li $s1, -1
+	li $s2, -1
+	found_next_body:
+		move $v0, $s1 # row
+		move $v1, $s2 # col
+	# deallocate and recover register values
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $ra, 16($sp)
+	addi $sp, $sp, 20
+	
     jr $ra
 
 slide_body:
