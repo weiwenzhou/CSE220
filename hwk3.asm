@@ -226,7 +226,7 @@ place_next_apple: # int, int place_next_apple(Gamestate* state, byte[] apples, i
 	
 	find_apple_to_place_loop:
 		lbu $s3, 0($s1) # row
-		lbu $s4, 1($s2) # col
+		lbu $s4, 1($s1) # col
 		
 		move $a0, $s0
 		move $a1, $s3
@@ -245,6 +245,10 @@ place_next_apple: # int, int place_next_apple(Gamestate* state, byte[] apples, i
 		
 		move $v0, $s3 # v0 = s3
 		move $v1, $s4 # v1 = s4
+		
+		li $t0, -1
+		sb $t0, 0($s1)
+		sb $t0, 1($s1)
 		j place_next_apple_done 
 		
 		find_apple_to_place_loop_next:
