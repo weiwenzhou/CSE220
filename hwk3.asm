@@ -29,17 +29,45 @@ load_game: # int, int load_game(GameStates* state, string filename)
 	li $t8, 0 # set v0 = 0
 	li $t9, 0 # set v1 = 0
 	
-	move $a0, $t2 # file_desc
-	move $a1, $sp # buffer
-	li $a2, 1 # read 1 character
-	li $v0, 14 # syscall for read
-	syscall
+	li $t6, 2 # rows to read to get # of rows and columns
+	li $t7, '\n' # newline 
 	
-	move $a0, $sp
-	li $v0, 4
-	syscall
+	li $t3, 0 # 0 for initial # of rows
+	load_num_in_row:
+		move $a0, $t2 # file_desc
+		move $a1, $sp # buffer
+		li $a2, 1 # read 1 character
+		li $v0, 14 # syscall for read
+		syscall
 	
-	bltz $v0, close_load_file_on_error # error while reading shouldn't occur but just checking
+		bltz $v0, close_load_file_on_error # error while reading shouldn't occur but just checking
+		
+		lbu $t4, 0($sp) # char read
+		beq $t4, $t7, next_row # if t4 is \n store in t0:struc 
+		# if t4 between 0 and 9, inclusive multiply t3 by 10 and add t4 - '0'
+		li $t5, '9'
+		bgt $t4, $t5, load_num_in_row # t4 > '9' not a num 
+		li $t5, '0' 
+		blt $t4, $t5, load_num_in_row # t4 < '0' not a num \r is caught here and ignored
+		
+		sub $t4, $t4, $t5 # is a num -> convert to binary
+		li $t5, 10 # multiply by 10
+		mul $t3, $t3, $t5 # t3 = 10*t3
+		add $t3, $t3, $t4 # t3 = t3 + t4
+		j load_num_in_row
+		
+		next_row:
+			sb $t3, 0($t0) # store in t0:struc
+		
+	# read second row : reset t3 and increment t0 and decrement t6
+	li $t3, 0
+	addi $t0, $t0, 1
+	addi $t6, $t6, -1
+	bnez $t6, load_num_in_row # if not 0 keep getting numbers in row
+	
+	# read the rest
+	
+	
 		
 	close_load_file_on_error:
 		li $t8, -1 # v0
