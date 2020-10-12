@@ -1,8 +1,11 @@
 .data
-filename: .asciiz "game01.txt"
+filename: .asciiz "game02.txt"
 .align 2
-state: .byte 0x05 0x0c 0x0e 0x45 0x17
+state: .byte 0 0 0 0 0
 .asciiz "XArg153cyIJvv2dkivJvSpka5BXf4MyeauUCg5cfQjiY6bs6BKEqE1cXtvHZ"
+
+#state: .byte 0x05 0x0c 0x0e 0x45 0x17
+#.asciiz "XArg153cyIJvv2dkivJvSpka5BXf4MyeauUCg5cfQjiY6bs6BKEqE1cXtvHZ"
 
 .macro newline
 	li $a0, '\n'
@@ -18,38 +21,52 @@ main:
 	jal load_game
 
 	# You must write your own code here to check the correctness of the function implementation.
-	la $s0, state
-
+	move $t0, $v0 
+	move $t1, $v1
+	
+	la $s0, state # 3
+	
 	lbu $a0, 0($s0)
 	li $v0, 1
 	syscall
-	newline
+	newline # 9
 
 	lbu $a0, 1($s0)
 	li $v0, 1
 	syscall
-	newline
+	newline # 15
 	
 	lbu $a0, 2($s0)
 	li $v0, 1
 	syscall
-	newline
+	newline # 21
 	
 	lbu $a0, 3($s0)
 	li $v0, 1
 	syscall
-	newline
+	newline # 27
 	
 	lbu $a0, 4($s0)
 	li $v0, 1
 	syscall
-	newline
+	newline # 33
 
 	addi $a0, $s0, 5 # to get to string
 	li $v0, 4 
 	syscall
+	newline # 39
+
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	newline # 45
+	
+	move $a0, $t1
+	li $v0, 1
+	syscall
+	newline # 51
 
 	li $v0, 10
-	syscall
+	syscall # 53
 
 .include "hwk3.asm"
