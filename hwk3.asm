@@ -329,7 +329,107 @@ find_next_body_part: # int, int find_next_body_part(Gamestate* state, byte row, 
 	
     jr $ra
 
-slide_body:
+slide_body: # int slide_body(Gamestate* stae, byte head_row_delta, byte head_col_delta, byte[] apples,int apples_length)
+	# a0 = state struct -> s0
+	# a1 = head_row_delta -> s1
+	# a2 = head_col_delta -> s2
+	# a3 = apples -> s3
+	# stack = apples_length -> s4
+	lw $t0, 0($sp)
+	addi $sp, $sp, -28 # allocate 24 bytes (6 registers)
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw $s4, 16($sp)
+	sw $s5, 20($sp)
+	sw $ra, 24($sp)
+	
+	move $s0, $a0 # state
+	move $s1, $a1 # row_delta
+	move $s2, $a2 # col_delta
+	move $s3, $a3 # apples
+	move $s4, $t0 # apple_length
+	li $s5, -1 # default
+	
+	move $a0, $s0
+	lbu $a1, 2($s0)
+	add $a1, $a1, $s1 
+	lbu $a2, 3($s0)
+	add $a2, $a2, $s2
+	jal get_slot # get_slot(state:s0, head_row:2(s0)+head_row_delta:s1, head_col:3(s0)+head_col_delta:s2)
+	
+	li $t0, '.'
+	beq $v0, $t0, slide_body_increment # v0 = '.' -> slide body
+	li $t0, 'a'
+	bne $v0, $t0, slide_body_done # v0 is not an apple and not '.'
+	# an apple so call place_next_apple
+	move $a0, $s0
+	move $a1, $s3
+	move $a2, $s4
+	jal place_next_apple # place_next_apple(state:s0, apples:s3, apple_length:s4)
+	addi $s5, $s5, 1 # increment s5 by 1
+	
+	slide_body_increment:
+		addi $s5, $s5, 1 # increment s5 by 1
+		# no longer need to keep apples and apples_length (s3, s4)
+		# replace head and update struct.head_row and .head_col
+		move $a0, $s0
+		lbu $s3, 2($s0) # s3 = old head_row
+		add $a1, $s3, $s1
+		sb $a1, 2($s0) # update state.head_row 
+		lbu $s4, 3($s0) # s4 = old head_col
+		add $a2, $s4, $s2 
+		sb $a2, 3($s0) # update state.head_col
+		li $a3, '1'
+		jal set_slot # set_slot(state:s0, head_row:2(s0)+head_row_delta:s1, head_col:3(s0)+head_col_delta:s2, '1')
+		
+		# s2 = next letter
+		li $s2, '2'
+		
+		move_rest_of_body:
+			# find next letter:s2 at current location(s3,s4)		
+			move $a0, $s0
+			move $a1, $s3
+			move $a2, $s4
+			move $a3, $s2
+			jal find_next_body_part # find_next_body_part(state:s0, row:s3, col:s4, char:s2): v0, v1 -> -1,-1 ignore else update s3,s4
+			
+			bltz $v0, slide_body_cleanup # if v0 = -1 then make (s3, s4) = '.'
+			# else make (s3, s4) = s2 and set s3 and s4 to v0, v1
+			move $a0, $s0
+			move $a1, $s3
+			move $a2, $s4
+			move $a3, $s2
+			# replace s3,s4 with v0,v1
+			move $s3, $v0
+			move $s4, $v1
+			jal set_slot # set_slot(state:s0, row:s3, col:s4, char:s2): v0 = char (don't care)
+	
+			addi $s2, $s2, 1 # increment s2 
+			li $t0, ':'
+			bne $s2, $t0, move_rest_of_body # if s2 != ":" then try next else increment by 7 convert : to "A"
+			addi $s2, $s2, 7 
+			j move_rest_of_body # only get her if s2 = ":"
+			
+			slide_body_cleanup:
+				move $a0, $s0
+				move $a1, $s3
+				move $a2, $s4
+				li $a3, '.'
+				jal set_slot # set_slot(state:s0, row:s3, col:s4, '.'): v0 = char (don't care)
+	
+	slide_body_done:
+		move $v0, $s5 # s5 -> v0
+	# deallocate and recover register values
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $s5, 20($sp)
+	lw $ra, 24($sp)
+	addi $sp, $sp, 28
     jr $ra
 
 add_tail_segment:
