@@ -1,5 +1,5 @@
 .data
-row: .byte 1
+row: .byte -3
 col: .byte 5
 .align 2
 state:
@@ -14,14 +14,17 @@ state:
 .text
 .globl main
 main:
-la $a0, state
-lb $a1, row
-lb $a2, col
-jal get_slot
+	la $a0, state
+	lb $a1, row
+	lb $a2, col
+	jal get_slot
 
-# You must write your own code here to check the correctness of the function implementation.
-
-li $v0, 10
-syscall
+	# You must write your own code here to check the correctness of the function implementation.
+	move $a0, $v0
+	li $v0, 1
+	syscall
+	
+	li $v0, 10
+	syscall
 
 .include "hwk3.asm"
