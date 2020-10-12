@@ -7,8 +7,53 @@
 ############################ DO NOT CREATE A .data SECTION ############################
 
 .text
-load_game:
-    jr $ra
+load_game: # int, int load_game(GameStates* state, string filename)
+	# a0 = state struct -> t0
+	# a1 = filename -> t1
+	# => v0: -1 if input error, 1 if 'a' found, else 0
+	# => v1: -1 if input error: # of wall's found
+	move $t0, $a0
+	move $t1, $a1
+	# allocate 4 bytes on the stack for buffer
+	addi $sp, $sp, -4
+	
+	# open file 
+	move $a0, $t1
+	li $a1, 0 # read-only 
+	li $a2, 0 # mode is ignored
+	li $v0, 13 # syscall for open file
+	syscall 
+	move $t2, $v0 # v0: file descriptor -> t2
+	bltz $t2, close_load_file_on_error # if t2:file_desc < 0 -> error return -1, -1
+	# read file
+	li $t8, 0 # set v0 = 0
+	li $t9, 0 # set v1 = 0
+	
+	move $a0, $t2 # file_desc
+	move $a1, $sp # buffer
+	li $a2, 1 # read 1 character
+	li $v0, 14 # syscall for read
+	syscall
+	
+	move $a0, $sp
+	li $v0, 4
+	syscall
+	
+	bltz $v0, close_load_file_on_error # error while reading shouldn't occur but just checking
+		
+	close_load_file_on_error:
+		li $t8, -1 # v0
+		li $t9, -1 # v1
+	close_load_file:
+		# close file
+		move $a0, $t2 # file_desc
+		li $v0, 16 # syscall for close file
+	
+	move $v0, $t8 # t8: hold v0 return 
+	move $v1, $t9 #	t9: hold v1 return
+	# deallocate 4 bytes on the stack for buffer
+	addi $sp, $sp, 4
+	jr $ra
 
 get_slot:
     jr $ra
