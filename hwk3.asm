@@ -738,7 +738,70 @@ move_snake: # int, int move_snake(Gamestate* state, char direction, byte[] apple
 	
     jr $ra
 
-simulate_game:
+simulate_game: # int, int simulate_game(Gamestate* state, string filename, string directions, int num_moves_to_execute, byte[] apples, int apple_length)
+	# a0 = state struct -> s0
+	# a1 = filename -> s1
+	# a2 = directions -> s2
+	# a3 = num_moves_to_execute -> s3
+	# 0($sp) = apples[] -> s4
+	# 4($sp) = apple_length -> s5
+	# s6,s7 -> v0,v1
+	lw $t0, 0($sp)
+	lw $t1, 4($sp)
+	
+	addi $sp, $sp, -36
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $s5, 20($sp)
+	lw $s6, 24($sp)
+	lw $s7, 28($sp)
+	lw $ra, 32($sp)
+	
+	move $s0, $a0
+	move $s1, $a1
+	move $s2, $a2
+	move $s3, $a3
+	move $s4, $t0
+	move $s5, $t1
+	
+	move $a0, $s0
+	move $a1, $s1
+	jal load_game # load_game(state:s0, filename:s1)
+	
+	move $s6, $v0
+	move $s7, $v1
+	bltz $v0, simulate_game_done # v0 = -1 -> (-1,-1)
+	
+	bgtz $v0, start_simulation # v0 = 1 -> apple found
+	# apple not found
+	move $a0, $s0
+	move $a1, $s4
+	move $a2, $s5
+	jal place_next_apple # place_next_apple(state:s0, apples[]:s4, apple_length:s5): v0,v1 <- ignore
+	
+	start_simulation:
+		li $s6, 0
+		li $s7, 0
+	
+	
+	simulate_game_done:
+		move $v0, $s6
+		move $v1, $s7
+	# deallocate stack 9 registers
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw $s4, 16($sp)
+	sw $s5, 20($sp)
+	sw $s6, 24($sp)
+	sw $s7, 28($sp)
+	sw $ra, 32($sp)
+	addi $sp, $sp, 36
+	
     jr $ra
 
 ############################ DO NOT CREATE A .data SECTION ############################
