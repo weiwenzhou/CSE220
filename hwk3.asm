@@ -517,7 +517,41 @@ add_tail_segment: # int add_tail_segment(Gamestate* state, char direction, byte 
 	addi $sp, $sp, 24
     jr $ra
 
-increase_snake_length:
+increase_snake_length: # int increase_snake_length(Gamestate* state, char direction)
+	# a0 = state struct -> s0
+	# a1 = direction -> s1
+	# s2, s3 = current tail_row, tail_col
+	# s4 = tracker
+	# check if a1 is valid
+	li $t0, 'U' 
+	beq $a1, $t0, valid_direction
+	li $t0, 'D' 
+	beq $a1, $t0, valid_direction
+	li $t0, 'L' 
+	beq $a1, $t0, valid_direction
+	li $t0, 'R' 
+	beq $a1, $t0, valid_direction
+	li $v0, -1 
+	jr $ra # invalid direction
+	valid_direction:
+	
+	addi $sp, $sp, -24 # allocate 24 bytes (6 registers)
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw $s4, 16($sp)
+	sw $ra, 20($sp)
+	
+	
+	# deallocate and recover register values
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $ra, 20($sp)
+	addi $sp, $sp, 24
     jr $ra
 
 move_snake:
