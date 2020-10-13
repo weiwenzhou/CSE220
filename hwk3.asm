@@ -698,7 +698,34 @@ move_snake: # int, int move_snake(Gamestate* state, char direction, byte[] apple
 	move $s4, $t1 # row_delta
 	move $s5, $t2 # col_delta
 	
+	move $a0, $s0
+	move $a1, $s4
+	move $a2, $s5
+	move $a3, $s2
+	addi $sp, $sp, -4
+	sw $s3, 0($sp)
+	jal slide_body # slide_body(state:s0, row_delta:s4, col_delta:s5, apples[]:s2, apple_length:s3): v0 in [-1,0,1]
+	addi $sp, $sp, 4
 	
+	move $t0, $v0 # v0 -> t0
+	li $v0, 0
+	li $v1, -1 
+	bltz $t0, move_snake_done # t0 < 0 (t0 = -1) -> (0,-1)
+	li $v1, 1
+	beqz $t0, move_snake_done # t0 = 0 -> (0, 1)
+	# t0 > 0 (t0 = 1) -> call increase_snake_length
+	move $a0, $s0
+	move $a1, $s1
+	jal increase_snake_length # increase_snake_length(state:s0, direction:s1): v0 
+	move $t0, $v0 # v0 -> t0
+	li $v0, 0
+	li $v1, -1
+	bltz $t0, move_snake_done # t0 < 0 (t0 = -1) -> (0, -1)
+	# else t0:v0 != -1 -> (100, 1)
+	li $v0, 100
+	li $v1, 1
+	
+	move_snake_done:
 	# deallocate and recover register values
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
