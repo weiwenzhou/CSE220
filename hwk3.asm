@@ -654,7 +654,61 @@ increase_snake_length: # int increase_snake_length(Gamestate* state, char direct
 	addi $sp, $sp, 24
     jr $ra
 
-move_snake:
+move_snake: # int, int move_snake(Gamestate* state, char direction, byte[] apples, int apple_length)
+	# a0 = state struct -> s0
+	# a1 = direction -> s1
+	# a2 = apples [] -> s2
+	# a3 = apple_length -> s3
+	# s4, s5 = direction in row_delta, col_delta
+	
+	# check if a1 is valid
+	li $t0, 'U' # (-1, 0)
+	li $t1, -1
+	li $t2, 0
+	beq $a1, $t0, move_snake_valid_direction
+	li $t0, 'D' # ( 1, 0)
+	li $t1, 1
+	beq $a1, $t0, move_snake_valid_direction
+	li $t0, 'L' # ( 0,-1)
+	li $t1, 0
+	li $t2, -1
+	beq $a1, $t0, move_snake_valid_direction
+	li $t0, 'R' # ( 0, 1)
+	li $t2, 1
+	beq $a1, $t0, move_snake_valid_direction
+	
+	li $v0, 0
+	li $v1, -1
+	jr $ra # invalid direction
+	
+	move_snake_valid_direction: 
+	addi $sp, $sp, -28 # allocate 28 bytes (7 registers)
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw $s4, 16($sp)
+	sw $s5, 20($sp)
+	sw $ra, 24($sp)
+	
+	move $s0, $a0 # state
+	move $s1, $a1 # direction
+	move $s2, $a2 # apples[]
+	move $s3, $a3 # apple_length
+	move $s4, $t1 # row_delta
+	move $s5, $t2 # col_delta
+	
+	
+	# deallocate and recover register values
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $s5, 20($sp)
+	lw $ra, 24($sp)
+	addi $sp, $sp, 28
+	
     jr $ra
 
 simulate_game:
