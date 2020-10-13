@@ -1,12 +1,12 @@
 .data
-filename: .asciiz "game08.txt"
-directions: .asciiz "UULLLDLDDRDRRRRRRUUUURRRRDDDLDLLLLL"
-apples: .byte 0 7 3 10 0 9 4 5 0 1 4 10 1 10 0 4 1 3 4 9 0 8 1 9 0 3 4 11 2 0 1 7 3 8 4 1 0 6 4 2 2 4 1 6 4 0 1 2 3 1 2 11 1 0 1 5 2 5 0 10 3 3 1 4 3 9 0 5 0 11 0 2 3 11 1 11 2 2 4 6 2 7 4 8 3 6 4 7 2 10 3 7 2 3 2 8 3 5 2 1 0 0 1 8 4 3 3 0 2 9 3 4 3 2 4 4 1 1 2 6
+filename: .asciiz "game09.txt"
+directions: .asciiz "DRRRRRRUUUULLLLLDLLDD"
 apples_length: .word 60
-num_moves_to_execute: .word 50
+num_moves_to_execute: .word 500
+apples: .byte 0 8 4 6 0 4 2 6 1 4 2 11 1 11 3 2 4 10 0 11 2 4 1 8 3 4 1 5 0 10 4 2 1 0 2 0 4 5 0 9 4 0 2 7 4 1 2 5 2 10 0 5 4 7 3 5 2 2 4 3 4 4 4 8 1 2 3 3 0 2 0 3 2 9 4 9 2 3 3 1 0 6 3 6 3 10 0 0 3 9 1 7 3 0 3 7 2 1 0 7 1 9 1 3 2 8 1 1 3 8 1 10 0 1 3 11 1 6 4 11
 .align 2
-state: .byte 0x05 0x0c 0x0e 0x45 0x17
-.asciiz "XArg153cyIJvv2dkivJvSpka5BXf4MyeauUCg5cfQjiY6bs6BKEqE1cXtvHZ"
+state: .byte 0x05 0x0c 0x2a 0x36 0x77
+.asciiz "NwpHO6lB06DyizI7T8RouKDE8mBAkKsWuxlOalCcJtWMmpAoFeazGmXUXK2r"
 
 .macro newline
 	li $a0, '\n'
