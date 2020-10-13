@@ -504,7 +504,7 @@ add_tail_segment: # int add_tail_segment(Gamestate* state, char direction, byte 
 		# increment state.length
 		lbu $v0, 4($s0) 
 		addi $v0, $v0, 1 # increment
-		sb $v0, 4($sp) 
+		sb $v0, 4($s0) 
 	
 	add_tail_done:
 	# deallocate and recover register values
@@ -804,9 +804,10 @@ simulate_game: # int, int simulate_game(Gamestate* state, string filename, strin
 		
 		lbu $t0, 4($s0) # state.length
 		addi $t0, $t0, -1 # state.length-1 
-		mul $t0, $t0, $v1 # v0(state.length-1)
+		mul $t0, $t0, $v0 # v0(state.length-1)
 		add $s7, $s7, $t0 # s7 += v0(state.length-1)
-
+		
+		addi $s2, $s2, 1 # increment direction
 		addi $s3, $s3, -1 # decrement s3
 		addi $s6, $s6, 1# increment s6		
 		
