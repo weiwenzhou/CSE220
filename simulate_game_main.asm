@@ -8,25 +8,45 @@ num_moves_to_execute: .word 50
 state: .byte 0x05 0x0c 0x0e 0x45 0x17
 .asciiz "XArg153cyIJvv2dkivJvSpka5BXf4MyeauUCg5cfQjiY6bs6BKEqE1cXtvHZ"
 
+.macro newline
+	li $a0, '\n'
+	li $v0, 11
+	syscall
+.end_macro
+
 .text
 .globl main
 main:
-la $a0, state
-la $a1, filename
-la $a2, directions
-lw $a3, num_moves_to_execute
-addi $sp, $sp, -8
-la $t0, apples
-sw $t0, 0($sp)
-lw $t0, apples_length
-sw $t0, 4($sp)
-li $t0, 123920  # putting garbage in $t0
-jal simulate_game
-addi $sp, $sp, 8
+	la $a0, state
+	la $a1, filename
+	la $a2, directions
+	lw $a3, num_moves_to_execute
+	addi $sp, $sp, -8
+	la $t0, apples
+	sw $t0, 0($sp)
+	lw $t0, apples_length
+	sw $t0, 4($sp)
+	li $t0, 123920  # putting garbage in $t0
+	jal simulate_game
+	addi $sp, $sp, 8
 
-# You must write your own code here to check the correctness of the function implementation.
-
-li $v0, 10
-syscall
+	# You must write your own code here to check the correctness of the function implementation.
+	move $a0, $v0
+	li $v0, 1
+	syscall
+	newline # 6
+	
+	move $a0, $v1
+	li $v0, 1
+	syscall
+	newline # 12
+	
+	la $s0, state 
+	addi $a0, $s0, 5 # to get to string
+	li $v0, 4 
+	syscall # 16
+	
+	li $v0, 10
+	syscall
 
 .include "hwk3.asm"
