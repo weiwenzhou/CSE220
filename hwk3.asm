@@ -543,7 +543,31 @@ increase_snake_length: # int increase_snake_length(Gamestate* state, char direct
 	sw $s4, 16($sp)
 	sw $ra, 20($sp)
 	
+	move $s0, $a0 # state
+	move $s1, $a1 # direction
+	lbu $s2, 2($s0) # head_row
+	lbu $s3, 3($s0) # head_col 
+	li $s4, '2' # char to find
 	
+	increase_snake_find_tail: # if char:s4 not found -> found tail 
+		move $a0, $a0
+		move $a1, $s2
+		move $a2, $s3
+		move $a3, $s4
+		jal find_next_body_part # find_next_body_part(state:s0, row:s2, col:s3, char:s4): v0,v1 (next x, y)
+		
+		bltz $v0, increase_snake_found_tail # if v0, v1 = -1,-1
+		# else not found v0, v1 -> s2, s3 and keep searching
+		move $s2, $v0
+		move $s3, $v1 
+		addi $s4, $s4, 1 # increment s4
+		li $t0, ':'
+		bne $v0, $t0, increase_snake_find_tail # if s2 != ":" then insert the current char:v0 increment by 7 convert : to "A"
+		addi $s2, $s2, 7 # only get here if s2 = ":"
+		j increase_snake_find_tail
+		
+	
+	increase_snake_found_tail:
 	# deallocate and recover register values
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
