@@ -492,7 +492,7 @@ add_tail_segment: # int add_tail_segment(Gamestate* state, char direction, byte 
 	addi $v0, $v0, 1 # increment v0 char 
 	li $t0, ':'
 	bne $v0, $t0, insert_tail # if s2 != ":" then insert the current char:v0 increment by 7 convert : to "A"
-	addi $s2, $s2, 7 # only get here if s2 = ":"
+	addi $v0, $v0, 7 # only get here if v0 = ":"
 	
 	insert_tail:
 		move $a0, $s0
@@ -524,16 +524,16 @@ increase_snake_length: # int increase_snake_length(Gamestate* state, char direct
 	# s4 = tracker
 	# check if a1 is valid
 	li $t0, 'U' 
-	beq $a1, $t0, valid_direction
+	beq $a1, $t0, increase_snake_valid_direction
 	li $t0, 'D' 
-	beq $a1, $t0, valid_direction
+	beq $a1, $t0, increase_snake_valid_direction
 	li $t0, 'L' 
-	beq $a1, $t0, valid_direction
+	beq $a1, $t0, increase_snake_valid_direction
 	li $t0, 'R' 
-	beq $a1, $t0, valid_direction
+	beq $a1, $t0, increase_snake_valid_direction
 	li $v0, -1 
 	jr $ra # invalid direction
-	valid_direction:
+	increase_snake_valid_direction:
 	
 	addi $sp, $sp, -24 # allocate 24 bytes (6 registers)
 	sw $s0, 0($sp)
@@ -562,12 +562,88 @@ increase_snake_length: # int increase_snake_length(Gamestate* state, char direct
 		move $s3, $v1 
 		addi $s4, $s4, 1 # increment s4
 		li $t0, ':'
-		bne $v0, $t0, increase_snake_find_tail # if s2 != ":" then insert the current char:v0 increment by 7 convert : to "A"
-		addi $s2, $s2, 7 # only get here if s2 = ":"
+		bne $s4, $t0, increase_snake_find_tail # if s4 != ":" then check s4
+		addi $s4, $s4, 7 # only get here if s2 = ":" else increment by 7 convert : to "A"
 		j increase_snake_find_tail
 		
-	
 	increase_snake_found_tail:
+		li $s4, 4 # check 4 direction max
+		li $t0, 'U'
+		beq $s1, $t0, increase_snake_D_direction
+		li $t0, 'L'
+		beq $s1, $t0, increase_snake_R_direction
+		li $t0, 'R'
+		beq $s1, $t0, increase_snake_L_direction
+		# s1 = 'D' -> increase_snake_U_direction
+		increase_snake_U_direction:
+			move $a0, $s0
+			la $a1, 'U'
+			move $a2, $s2
+			move $a3, $s3
+			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			bgtz $v0, increase_snake_done # v0 != -1 -> done
+			addi $s4, $s4, -1 # decrement
+		
+		increase_snake_L_direction:
+			move $a0, $s0
+			la $a1, 'U'
+			move $a2, $s2
+			move $a3, $s3
+			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			bgtz $v0, increase_snake_done # v0 != -1 -> done
+			addi $s4, $s4, -1 # decrement
+			
+		increase_snake_D_direction:
+			move $a0, $s0
+			la $a1, 'U'
+			move $a2, $s2
+			move $a3, $s3
+			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			bgtz $v0, increase_snake_done # v0 != -1 -> done
+			addi $s4, $s4, -1 # decrement
+			
+		increase_snake_R_direction: #midway
+			move $a0, $s0
+			la $a1, 'U'
+			move $a2, $s2
+			move $a3, $s3
+			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			bgtz $v0, increase_snake_done # v0 != -1 -> done
+			addi $s4, $s4, -1 # decrement
+			beqz $s4, increase_snake_done
+			
+		increase_snake_U_direction_wrap:
+			move $a0, $s0
+			la $a1, 'U'
+			move $a2, $s2
+			move $a3, $s3
+			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			bgtz $v0, increase_snake_done # v0 != -1 -> done
+			addi $s4, $s4, -1 # decrement
+			beqz $s4, increase_snake_done
+			
+		increase_snake_L_direction_wrap:
+			move $a0, $s0
+			la $a1, 'U'
+			move $a2, $s2
+			move $a3, $s3
+			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			bgtz $v0, increase_snake_done # v0 != -1 -> done
+			addi $s4, $s4, -1 # decrement
+			beqz $s4, increase_snake_done
+			
+		increase_snake_D_direction_wrap:
+			move $a0, $s0
+			la $a1, 'U'
+			move $a2, $s2
+			move $a3, $s3
+			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			bgtz $v0, increase_snake_done # v0 != -1 -> done
+			addi $s4, $s4, -1 # decrement
+			beqz $s4, increase_snake_done
+			
+	increase_snake_done:
+	
 	# deallocate and recover register values
 	lw $s0, 0($sp)
 	lw $s1, 4($sp)
