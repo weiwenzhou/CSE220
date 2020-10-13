@@ -1,5 +1,5 @@
 .data
-direction: .byte 'U'
+direction: .byte 'D'
 .align 2
 state:
 .byte 5  # num_rows
@@ -10,6 +10,8 @@ state:
 # Game grid:
 .asciiz ".............a.#.1..#......#.2..#......#.3..#........4567..."
 
+filename: .asciiz "game06.txt"
+
 .macro newline
 	li $a0, '\n'
 	li $v0, 11
@@ -19,6 +21,11 @@ state:
 .text
 .globl main
 main:
+	# load game
+	la $a0, state
+	la $a1, filename
+	jal load_game
+
 	la $a0, state
 	lbu $a1, direction
 	jal increase_snake_length
