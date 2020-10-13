@@ -750,15 +750,15 @@ simulate_game: # int, int simulate_game(Gamestate* state, string filename, strin
 	lw $t1, 4($sp)
 	
 	addi $sp, $sp, -36
-	lw $s0, 0($sp)
-	lw $s1, 4($sp)
-	lw $s2, 8($sp)
-	lw $s3, 12($sp)
-	lw $s4, 16($sp)
-	lw $s5, 20($sp)
-	lw $s6, 24($sp)
-	lw $s7, 28($sp)
-	lw $ra, 32($sp)
+	sw $s0, 0($sp)
+	sw $s1, 4($sp)
+	sw $s2, 8($sp)
+	sw $s3, 12($sp)
+	sw $s4, 16($sp)
+	sw $s5, 20($sp)
+	sw $s6, 24($sp)
+	sw $s7, 28($sp)
+	sw $ra, 32($sp)
 	
 	move $s0, $a0
 	move $s1, $a1
@@ -786,20 +786,45 @@ simulate_game: # int, int simulate_game(Gamestate* state, string filename, strin
 		li $s6, 0
 		li $s7, 0
 	
+	simulation_loop:
+		beqz $s3, simulate_game_done # num_of_moves_to_execute = 0 -> done
+		lbu $t0, 4($s0) # state.length
+		addi $t0, $t0, -35
+		bgez $t0, simulate_game_done # state.length >= 35
+		
+		lbu $t0, 0($s2) # direction
+		beqz $t0, simulate_game_done # null terminator -> no more directions -> done 
+		
+		move $a0, $s0
+		move $a1, $t0
+		move $a2, $s4
+		move $a3, $s5
+		jal move_snake # move_snake(state:s0, direction:t0, apples[]:s4, apple_length:s5)
+		bltz $v1, simulate_game_done # v1 = -1 -> invalid move/collision -> done
+		
+		lbu $t0, 4($s0) # state.length
+		addi $t0, $t0, -1 # state.length-1 
+		mul $t0, $t0, $v1 # v0(state.length-1)
+		add $s7, $s7, $t0 # s7 += v0(state.length-1)
+
+		addi $s3, $s3, -1 # decrement s3
+		addi $s6, $s6, 1# increment s6		
+		
+		j simulation_loop
 	
 	simulate_game_done:
 		move $v0, $s6
 		move $v1, $s7
 	# deallocate stack 9 registers
-	sw $s0, 0($sp)
-	sw $s1, 4($sp)
-	sw $s2, 8($sp)
-	sw $s3, 12($sp)
-	sw $s4, 16($sp)
-	sw $s5, 20($sp)
-	sw $s6, 24($sp)
-	sw $s7, 28($sp)
-	sw $ra, 32($sp)
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $s4, 16($sp)
+	lw $s5, 20($sp)
+	lw $s6, 24($sp)
+	lw $s7, 28($sp)
+	lw $ra, 32($sp)
 	addi $sp, $sp, 36
 	
     jr $ra
