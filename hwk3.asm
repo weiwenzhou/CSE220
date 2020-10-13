@@ -577,7 +577,7 @@ increase_snake_length: # int increase_snake_length(Gamestate* state, char direct
 		# s1 = 'D' -> increase_snake_U_direction
 		increase_snake_U_direction:
 			move $a0, $s0
-			la $a1, 'U'
+			li $a1, 'U'
 			move $a2, $s2
 			move $a3, $s3
 			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
@@ -586,35 +586,35 @@ increase_snake_length: # int increase_snake_length(Gamestate* state, char direct
 		
 		increase_snake_L_direction:
 			move $a0, $s0
-			la $a1, 'U'
+			li $a1, 'L'
 			move $a2, $s2
 			move $a3, $s3
-			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			jal add_tail_segment # add_tail_segment(state:s0, 'L', tail_row:s2, tail_col:s3): v0 > 0 done
 			bgtz $v0, increase_snake_done # v0 != -1 -> done
 			addi $s4, $s4, -1 # decrement
 			
 		increase_snake_D_direction:
 			move $a0, $s0
-			la $a1, 'U'
+			li $a1, 'D'
 			move $a2, $s2
 			move $a3, $s3
-			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			jal add_tail_segment # add_tail_segment(state:s0, 'D', tail_row:s2, tail_col:s3): v0 > 0 done
 			bgtz $v0, increase_snake_done # v0 != -1 -> done
 			addi $s4, $s4, -1 # decrement
 			
 		increase_snake_R_direction: #midway
 			move $a0, $s0
-			la $a1, 'U'
+			li $a1, 'R'
 			move $a2, $s2
 			move $a3, $s3
-			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			jal add_tail_segment # add_tail_segment(state:s0, 'R', tail_row:s2, tail_col:s3): v0 > 0 done
 			bgtz $v0, increase_snake_done # v0 != -1 -> done
 			addi $s4, $s4, -1 # decrement
 			beqz $s4, increase_snake_done
 			
 		increase_snake_U_direction_wrap:
 			move $a0, $s0
-			la $a1, 'U'
+			li $a1, 'U'
 			move $a2, $s2
 			move $a3, $s3
 			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
@@ -624,20 +624,20 @@ increase_snake_length: # int increase_snake_length(Gamestate* state, char direct
 			
 		increase_snake_L_direction_wrap:
 			move $a0, $s0
-			la $a1, 'U'
+			li $a1, 'L'
 			move $a2, $s2
 			move $a3, $s3
-			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			jal add_tail_segment # add_tail_segment(state:s0, 'L', tail_row:s2, tail_col:s3): v0 > 0 done
 			bgtz $v0, increase_snake_done # v0 != -1 -> done
 			addi $s4, $s4, -1 # decrement
 			beqz $s4, increase_snake_done
 			
 		increase_snake_D_direction_wrap:
 			move $a0, $s0
-			la $a1, 'U'
+			li $a1, 'D'
 			move $a2, $s2
 			move $a3, $s3
-			jal add_tail_segment # add_tail_segment(state:s0, 'U', tail_row:s2, tail_col:s3): v0 > 0 done
+			jal add_tail_segment # add_tail_segment(state:s0, 'D', tail_row:s2, tail_col:s3): v0 > 0 done
 			bgtz $v0, increase_snake_done # v0 != -1 -> done
 			addi $s4, $s4, -1 # decrement
 			beqz $s4, increase_snake_done
