@@ -455,6 +455,16 @@ add_tail_segment: # int add_tail_segment(Gamestate* state, char direction, byte 
 	# a2 = tail_row -> s1
 	# a3 = tail_col -> s2
 	
+	# check if state.length < 35 (a0:+4offset)
+	# since we are assuming tail_row and tail_col are valid we can also assume that the snake will have at least length 1 
+	li $t0, 35
+	lbu $t1, 4($a0) # length
+	blt $t1, $t0, check_direction # t1:length < 35
+	
+	li $v0, -1 
+	jr $ra # invalid length (>= 35)
+	
+	check_direction:
 	# check if a1 is valid
 	li $t0, 'U' # (-1, 0)
 	li $t1, -1
