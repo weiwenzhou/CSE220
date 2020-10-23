@@ -273,6 +273,22 @@ find_next_body_part: # int, int find_next_body_part(Gamestate* state, byte row, 
 	# a1 = row (8-bit 2's complement) -> s1
 	# a2 = col (8-bit 2's complement) -> s2
 	# a3 = target part -> s3
+	
+	# check if a1:row and a2:col is valid
+	li $v0, -1 # error
+	li $v1, -1 # error
+	# check if a1:row is in the bounds [0, state.num_rows:0(a0) - 1] 
+	andi $t0, $a1, 0x80 # check if a1 is negative
+	bnez $t0, find_next_body_part_done # the 8-bit is not 0 -> negative number
+	lbu $t0, 0($a0) # state.num_rows
+	bge $a1, $t0, find_next_body_part_done # out of bounds -> error
+	
+	# check if a2:col is in the bounds [0, state.num_cols:1(a0) - 1] 
+	andi $t0, $a2, 0x80 # check if a2 is negative
+	bnez $t0, find_next_body_part_done # the 8-bit is not 0 -> negative number
+	lbu $t0, 1($a0) # state.num_cols
+	bge $a2, $t0, find_next_body_part_done # out of bounds -> error
+	
 	addi $sp, $sp, -20 # allocate 20 bytes for 5 registers
 	sw $s0, 0($sp) # state
 	sw $s1, 4($sp) # row
@@ -327,6 +343,7 @@ find_next_body_part: # int, int find_next_body_part(Gamestate* state, byte row, 
 	lw $ra, 16($sp)
 	addi $sp, $sp, 20
 	
+	find_next_body_part_done:
     jr $ra
 
 slide_body: # int slide_body(Gamestate* stae, byte head_row_delta, byte head_col_delta, byte[] apples,int apples_length)
