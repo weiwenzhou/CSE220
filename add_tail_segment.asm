@@ -1,5 +1,5 @@
 .data
-direction: .byte 'Y'
+direction: .byte 'R'
 tail_row: .byte 4
 tail_col: .byte 8
 .align 2
@@ -8,7 +8,7 @@ state:
 .byte 12  # num_cols
 .byte 1  # head_row
 .byte 5  # head_col
-.byte 7  # length
+.byte 36  # length
 # Game grid:
 .asciiz ".............a.#.1..#......#.2..#......#.3..#........4567..."
 
