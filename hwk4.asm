@@ -112,7 +112,24 @@ initialize_hashtable: # int initialize_hashtable(Hashtable* hashtable, int capac
     initialize_hashtable_done:
     jr $ra
 
-hash_book:
+hash_book: # int hash_book(Hashtable* books, string isbn)
+    # a0 -> hashtable with books
+    # a1 -> 13 character ASCII character
+    # -> v0: hash_funct = sum(isbn ascii character codes) mod books.capacity:books[0:4]
+    
+    li $v0, 0
+    li $t0, 13
+    # while --t0 >= 12 -> v0 += isbn[t0]
+    hash_book_sum:
+        addi $t0, $t0, -1 # decrement
+        add $t9, $a1, $t0 # t9 = a0:base + t0:offset
+        lbu $t9, 0($t9) # load ascii character
+        add $v0, $v0, $t9 # sum
+        bgtz $t0, hash_book_sum
+
+    lw $t0, 0($a0) # books.capacity
+    div $v0, $t0 # modulus in hi
+    mfhi $v0   
     jr $ra
 
 get_book:

@@ -9,6 +9,7 @@ int word lw 1
 int[] word la 1
 byte[] asciiz la 4
 Hashtable word byte la 1
+HashBookTable align word la 1 
 Gamestate byte asciiz la 4
 .end
 
@@ -16,6 +17,7 @@ Gamestate byte asciiz la 4
 memcpy byte[] byte[] int -> arg0 int
 strcmp string string -> int
 initialize_hashtable Hashtable int int -> arg0:0:3:4 arg0:12:60:1 int
+hash_book HashBookTable string -> int
 .end
 
 .check_register
@@ -160,5 +162,24 @@ initialize_hashtable
 11 12 13
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 -1
+
+
+hash_book
+2
+9 0 68
+"9780671028370"
+7
+
+hash_book
+2
+17 0 68
+"9780071401940"
+11
+
+hash_book
+2
+13 0 68
+"1123121401940"
+3
 
 .end_check
