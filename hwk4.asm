@@ -84,7 +84,32 @@ strcmp: # int strcmp(string str1, string str2)
         move $v0, $t8
     jr $ra
 
-initialize_hashtable:
+initialize_hashtable: # int initialize_hashtable(Hashtable* hashtable, int capacity, int element_size)
+    # a0 -> hashtable
+    # a1 -> capacity
+    # a2 -> element_size
+    # -> v0 : -1 if capacity < 1 or element_size < 1  else 0
+    li $v0, -1
+    li $t0, 1
+    blt $a1, $t0, initialize_hashtable_done # a1:capacity < 1 -> -1
+    blt $a2, $t0, initialize_hashtable_done # a2:element_size < 1 -> -1
+
+    li $v0, 0
+    # initialize hashtable
+    sw $a1, 0($a0) # store capacity
+    sw $0,  4($a0) # store 0 in size
+    sw $a2, 8($a0) # store element_size
+
+    mul $t0, $a1, $a2 # t1 = a1*a2:num_of_bytes_to_initialize (counter)
+
+    # while --t0 >= 0 -> a0[12+t0] = 0, t0++
+    initialize_hashtable_loop:
+        addi $t0, $t0, -1 # decrement
+        add $t9, $a0, $t0 # t9 = a0:base + t0:offset
+        sb $0, 12($t9) # store 0
+        bgtz $t0, initialize_hashtable_loop
+
+    initialize_hashtable_done:
     jr $ra
 
 hash_book:
