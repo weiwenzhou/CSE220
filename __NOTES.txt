@@ -37,8 +37,7 @@ Part 4: int hash_book(Hashtable* books, string isbn)
 				mod books.capacity
 
 Part 5: int, int get_book(Hashtable* books, string isbn)
-- call hash_book, get_book(?)
-- use strcmp
+- call hash_book, strcmp
 
 Part 6: int, int add_book(Hashtable* books, string isbn, string title, 
                   string author)
