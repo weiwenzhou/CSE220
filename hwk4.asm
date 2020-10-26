@@ -7,7 +7,27 @@
 ############################ DO NOT CREATE A .data SECTION ############################
 
 .text
-memcpy:
+memcpy: # int memcpy(byte[] dest, byte[] src, int n)
+	# a0 -> dest (at least n bytes)
+	# a1 -> src
+    # a2 -> num of bytes
+    # => v0 -1 if n <= 0 else n
+    li $v0, -1
+    blez $a2, memcpy_done
+    # valid n
+    move $v0, $a2
+
+    # while --n >= 0 -> copy dest[n]:t0 = src[n]:t1
+    memcpy_copy:
+        addi $a2, $a2, -1 # decrement
+        bltz $a2, memcpy_done
+        add $t0, $a0, $a2
+        add $t1, $a1, $a2
+        lbu $t1, 0($t1)
+        sb $t1, 0($t0)
+        j memcpy_copy
+    
+    memcpy_done:
     jr $ra
 
 strcmp:
