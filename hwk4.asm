@@ -114,7 +114,7 @@ initialize_hashtable: # int initialize_hashtable(Hashtable* hashtable, int capac
 
 hash_book: # int hash_book(Hashtable* books, string isbn)
     # a0 -> hashtable with books
-    # a1 -> 13 character ASCII character
+    # a1 -> 13 ASCII characters
     # -> v0: hash_funct = sum(isbn ascii character codes) mod books.capacity:books[0:4]
     
     li $v0, 0
@@ -132,8 +132,72 @@ hash_book: # int hash_book(Hashtable* books, string isbn)
     mfhi $v0   
     jr $ra
 
-get_book:
-    jr $ra
+get_book: # int, int get_book(Hashtable* books, string isbn)
+    # a0 -> hashtable with books -> s0
+    # a1 -> 13 ASCII characters -> s1
+    # -> v0: index if found else -1 <- s2
+    # -> v1: num of times strcmp is called <- s3
+    # Allocate space on stack for 5 registers (s0-5, ra)
+    # s4 = element size
+    # s5 = capacity
+    addi $sp, $sp, -24
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $s4, 16($sp)
+    sw $s5, 20($sp)
+    sw $ra, 24($sp)
+
+    move $s0, $a0
+    move $s1, $a1
+    jal hash_book # hash_book(books:a0, isbn:a1)
+
+    move $s2, $v0 # starting index
+    li $s3, 0 # num of comparison
+    lw $s4, 8($s0) # get element size
+    lw $s5, 0($s0) # capacity
+    
+    # do: s0[12+s2*s4:element_size]strcmp while loop
+    get_book_loop:
+        mul $a0, $s2, $s4 # offset
+        add $a0, $s0, $a0 # base+offset
+        addi $a0, $a0, 12 # 12 offset
+
+        # increment s2+s3
+        addi $s2, $s2, 1 # check next index
+        seq $t0, $s2, $s5 # s2 = capacity -> $t0 === 1 else 0
+        mul $t0, $t0, $s5 # capacity if t0 === 1 else 0 
+        sub $s2, $s2, $t0 # s2 = s2 - t0 (to wrap around if s2 == capacity)
+        addi $s3, $s3, 1 # increment
+        # check if entry is empty, deleted, or ISBN
+        lb $t0, 0($a0) 
+        beqz $t0, get_book_not_found
+        li $t1, -1
+        beq $t0, $t1, get_book_loop
+        move $a1, $s1 
+        jal strcmp # strcmp(current, isbn) -> v0 
+        beqz $v0, get_book_done # s2,s3 if v0 == 0 
+        blt $s3, $s5, get_book_loop # check next if s3 < capacity 
+        get_book_not_found:
+            li $s2, -1 # else -1, s3
+
+
+    get_book_done:
+        move $v0, $s2
+        move $v1, $s3
+
+    # Deallocate space on the stack 5 registers (s0-4, ra)
+    lw $s0, 0($sp)
+    lw $s1, 4($sp)
+    lw $s2, 8($sp)
+    lw $s3, 12($sp)
+    lw $s4, 16($sp)
+    lw $s5, 20($sp)
+    lw $ra, 24($sp)
+    addi $sp, $sp, 20
+
+    jr $ra 
 
 add_book:
     jr $ra
