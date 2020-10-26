@@ -163,12 +163,6 @@ get_book: # int, int get_book(Hashtable* books, string isbn)
         mul $a0, $s2, $s4 # offset
         add $a0, $s0, $a0 # base+offset
         addi $a0, $a0, 12 # 12 offset
-
-        # increment s2+s3
-        addi $s2, $s2, 1 # check next index
-        seq $t0, $s2, $s5 # s2 = capacity -> $t0 === 1 else 0
-        mul $t0, $t0, $s5 # capacity if t0 === 1 else 0 
-        sub $s2, $s2, $t0 # s2 = s2 - t0 (to wrap around if s2 == capacity)
         addi $s3, $s3, 1 # increment
         # check if entry is empty, deleted, or ISBN
         lb $t0, 0($a0) 
@@ -178,6 +172,11 @@ get_book: # int, int get_book(Hashtable* books, string isbn)
         move $a1, $s1 
         jal strcmp # strcmp(current, isbn) -> v0 
         beqz $v0, get_book_done # s2,s3 if v0 == 0 
+        # increment s2
+        addi $s2, $s2, 1 # check next index
+        seq $t0, $s2, $s5 # s2 = capacity -> $t0 === 1 else 0
+        mul $t0, $t0, $s5 # capacity if t0 === 1 else 0 
+        sub $s2, $s2, $t0 # s2 = s2 - t0 (to wrap around if s2 == capacity)
         blt $s3, $s5, get_book_loop # check next if s3 < capacity 
         get_book_not_found:
             li $s2, -1 # else -1, s3
