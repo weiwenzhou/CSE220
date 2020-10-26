@@ -1,0 +1,125 @@
+.test_file
+hwk4.asm
+
+.type
+string asciiz la 4
+char byte lbu 11
+byte byte lb 1
+int word lw 1
+int[] word la 1
+byte[] asciiz la 4
+Gamestate byte asciiz la 4
+.end
+
+.def
+memcpy byte[] byte[] int -> arg0 int
+strcmp string string -> int
+.end
+
+.check_register
+$s0 800
+.check_register
+$s1 801
+.check_register
+$s2 802
+.check_register
+$s3 803
+.check_register
+$s4 804
+.check_register
+$s5 805
+.check_register
+$s6 806
+.check_register
+$s7 807
+.check_stack
+
+.start_check
+
+# Part 1
+memcpy
+"XXXXXXX"
+"ABCDEFGHIJ"
+3
+ABCXXXX
+3
+
+memcpy
+"XXXXXXX"
+"ABCDEFGHIJ"
+7
+ABCDEFG
+7
+
+memcpy
+"XXXXXXX"
+"ABCDEFGHIJ"
+-3
+XXXXXXX
+-1
+
+memcpy
+"XXXXXXX"
+"ABCDEFGHIJ"
+0
+XXXXXXX
+-1
+
+# Part 2
+strcmp
+"ABCD"
+"ABCGG"
+-3
+
+strcmp
+"WHOOP!"
+"WHOA"
+14
+
+strcmp
+"Intel"
+"pentium"
+-39
+
+strcmp
+"STONY"
+"BROOK"
+17
+
+strcmp
+""
+"mouse"
+-5
+
+strcmp
+"lonely guy"
+""
+10
+
+strcmp
+"Wolfie"
+"Wolfie"
+0
+
+strcmp
+""
+""
+0
+
+strcmp
+"happy"
+"Z"
+14
+
+strcmp
+"WOLF"
+"WOLFIE"
+-73
+
+strcmp
+"StonyBrook"
+"Stony"
+66
+
+
+.end_check
