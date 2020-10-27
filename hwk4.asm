@@ -167,7 +167,7 @@ get_book: # int, int get_book(Hashtable* books, string isbn)
         # check if entry is empty, deleted, or ISBN
         lb $t0, 0($a0) 
         beqz $t0, get_book_not_found
-        
+
         # increment s2
         addi $s2, $s2, 1 # check next index
         seq $t0, $s2, $s5 # s2 = capacity -> $t0 === 1 else 0
@@ -287,6 +287,7 @@ add_book: # int, int add_book(Hashtable* books, string isbn, string title, strin
             jal memcpy # memcpy(bookStruct:a0/s6, isbn:s1, 13) -> v0: don't care
             # increment s6 to title
             addi $s6, $s6, 14 # isbn is 14 bytes (13+null terminator) 
+            sb $0, -1($s6) # null terminate the 14th byte
             # find length of title
             li $a2, 0
             li $t1, 24 # upper limit
@@ -304,6 +305,7 @@ add_book: # int, int add_book(Hashtable* books, string isbn, string title, strin
             
 
             addi $s6, $s6, 25 # title is 25 bytes (24+null terminator)
+            sb $0, -1($s6) # null terminate
             # find length of author
             li $a2, 0
             li $t1, 24 # upper limit
@@ -319,6 +321,7 @@ add_book: # int, int add_book(Hashtable* books, string isbn, string title, strin
                 move $a1, $s3
                 jal memcpy # memcpy(bookStruct:s6, author:s3, author.length) -> v0: don't care
 
+            sb $0, 24($s6) # null terminate
             move $v0, $s4 # copy s4, s5 to v0, v1
             move $v1, $s5
 
@@ -337,7 +340,47 @@ add_book: # int, int add_book(Hashtable* books, string isbn, string title, strin
 
     jr $ra
 
-delete_book:
+delete_book: # int delete_book(Hashtable* books, string isbn)
+    # a0 -> hashtable of books -> s0
+    # a1 -> isbn
+    # -> v0 -> from get_book(v0)
+    # Allocate space on the stack 2 registers (s0, ra)
+    addi $sp, $sp, -8
+    sw $s0, 0($sp)
+    sw $ra, 4($sp)
+
+    move $s0, $a0
+    jal get_book # get_book(books:a0, isbn:a1)
+    bltz $v0, delete_book_done
+
+    # book found need to delete
+    # decrement size
+    lw $t0, 4($s0)
+    addi $t0, $t0, 1
+    sw $t0, 4($s0)
+
+    lw $t0, 8($s0) # element size
+    mul $t0, $t0, $v0 # element size*v0
+    addi $t0, $t0, 12 # offset to front elements
+    add $t0, $t0, $s0 # book struct to delete
+
+    li $t1, -1
+    li $t2, 0 
+    li $t3, 68 # 68 to -1 out
+    # while t2 < t3 -> t0[t2] = -1
+    delete_book_loop:
+        add $t4, $t0, $t2 # t4 = base + offset
+        sb $t1, 0($t4) 
+        addi $t2, $t2, 1 # increment
+        blt $t2, $t3, delete_book_loop
+
+
+
+    delete_book_done:
+    # Deallocate space on the stack 2 registers (s0, ra)
+    lw $s0, 0($sp)
+    lw $ra, 4($sp)
+    addi $sp, $sp, 8
     jr $ra
 
 hash_booksale:
