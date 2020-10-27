@@ -499,7 +499,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     bgt $t2, $t3, datestring_to_num_days_done # if t2 > t3 -> error
 
     # Allocate space on the stack for 9 registers (s0-7, ra)
-    addi $sp, $sp, -32
+    addi $sp, $sp, -36
     sw $s0, 0($sp)
     sw $s1, 4($sp)
     sw $s2, 8($sp)
@@ -520,7 +520,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $s0, $s2, $s4 # if s2 > 1600 -> s0 = 366 else 0
     mul $s0, $s0, $t0
     sgt $s1, $s3, $s4 # if s3 > 1600 -> s1 = 366 else 0
-    mul $s1, $s0, $t0
+    mul $s1, $s1, $t0
     
     addi $s4, $s4, 1 # s4 = 1601
     year_to_days: # while s2 < s4 or s3 < s4 
@@ -677,7 +677,27 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     mul $t1, $t1, $t4
     add $s1, $s1, $t1 
 
-    # Deallocate space on the stack for 8 registers (s0-6, ra)
+    # get the date field and add to s0, s1
+    li $t9, 10 # tens
+    lbu $t0, 8($s5)
+    lbu $t1, 8($s6) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    mul $t0, $t0, $t9
+    mul $t1, $t1, $t9
+    add $s0, $s0, $t0
+    add $s1, $s1, $t1
+    lbu $t0, 9($s5) # ones
+    lbu $t1, 9($s6) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    add $s0, $s0, $t0
+    add $s1, $s1, $t1
+
+    # if s0 > s1 : error return -1
+    sub $v0, $s1, $s0 # else return s1 - s0
+
+    # Deallocate space on the stack for 9 registers (s0-7, ra)
     lw $s0, 0($sp)
     lw $s1, 4($sp)
     lw $s2, 8($sp)
@@ -685,8 +705,9 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     lw $s4, 16($sp)
     lw $s5, 20($sp)
     lw $s6, 24($sp)
-    lw $ra, 28($sp)
-    addi $sp, $sp, 32
+    lw $s7, 28($sp)
+    lw $ra, 32($sp)
+    addi $sp, $sp, 36
     datestring_to_num_days_done:
     jr $ra
 
