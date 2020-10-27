@@ -435,7 +435,7 @@ is_leap_year: # int is_leap_year(int year)
         li $v0, 0
         find_leap_year:
             addi $a0, $a0, 1 
-            addi $v0, $v0, 1
+            addi $v0, $v0, -1
             li $t0, 400
             div $a0, $t0
             mfhi $t0
@@ -453,7 +453,241 @@ is_leap_year: # int is_leap_year(int year)
     is_leap_year_done:
     jr $ra
 
-datestring_to_num_days:
+datestring_to_num_days: # int datestring_to_num_days(string start_date, string end_date)
+    # a0: start_date YYYY-MM-DD that is 1600-01-01 or later -> s0
+    # a1: end_date YYYY-MM-DD that is 1600-01-01 or later -> s1
+    # -> v0: num of days elapsed
+    
+    # check years for quick error
+    li $t9, 1000
+    li $t2, 0 # year for start
+    li $t3, 0 # year for end
+    lbu $t0, 0($a0)
+    lbu $t1, 0($a1) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    mul $t0, $t0, $t9
+    mul $t1, $t1, $t9
+    add $t2, $t2, $t0
+    add $t3, $t3, $t1
+    li $t9, 100 # hundreds place 
+    lbu $t0, 1($a0)
+    lbu $t1, 1($a1) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    mul $t0, $t0, $t9
+    mul $t1, $t1, $t9
+    add $t2, $t2, $t0
+    add $t3, $t3, $t1
+    li $t9, 10 # tens
+    lbu $t0, 2($a0)
+    lbu $t1, 2($a1) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    mul $t0, $t0, $t9
+    mul $t1, $t1, $t9
+    add $t2, $t2, $t0
+    add $t3, $t3, $t1
+    lbu $t0, 3($a0) # ones
+    lbu $t1, 3($a1) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    add $t2, $t2, $t0
+    add $t3, $t3, $t1
+
+    li $v0, -1
+    bgt $t2, $t3, datestring_to_num_days_done # if t2 > t3 -> error
+
+    # Allocate space on the stack for 9 registers (s0-7, ra)
+    addi $sp, $sp, -32
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $s4, 16($sp)
+    sw $s5, 20($sp)
+    sw $s6, 24($sp)
+    sw $s7, 28($sp)
+    sw $ra, 32($sp)
+
+    move $s2, $t2 # start year
+    move $s3, $t3 # end year
+    move $s5, $a0 # copy of start date
+    move $s6, $a1 # copy of end date
+    li $s4, 1600 
+
+    li $t0, 366
+    sgt $s0, $s2, $s4 # if s2 > 1600 -> s0 = 366 else 0
+    mul $s0, $s0, $t0
+    sgt $s1, $s3, $s4 # if s3 > 1600 -> s1 = 366 else 0
+    mul $s1, $s0, $t0
+    
+    addi $s4, $s4, 1 # s4 = 1601
+    year_to_days: # while s2 < s4 or s3 < s4 
+        move $a0, $s4 
+        jal is_leap_year # is_leap_year(s4) -> ignored 0, 1 should not be returned
+        # v0 = -(years until leap year)
+        li $t9, 365
+        add_days_per_year: # while v0 < 0
+            
+            sgt $t0, $s2, $s4 # if s2 > s4 -> s0 += 365 
+            mul $t0, $t0, $t9
+            add $s0, $s0, $t0
+            sgt $t1, $s2, $s4 # if s3 > s4 -> s1 += 365 
+            mul $t1, $t1, $t9
+            add $s1, $s1, $t1 
+
+            addi $v0, $v0, 1 # increment 
+            addi $s4, $s4, 1 # increment
+
+            bltz $v0, add_days_per_year
+            # when v0 == 0 it is a leap year -> t9 = 366
+            li $t9, 366
+            blez $v0, add_days_per_year
+
+        addi $s4, $s4, 1 # increment
+        blt $s2, $s4, year_to_days
+        blt $s3, $s4, year_to_days
+
+    # use s4 to track leap year for start date
+    move $a0, $s2
+    jal is_leap_year # is_leap_year(start year) -> s4 = v0
+    move $s4, $v0
+    # use s7 to track leap year for end date
+    move $a0, $s3
+    jal is_leap_year # is_leap_year(end year) -> s4 = v0
+    move $s7, $v0
+
+    # get the month of start and end and store in s2,s3
+    li $s2, 0
+    li $s3, 0
+    li $t9, 10 # tens
+    lbu $t0, 5($s5)
+    lbu $t1, 5($s6) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    mul $t0, $t0, $t9
+    mul $t1, $t1, $t9
+    add $s2, $s2, $t0
+    add $s3, $s3, $t1
+    lbu $t0, 6($s5) # ones
+    lbu $t1, 6($s6) 
+    addi $t0, $t0, -48
+    addi $t1, $t1, -48
+    add $s2, $s2, $t0
+    add $s3, $s3, $t1
+
+    # month to date
+    li $t2, 28
+    li $t3, 1
+    li $t4, 30
+    li $t5, 31
+    # 1->2: 31
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t5
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t5
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 2->3: 28/29
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t8, $s4, $0 # if s4 > 0-> leap 
+    mul $t8, $t0, $t8 # 1 * 1 / 0 * 0,1 ; 1 * 0
+    mul $t0, $t0, $t2
+    add $s0, $s0, $t8
+    add $s0, $s0, $t0
+
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t8, $s7, $0 # if s7 > 0-> leap
+    mul $t8, $t1, $t8 # 1 * 1 / 0 * 0,1 ; 1 * 0
+    mul $t1, $t1, $t2
+    add $s1, $s1, $t8
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 3->4: 31
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t5
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t5
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 4->5: 30
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t4
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t4
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 5->6: 31
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t5
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t5
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 6->7: 30
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t4
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t4
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 7->8: 31
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t5
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t5
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 8->9: 31
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t5
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t5
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    # 9->10: 30
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t4
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t4
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    #10->11: 31
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t5
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t5
+    add $s1, $s1, $t1 
+    addi $t3, $t3, 1
+    #11->12: 30
+    sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t0, $t0, $t4
+    add $s0, $s0, $t0
+    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    mul $t1, $t1, $t4
+    add $s1, $s1, $t1 
+
+    # Deallocate space on the stack for 8 registers (s0-6, ra)
+    lw $s0, 0($sp)
+    lw $s1, 4($sp)
+    lw $s2, 8($sp)
+    lw $s3, 12($sp)
+    lw $s4, 16($sp)
+    lw $s5, 20($sp)
+    lw $s6, 24($sp)
+    lw $ra, 28($sp)
+    addi $sp, $sp, 32
+    datestring_to_num_days_done:
     jr $ra
 
 sell_book:
