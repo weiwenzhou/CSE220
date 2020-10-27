@@ -409,7 +409,48 @@ hash_booksale:# int hash_booksale(Hashtable* sales, string isbn, int customer_id
     mfhi $v0  
     jr $ra
 
-is_leap_year:
+is_leap_year: # int is_leap_year(int year) 
+    # a0 -> year
+    # -> v0: 0 if year < 1582, 1 if year is leap_year else num_of_years_until_leap_year
+    li $v0, 0
+    li $t0, 1584
+    blt $a0, $t0, is_leap_year_done # a0 < 1584:t0
+
+    # check if leap year
+    li $v0, 1
+    li $t0, 400
+    div $a0, $t0
+    mfhi $t0
+    beqz $t0, is_leap_year_done # if divisible by 400 -> leap year
+    li $t0, 100
+    div $a0, $t0
+    mfhi $t0
+    beqz $t0, not_leap_year # divisible by 100 but not 400 -> not a leap year
+    li $t0, 4
+    div $a0, $t0
+    mfhi $t0
+    beqz $t0, is_leap_year_done # divisible by 4 but not 400 or 100 -> year
+    # not a leap year
+    not_leap_year:
+        li $v0, 0
+        find_leap_year:
+            addi $a0, $a0, 1 
+            addi $v0, $v0, 1
+            li $t0, 400
+            div $a0, $t0
+            mfhi $t0
+            beqz $t0, is_leap_year_done # if divisible by 400 -> leap year
+            li $t0, 100
+            div $a0, $t0
+            mfhi $t0
+            beqz $t0, find_leap_year # divisible by 100 but not 400 -> not a leap year
+            li $t0, 4
+            div $a0, $t0
+            mfhi $t0
+            beqz $t0, is_leap_year_done # divisible by 4 but not 400 or 100 -> year
+            j find_leap_year
+
+    is_leap_year_done:
     jr $ra
 
 datestring_to_num_days:

@@ -20,6 +20,7 @@ strcmp string string -> int
 initialize_hashtable Hashtable int int -> arg0:0:3:4 arg0:12:60:1 int
 hash_book HashBookTable string -> int
 hash_booksale HashSalesTable string int -> int
+is_leap_year int -> int
 .end
 
 .check_register
@@ -204,5 +205,27 @@ hash_booksale
 "9712312301940"
 512312
 15
+
+
+is_leap_year
+1244
+0
+
+is_leap_year
+1900
+4
+
+is_leap_year
+2000
+1
+
+is_leap_year
+5602
+2
+
+is_leap_year
+2997
+7
+
 
 .end_check
