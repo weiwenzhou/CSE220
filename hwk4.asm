@@ -383,7 +383,33 @@ delete_book: # int delete_book(Hashtable* books, string isbn)
     addi $sp, $sp, 8
     jr $ra
 
-hash_booksale:
+hash_booksale:# int hash_booksale(Hashtable* sales, string isbn, int customer_id)
+    # a0 -> hashtable with sales
+    # a1 -> 13 ASCII characters
+    # a2 -> customer_id
+    # -> v0: hash_funct = sum(isbn ascii character codes)+sum(digits of customer_id) mod sales.capacity:sales[0:4]
+    
+    li $v0, 0
+    li $t0, 13
+    # while --t0 >= 12 -> v0 += isbn[t0]
+    hash_booksale_sum:
+        addi $t0, $t0, -1 # decrement
+        add $t9, $a1, $t0 # t9 = a0:base + t0:offset
+        lbu $t9, 0($t9) # load ascii character
+        add $v0, $v0, $t9 # sum
+        bgtz $t0, hash_booksale_sum
+
+    li $t0, 10
+    hash_booksale_digits:
+        div $a2, $t0
+        mflo $a2 # dividend 
+        mfhi $t1 # remainder
+        add $v0, $v0, $t1 
+        bnez $a2, hash_booksale_digits
+
+    lw $t0, 0($a0) # sales.capacity
+    div $v0, $t0 # modulus in hi
+    mfhi $v0  
     jr $ra
 
 is_leap_year:
