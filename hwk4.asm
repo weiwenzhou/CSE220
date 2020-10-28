@@ -289,7 +289,7 @@ add_book: # int, int add_book(Hashtable* books, string isbn, string title, strin
             li $a2, 0
             li $t1, 24 # upper limit
             add_book_find_title_length:
-                add $t0, $s6, $a2
+                add $t0, $s2, $a2
                 lbu $t0, 0($t0)
                 beq $a2, $t1, add_book_insert_title
                 beqz $t0, add_book_insert_title 
@@ -307,7 +307,7 @@ add_book: # int, int add_book(Hashtable* books, string isbn, string title, strin
             li $a2, 0
             li $t1, 24 # upper limit
             add_book_find_author_length:
-                add $t0, $s6, $a2
+                add $t0, $s3, $a2
                 lbu $t0, 0($t0)
                 beq $a2, $t1, add_book_insert_author
                 beqz $t0, add_book_insert_author 
