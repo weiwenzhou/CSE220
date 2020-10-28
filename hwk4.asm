@@ -278,6 +278,14 @@ add_book: # int, int add_book(Hashtable* books, string isbn, string title, strin
             addi $t0, $t0, 1 # increment by 1
             sw $t0, 4($s0)
 
+            # zero out the next 68 bytes from s6
+            li $t0, 68
+            add_book_insert_zeroes: # while t0 > 0 -> s6[t0] = 0
+                addi $t0, $t0, -1
+                add $t1, $s6, $t0 # t1 = base:s6+offset
+                sb $0, 0($t1) 
+                bgtz $t0, add_book_insert_zeroes
+
             # insert isbn
             move $a1, $s1
             li $a2, 13 # length of isbn 
