@@ -533,7 +533,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
             sgt $t0, $s2, $s4 # if s2 > s4 -> s0 += 365 
             mul $t0, $t0, $t9
             add $s0, $s0, $t0
-            sgt $t1, $s2, $s4 # if s3 > s4 -> s1 += 365 
+            sgt $t1, $s3, $s4 # if s3 > s4 -> s1 += 365 
             mul $t1, $t1, $t9
             add $s1, $s1, $t1 
 
@@ -544,10 +544,8 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
             # when v0 == 0 it is a leap year -> t9 = 366
             li $t9, 366
             blez $v0, add_days_per_year
-
-        addi $s4, $s4, 1 # increment
-        blt $s2, $s4, year_to_days
-        blt $s3, $s4, year_to_days
+        blt $s4, $s2, year_to_days
+        blt $s4, $s3, year_to_days
 
     # use s4 to track leap year for start date
     move $a0, $s2
@@ -586,7 +584,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t5
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t5
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -598,7 +596,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     add $s0, $s0, $t8
     add $s0, $s0, $t0
 
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     sgt $t8, $s7, $0 # if s7 > 0-> leap
     mul $t8, $t1, $t8 # 1 * 1 / 0 * 0,1 ; 1 * 0
     mul $t1, $t1, $t2
@@ -609,7 +607,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t5
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t5
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -617,7 +615,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t4
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t4
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -625,7 +623,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t5
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t5
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -633,7 +631,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t4
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t4
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -641,7 +639,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t5
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t5
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -649,7 +647,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t5
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t5
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -657,7 +655,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t4
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t4
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -665,7 +663,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t5
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t5
     add $s1, $s1, $t1 
     addi $t3, $t3, 1
@@ -673,7 +671,7 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     sgt $t0, $s2, $t3 # if s2 > 1:t3 -> add
     mul $t0, $t0, $t4
     add $s0, $s0, $t0
-    sgt $t1, $s2, $t3 # if s2 > 1:t3 -> add
+    sgt $t1, $s3, $t3 # if s3 > 1:t3 -> add
     mul $t1, $t1, $t4
     add $s1, $s1, $t1 
 
@@ -696,6 +694,11 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
 
     # if s0 > s1 : error return -1
     sub $v0, $s1, $s0 # else return s1 - s0
+    bgez $v0, datestring_to_num_days_deallocate
+    # v0 < 0 -> return -1
+    li $v0, -1
+
+    datestring_to_num_days_deallocate:
 
     # Deallocate space on the stack for 9 registers (s0-7, ra)
     lw $s0, 0($sp)
