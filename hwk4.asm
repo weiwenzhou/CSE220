@@ -788,18 +788,19 @@ sell_book: # int, int sell_book(Hashtable* sales, Hashtable* books, string isbn,
 
             # no longer need to keep address for books:s1
             move $s1, $v0 # use $s1 to store v0 (index) for v0
-            li $t8 0($s0) # capacity for sales
+            lw $t8 0($s0) # capacity for sales
             li $t9, 0 # for v1
         
             sell_book_add_sale:
                 # sales[12+element_size*v0(index)]
                 lw $t0, 8($s0) # element_size for sales
-                mul $t0, $t0, $v0 # t0 = t0:element_size * v0:index
+                mul $t0, $t0, $s1 # t0 = t0:element_size * s1:index
                 add $t0, $s0, $t0 # front of index if offset by 12
-                lbu $t0, 12($t0) # offset 12 
+                addi $t0, $t0, 12 # offset 12
+                lbu $t1, 0($t0) # offset 12 
                 addi $t9, $t9, 1 # increment
 
-                beqz $t0, sell_book_insert # if 0 -> insert 
+                beqz $t1, sell_book_insert # if 0 -> insert 
 
                 # increment s4
                 addi $s1, $s1, 1 # check next index
@@ -845,9 +846,9 @@ sell_book: # int, int sell_book(Hashtable* sales, Hashtable* books, string isbn,
                 jal datestring_to_num_days # datestring_to_num_days(1600-01-01:stack, sale_date:s4)
                 addi $sp, $sp, 12 # deallocate space on stack
 
-                lw $s3, 16($s0) # insert c_id:s3 to s0[16]
-                lw $v0, 20($s0) # copy $v0 to s0[20]
-                lw $s5, 24($s0)# insert sale_price:s5 to s0[24]
+                sw $s3, 16($s0) # insert c_id:s3 to s0[16]
+                sw $v0, 20($s0) # copy $v0 to s0[20]
+                sw $s5, 24($s0)# insert sale_price:s5 to s0[24]
 
                 move $v0, $s1
                 move $v1, $s2
