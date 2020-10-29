@@ -904,7 +904,48 @@ compute_scenario_revenue: # int compute_scenario_revenue(BookSale[] sales_list, 
     compute_scenario_revenue_done:
     jr $ra
 
-maximize_revenue:
+maximize_revenue: # int maximize_revenue(BookSale[] sales_list, int num_sales)
+    # a0: array of BookSale -> s0
+    # a1: number of sales in sales_list -> s1
+    # -> v0: maximum revenue : s3
+    # s2 <- scenario
+    # Allocate space on the stack for 5 registers (s0-3, ra) 
+    addi $sp, $sp, -20
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $ra, 16($sp)
+
+    move $s0, $a0
+    move $s1, $a1
+    li $s2, 1
+    sllv $s2, $s2, $s1 
+    addi $s2, $s2, -1 # start off at 2^n-1 
+    li $s3, 0 # 0 is lowest
+
+    maximize_revenue_find_max:
+        move $a0, $s0
+        move $a1, $s1
+        move $a2, $s2
+        jal compute_scenario_revenue # compute_scenario_revenue(sales_list:s0, num_sales:s1, scenario:s2)
+        addi $s2, $s2, -1 # decrement s2
+    
+        # s3 = s3 if v0 < s3 else v0
+        ble $v0, $s3, maximize_revenue_find_max_next # v0 <= s3 -> don't change s3
+        move $s3, $v0 # v0 > s3 -> update s3 to be v0
+
+        maximize_revenue_find_max_next:
+            bgez $s2, maximize_revenue_find_max
+    
+    move $v0, $s3 
+    # Deallocate space on the stack for 5 registers (s0-3, ra) 
+    lw $s0, 0($sp)
+    lw $s1, 4($sp)
+    lw $s2, 8($sp)
+    lw $s3, 12($sp)
+    lw $ra, 16($sp)
+    addi $sp, $sp, 20
     jr $ra
 
 ############################ DO NOT CREATE A .data SECTION ############################
