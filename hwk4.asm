@@ -722,9 +722,148 @@ datestring_to_num_days: # int datestring_to_num_days(string start_date, string e
     datestring_to_num_days_done:
     jr $ra
 
-sell_book:
+sell_book: # int, int sell_book(Hashtable* sales, Hashtable* books, string isbn, int customer_id, string sale_date, int sale_price)
+    # a0: hashtable of sales -> s0
+    # a1: hashtable of books -> s1
+    # a2: 13 ASCII characters -> s2
+    # a3: customer id -> s3
+    # 0($sp): sale_date -> s4
+    # 4($sp): sale_price -> s5
+
+    # check if sales[0]:capacity === sales[4]:size
+    lw $t0, 0($a0)
+    lw $t1, 4($a0)
+    bne $t0, $t1, sell_book_not_full
+    li $v0, -1
+    li $v1, -1
     jr $ra
 
+    sell_book_not_full:
+        # save sale_date and sale_price
+        lw $t0, 0($sp)
+        lw $t1, 4($sp)
+
+        # allocate space on the stack for 7 registers(s0-5, ra)
+        addi $sp, $sp, -28
+        sw $s0, 0($sp)
+        sw $s1, 4($sp)
+        sw $s2, 8($sp)
+        sw $s3, 12($sp)
+        sw $s4, 16($sp)
+        sw $s5, 20($sp)
+        sw $ra, 24($sp)
+
+        # saving arguments in s registers 
+        move $s0, $a0 # sales
+        move $s1, $a1 # books
+        move $s2, $a2 # isbn
+        move $s3, $a3 # c_id
+        move $s4, $t0 # sale_date
+        move $s5, $t1 # sale_price
+        
+        # check if isbn is in books
+        move $a0, $s1
+        move $a1, $s2
+        jal get_book # get_book(books:s1, isbn:s2)
+        bgez $v0, sell_book_is_found
+        # if v0 == -1 (< 0) then book not found -> -2, -2
+        li $v0, -2
+        li $v1, -2
+        j sell_book_done
+
+        sell_book_is_found: # if book is found then search for 
+            # increment times sold for books[12+element_size*v0(index)+64]
+            lw $t0, 8($s1) # element_size for books
+            mul $t0, $t0, $v0 # t0 = t0:element_size * v0:index
+            add $t0, $t0, $s1 
+            lw $t1, 76($t0) # 76 is offset for books.element[v0].times_sold
+            addi $t1, $t1, 1 # increment
+            sw $t1, 76($t0) # store incremented value
+
+            # now add new sales
+            move $a0, $s0
+            move $a1, $s2
+            move $a2, $s3
+            jal hash_booksale # hash_booksale(sales:s0, isbn:s2, c_id:s3) # v0 = index
+
+            # no longer need to keep address for books:s1
+            move $s1, $v0 # use $s1 to store v0 (index) for v0
+            li $t8 0($s0) # capacity for sales
+            li $t9, 0 # for v1
+        
+            sell_book_add_sale:
+                # sales[12+element_size*v0(index)]
+                lw $t0, 8($s0) # element_size for sales
+                mul $t0, $t0, $v0 # t0 = t0:element_size * v0:index
+                add $t0, $s0, $t0 # front of index if offset by 12
+                lbu $t0, 12($t0) # offset 12 
+                addi $t9, $t9, 1 # increment
+
+                beqz $t0, sell_book_insert # if 0 -> insert 
+
+                # increment s4
+                addi $s1, $s1, 1 # check next index
+                seq $t0, $s1, $t8 # s1 = capacity -> $t0 === 1 else 0
+                mul $t0, $t0, $t8 # capacity if t0 === 1 else 0 
+                sub $s1, $s1, $t0 # s1 = s1 - t0 (to wrap around if s == capacity)
+
+                j sell_book_add_sale # don't need to worry about an infinite loop because there is guarantee a spot open
+            
+            sell_book_insert: 
+                move $s0, $t0 # address of sales.element to modify is in t0 move to s0
+                # insert isbn
+                move $a0, $s0
+                move $a1, $s2
+                li $a2, 13
+                move $s2, $t9 # don't need to keep isbn in s2 after memcpy
+                jal memcpy # memcpy(s0, isbn:s2, 13)
+
+                # empty = all 0s don't need to null terminate
+
+                # convert sales date to date since 1600-01-01 using datestring_to_num_days
+                # allocate 12 bytes on the stack to store 1600-01-01\0\0
+                addi $sp, $sp, -12
+                li $t0, '1'
+                sb $t0, 0($sp) # 1xxxxxxxxxxx
+                sb $t0, 6($sp) # 1xxxxx1xxxxx
+                sb $t0, 9($sp) # 1xxxxx1xx1xx
+                li $t0, '0'
+                sb $t0, 2($sp) # 1x0xxx1xx1xx
+                sb $t0, 3($sp) # 1x00xx1xx1xx
+                sb $t0, 5($sp) # 1x00x01xx1xx
+                sb $t0, 8($sp) # 1x00x01x01xx
+                li $t0, '6'
+                sb $t0, 1($sp) # 1600x01x01xx
+                li $t0, '-'
+                sb $t0, 4($sp) # 1600-01x01xx
+                sb $t0, 7($sp) # 1600-01-01xx
+                sb $0, 10($sp) # 1600-01-01\0x
+                sb $0, 11($sp) # 1600-01-01\0\0
+
+                move $a0, $sp
+                move $a1, $s4
+                jal datestring_to_num_days # datestring_to_num_days(1600-01-01:stack, sale_date:s4)
+                addi $sp, $sp, 12 # deallocate space on stack
+
+                lw $s3, 16($s0) # insert c_id:s3 to s0[16]
+                lw $v0, 20($s0) # copy $v0 to s0[20]
+                lw $s5, 24($s0)# insert sale_price:s5 to s0[24]
+
+                move $v0, $s1
+                move $v1, $s2
+
+        sell_book_done:
+        # deallocate space on the stack for 7 registers(s0-5, ra)
+        lw $s0, 0($sp)
+        lw $s1, 4($sp)
+        lw $s2, 8($sp)
+        lw $s3, 12($sp)
+        lw $s4, 16($sp)
+        lw $s5, 20($sp)
+        lw $ra, 24($sp)
+        addi $sp, $sp, 28
+
+    jr $ra
 compute_scenario_revenue:
     jr $ra
 
