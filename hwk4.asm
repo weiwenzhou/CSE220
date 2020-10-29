@@ -1,6 +1,6 @@
-# erase this line and type your first and last name here in a comment
-# erase this line and type your Net ID here in a comment (e.g., jmsmith)
-# erase this line and type your SBU ID number here in a comment (e.g., 111234567)
+# Wei Wen Zhou
+# WEIWEZHOU
+# 112928274
 
 ############################ DO NOT CREATE A .data SECTION ############################
 ############################ DO NOT CREATE A .data SECTION ############################
