@@ -929,7 +929,7 @@ maximize_revenue: # int maximize_revenue(BookSale[] sales_list, int num_sales)
         move $a1, $s1
         move $a2, $s2
         jal compute_scenario_revenue # compute_scenario_revenue(sales_list:s0, num_sales:s1, scenario:s2)
-        addi $s2, $s2, -1 # decrement s2
+        addi $s2, $s2, -2 # decrement s2 (last bit doesn't matter)
     
         # s3 = s3 if v0 < s3 else v0
         ble $v0, $s3, maximize_revenue_find_max_next # v0 <= s3 -> don't change s3
