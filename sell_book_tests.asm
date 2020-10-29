@@ -12,7 +12,7 @@ books:
 .ascii "9780345501330\0"
 .ascii "Fairy Tail, Vol. 1 (Fair\0"
 .ascii "Hiro Mashima, William Fl\0"
-.word 3
+.word 0
 # empty or deleted entry starts here
 .align 2
 .byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -21,98 +21,63 @@ books:
 .ascii "9780060855900\0"
 .ascii "Equal Rites (Discworld, \0"
 .ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
-.word 103
+.word 0
 # Book struct start
 .align 2
 .ascii "9780670032080\0"
 .ascii "Financial Peace Revisite\0"
 .ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-.word 61
+.word 0
 # Book struct start
 .align 2
 .ascii "9780064408330\0"
 .ascii "Joey Pigza Swallowed the\0"
 .ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-.word 45
+.word 0
 # Book struct start
 .align 2
 .ascii "9780312577220\0"
 .ascii "Fly Away (Firefly Lane, \0"
 .ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
-.word 814
+.word 0
 # Book struct start
 .align 2
 .ascii "9781416971700\0"
 .ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
 .ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
-.word 1
+.word 0
+
 
 sales:
 .align 2
-.word 9 9 28
-# BookSale struct start
+.word 9 0 28
+# empty or deleted entry starts here
 .align 2
-.ascii "9780345501330\0"
-.byte 0 0
-.word 723341
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9781416971700\0"
-.byte 0 0
-.word 2323432
-.word 155136
-.word 22
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780060855900\0"
-.byte 0 0
-.word 920192
-.word 158715
-.word 61
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780345501330\0"
-.byte 0 0
-.word 81321
-.word 151369
-.word 192
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780312577220\0"
-.byte 0 0
-.word 777233
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780312577220\0"
-.byte 0 0
-.word 2424
-.word 152013
-.word 125
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780345501330\0"
-.byte 0 0
-.word 26234
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780312577220\0"
-.byte 0 0
-.word 12312
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780064408330\0"
-.byte 0 0
-.word 73123
-.word 155332
-.word 55
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 
 
 
@@ -130,7 +95,7 @@ books:
 .ascii "9780345501330\0"
 .ascii "Fairy Tail, Vol. 1 (Fair\0"
 .ascii "Hiro Mashima, William Fl\0"
-.word 3
+.word 1
 # empty or deleted entry starts here
 .align 2
 .byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -151,13 +116,13 @@ books:
 .ascii "9780064408330\0"
 .ascii "Joey Pigza Swallowed the\0"
 .ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-.word 45
+.word 44
 # Book struct start
 .align 2
 .ascii "9780312577220\0"
 .ascii "Fly Away (Firefly Lane, \0"
 .ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
-.word 814
+.word 812
 # Book struct start
 .align 2
 .ascii "9781416971700\0"
@@ -165,72 +130,53 @@ books:
 .ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
 .word 1
 
+
 sales:
 .align 2
-.word 9 9 28
-# BookSale struct start
+.word 9 4 28
+# empty or deleted entry starts here
 .align 2
-.ascii "9780345501330\0"
-.byte 0 0
-.word 723341
-.word 155332
-.word 55
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 # BookSale struct start
 .align 2
 .ascii "9781416971700\0"
 .byte 0 0
 .word 2323432
-.word 155136
+.word 155033
 .word 22
 # BookSale struct start
 .align 2
 .ascii "9780060855900\0"
 .byte 0 0
 .word 920192
-.word 158715
+.word 158610
 .word 61
 # BookSale struct start
 .align 2
 .ascii "9780345501330\0"
 .byte 0 0
 .word 81321
-.word 151369
+.word 151269
 .word 192
-# BookSale struct start
+# empty or deleted entry starts here
 .align 2
-.ascii "9780312577220\0"
-.byte 0 0
-.word 777233
-.word 155332
-.word 55
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 # BookSale struct start
 .align 2
 .ascii "9780312577220\0"
 .byte 0 0
 .word 2424
-.word 152013
+.word 151912
 .word 125
-# BookSale struct start
+# empty or deleted entry starts here
 .align 2
-.ascii "9780345501330\0"
-.byte 0 0
-.word 26234
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780312577220\0"
-.byte 0 0
-.word 12312
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780064408330\0"
-.byte 0 0
-.word 73123
-.word 155332
-.word 55
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 
 
 # provided ISBN does not exist in the books hash table
@@ -247,7 +193,7 @@ books:
 .ascii "9780345501330\0"
 .ascii "Fairy Tail, Vol. 1 (Fair\0"
 .ascii "Hiro Mashima, William Fl\0"
-.word 3
+.word 1
 # empty or deleted entry starts here
 .align 2
 .byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -268,13 +214,13 @@ books:
 .ascii "9780064408330\0"
 .ascii "Joey Pigza Swallowed the\0"
 .ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-.word 45
+.word 44
 # Book struct start
 .align 2
 .ascii "9780312577220\0"
 .ascii "Fly Away (Firefly Lane, \0"
 .ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
-.word 814
+.word 812
 # Book struct start
 .align 2
 .ascii "9781416971700\0"
@@ -282,72 +228,53 @@ books:
 .ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
 .word 1
 
+
 sales:
 .align 2
-.word 9 9 28
-# BookSale struct start
+.word 9 4 28
+# empty or deleted entry starts here
 .align 2
-.ascii "9780345501330\0"
-.byte 0 0
-.word 723341
-.word 155332
-.word 55
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 # BookSale struct start
 .align 2
 .ascii "9781416971700\0"
 .byte 0 0
 .word 2323432
-.word 155136
+.word 155033
 .word 22
 # BookSale struct start
 .align 2
 .ascii "9780060855900\0"
 .byte 0 0
 .word 920192
-.word 158715
+.word 158610
 .word 61
 # BookSale struct start
 .align 2
 .ascii "9780345501330\0"
 .byte 0 0
 .word 81321
-.word 151369
+.word 151269
 .word 192
-# BookSale struct start
+# empty or deleted entry starts here
 .align 2
-.ascii "9780312577220\0"
-.byte 0 0
-.word 777233
-.word 155332
-.word 55
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 # BookSale struct start
 .align 2
 .ascii "9780312577220\0"
 .byte 0 0
 .word 2424
-.word 152013
+.word 151912
 .word 125
-# BookSale struct start
+# empty or deleted entry starts here
 .align 2
-.ascii "9780345501330\0"
-.byte 0 0
-.word 26234
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780312577220\0"
-.byte 0 0
-.word 12312
-.word 155332
-.word 55
-# BookSale struct start
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
 .align 2
-.ascii "9780064408330\0"
-.byte 0 0
-.word 73123
-.word 155332
-.word 55
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 
 
 # the sales hash table is full
@@ -407,62 +334,62 @@ sales:
 .ascii "9780345501330\0"
 .byte 0 0
 .word 723341
-.word 155332
+.word 155229
 .word 55
 # BookSale struct start
 .align 2
 .ascii "9781416971700\0"
 .byte 0 0
 .word 2323432
-.word 155136
+.word 155033
 .word 22
 # BookSale struct start
 .align 2
 .ascii "9780060855900\0"
 .byte 0 0
 .word 920192
-.word 158715
+.word 158610
 .word 61
 # BookSale struct start
 .align 2
 .ascii "9780345501330\0"
 .byte 0 0
 .word 81321
-.word 151369
+.word 151269
 .word 192
 # BookSale struct start
 .align 2
 .ascii "9780312577220\0"
 .byte 0 0
 .word 777233
-.word 155332
+.word 155229
 .word 55
 # BookSale struct start
 .align 2
 .ascii "9780312577220\0"
 .byte 0 0
 .word 2424
-.word 152013
+.word 151912
 .word 125
 # BookSale struct start
 .align 2
 .ascii "9780345501330\0"
 .byte 0 0
 .word 26234
-.word 155332
+.word 155229
 .word 55
 # BookSale struct start
 .align 2
 .ascii "9780312577220\0"
 .byte 0 0
 .word 12312
-.word 155332
+.word 155229
 .word 55
 # BookSale struct start
 .align 2
 .ascii "9780064408330\0"
 .byte 0 0
 .word 73123
-.word 155332
+.word 155229
 .word 55
 
