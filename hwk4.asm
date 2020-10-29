@@ -865,7 +865,43 @@ sell_book: # int, int sell_book(Hashtable* sales, Hashtable* books, string isbn,
         addi $sp, $sp, 28
 
     jr $ra
-compute_scenario_revenue:
+compute_scenario_revenue: # int compute_scenario_revenue(BookSale[] sales_list, int num_sales, int scenario)
+    # a0: array of BookSales
+    # a1: length of sales_list and the number of relevant bits(from right) from scenario 
+    # a2: 32 bit 
+    
+    # a0 points to the first
+    # t0 points to the last element in the array
+    addi $a1, $a1, -1 # index of last element = len-1
+    li $t0, 28
+    mul $t0, $a1, $t0 
+    add $t0, $a0, $t0 # last element in the array
+
+    li $t1, 1 # t1 for and-ing
+    sllv $t1, $t1, $a1
+    li $t2, 0 # t2 is a counter
+    li $v0, 0 # start and accumulator
+    compute_scenario_revenue_loop: 
+        # while t1 != 0 -> add price of a0 if t1 & a2 == 0 else add price of t0
+        beqz $t1, compute_scenario_revenue_done # t1 == 0 -> done
+        and $t3, $t1, $a2
+
+        srl $t1, $t1, 1 # shift 1 right
+        addi $t2, $t2, 1 # increment
+        beqz $t3, compute_scenario_revenue_add_front # add price of a0 and increment
+
+        lw $t4, 24($t0)
+        mul $t4, $t4, $t2 # t4 = price:t4 * day#:t2
+        add $v0, $v0, $t4
+        addi $t0, $t0, -28 # decrement
+        j compute_scenario_revenue_loop
+        compute_scenario_revenue_add_front:
+            lw $t4, 24($a0)
+            mul $t4, $t4, $t2 # t4 = price:t4 * day#:t2
+            add $v0, $v0, $t4
+            addi $a0, $a0, 28 # increment
+            j compute_scenario_revenue_loop
+    compute_scenario_revenue_done:
     jr $ra
 
 maximize_revenue:
