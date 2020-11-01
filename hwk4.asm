@@ -421,8 +421,8 @@ is_leap_year: # int is_leap_year(int year)
     # a0 -> year
     # -> v0: 0 if year < 1582, 1 if year is leap_year else num_of_years_until_leap_year
     li $v0, 0
-    li $t0, 1584
-    blt $a0, $t0, is_leap_year_done # a0 < 1584:t0
+    li $t0, 1582
+    blt $a0, $t0, is_leap_year_done # a0 < 1582:t0
 
     # check if leap year
     li $v0, 1
