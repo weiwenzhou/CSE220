@@ -18,8 +18,15 @@ addBookTable la 4
 .def
 hash_book HashBookTable string -> int
 get_book getBookTable string -> int int
-add_book getBookTable string string string -> arg0:12:76:1:11: arg0:80:144:1:11: arg0:148:212:1:11: arg0:216:280:1:11: arg0:284:348:1:11: arg0:352:416:1:11: arg0:420:484:1:11: arg0:488:552:1:11: arg0:556:620:1:11: int int
-delete_book getBookTable string -> arg0:12:76:1:11: arg0:80:144:1:11: arg0:148:212:1:11: arg0:216:280:1:11: arg0:284:348:1:11: arg0:352:416:1:11: arg0:420:484:1:11: int 
+add_book getBookTable string string string -> arg0:12:76:1:lb:11: arg0:80:144:1:lb:11: arg0:148:212:1:lb:11: arg0:216:280:1:lb:11: arg0:284:348:1:lb:11: arg0:352:416:1:lb:11: arg0:420:484:1:lb:11: arg0:488:552:1:lb:11: arg0:556:620:1:lb:11: int int
+delete_book getBookTable string -> \
+                arg0:12:76:1:lb:11:|arg0:76:80:4:lw:1 \
+                arg0:80:144:1:lb:11:|arg0:144:148:4:lw:1 \
+                arg0:148:212:1:lb:11:|arg0:212:216:4:lw:1 \
+                arg0:216:280:1:lb:11:|arg0:280:284:4:lw:1 \
+                arg0:284:348:1:lb:11:|arg0:348:352:4:lw:1 \
+                arg0:352:416:1:lb:11:|arg0:416:420:4:lw:1 \
+                arg0:420:484:1:lb:11:|arg0:484:488:4:lw:1 int 
 .end
 
 .check_register
@@ -701,13 +708,13 @@ delete_book
 .byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 .end_type
 "9780553214830"
-
-
-
-
-
-
-
+0
+0
+0
+0
+0
+0
+0
 -1
 
 # 2 Delete a book that is present in the hash table at the expected index
@@ -752,13 +759,13 @@ delete_book
 .byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 .end_type
 "9780060855900"
-9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl
-
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
 -1
-9780345527780Wicked Business (Lizzy &Janet Evanovich
-9780064408330Joey Pigza Swallowed theJack Gantos
-9780312577220Fly Away (Firefly Lane, Kristin Hannah
-
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+0
 2
 
 # 3 Attempt to delete a book that is not present in the hash table; expected location is empty
@@ -803,13 +810,13 @@ delete_book
 .byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 .end_type
 "9781439164630"
-9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl
-
-9780060855900Equal Rites (Discworld, Terry Pratchett
-9780345527780Wicked Business (Lizzy &Janet Evanovich
-9780064408330Joey Pigza Swallowed theJack Gantos
-9780312577220Fly Away (Firefly Lane, Kristin Hannah
-
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+0
 -1
 
 
@@ -849,13 +856,13 @@ delete_book
 .byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 .end_type
 "9780064410150"
-
+0
 -1
-9780060855900Equal Rites (Discworld, Terry Pratchett
-9780345527780Wicked Business (Lizzy &Janet Evanovich
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
 -1
-9780312577220Fly Away (Firefly Lane, Kristin Hannah
-
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+0
 -1
 
 # 5 Attempt to delete a book not present in the hash table; hash table is full
@@ -906,13 +913,13 @@ delete_book
 .word 0
 .end_type
 "9780802122550"
-9780553214830The Declaration of IndepFounding Fathers
-9780446695660Double WhammyCarl Hiaasen
-9780060855900Equal Rites (Discworld, Terry Pratchett
-9780345527780Wicked Business (Lizzy &Janet Evanovich
-9788433914260HollywoodCharles Bukowski
-9780312577220Fly Away (Firefly Lane, Kristin Hannah
-9781620610090Opal (Lux, #3)Jennifer L. Armentrout
+9780553214830The Declaration of IndepFounding Fathers 0
+9780446695660Double WhammyCarl Hiaasen 0
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9788433914260HollywoodCharles Bukowski 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+9781620610090Opal (Lux, #3)Jennifer L. Armentrout 0
 -1
 
 .end_check
