@@ -27,7 +27,14 @@ sell_book getSalesTable getBookTable string int string int -> \
                 arg0:152:166:1:lb:11:|arg0:168:180:4:lw:1 \
                 arg0:180:194:1:lb:11:|arg0:196:208:4:lw:1 \
                 arg0:208:222:1:lb:11:|arg0:224:236:4:lw:1 \
-                arg0:236:250:1:lb:11:|arg0:252:264:4:lw:1 int int
+                arg0:236:250:1:lb:11:|arg0:252:264:4:lw:1 \
+                arg1:12:76:1:lb:11:|arg1:76:80:4:lw:1 \
+                arg1:80:144:1:lb:11:|arg1:144:148:4:lw:1 \
+                arg1:148:212:1:lb:11:|arg1:212:216:4:lw:1 \
+                arg1:216:280:1:lb:11:|arg1:280:284:4:lw:1 \
+                arg1:284:348:1:lb:11:|arg1:348:352:4:lw:1 \
+                arg1:352:416:1:lb:11:|arg1:416:420:4:lw:1 \
+                arg1:420:484:1:lb:11:|arg1:484:488:4:lw:1 int int
 compute_scenario_revenue BookSale[] int int -> int 
 maximize_revenue BookSale[] int -> int
 .end
@@ -158,6 +165,13 @@ sell_book
 0 0 0
 0 0 0
 0 0 0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780670032080Financial Peace RevisiteDave Ramsey 1
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+9781416971700Out of My MindSharon M. Draper 0
 5
 1
 
@@ -265,6 +279,13 @@ sell_book
 0 0 0
 0 0 0
 0 0 0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 1
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 103
+9780670032080Financial Peace RevisiteDave Ramsey 62
+9780064408330Joey Pigza Swallowed theJack Gantos 44
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 812
+9781416971700Out of My MindSharon M. Draper 1
 4
 3
 
@@ -372,6 +393,13 @@ sell_book
 0 0 0
 0 0 0
 0 0 0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 1
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 103
+9780670032080Financial Peace RevisiteDave Ramsey 61
+9780064408330Joey Pigza Swallowed theJack Gantos 44
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 812
+9781416971700Out of My MindSharon M. Draper 1
 -2
 -2
 
@@ -498,6 +526,13 @@ sell_book
 9780345501330 26234 155229 55
 9780312577220 12312 155229 55
 9780064408330 73123 155229 55
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 3
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 103
+9780670032080Financial Peace RevisiteDave Ramsey 61
+9780064408330Joey Pigza Swallowed theJack Gantos 45
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 814
+9781416971700Out of My MindSharon M. Draper 1
 -1
 -1
 
