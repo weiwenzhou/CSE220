@@ -18,7 +18,16 @@ addBookTable la 4
 .def
 hash_book HashBookTable string -> int
 get_book getBookTable string -> int int
-add_book getBookTable string string string -> arg0:12:76:1:lb:11: arg0:80:144:1:lb:11: arg0:148:212:1:lb:11: arg0:216:280:1:lb:11: arg0:284:348:1:lb:11: arg0:352:416:1:lb:11: arg0:420:484:1:lb:11: arg0:488:552:1:lb:11: arg0:556:620:1:lb:11: int int
+add_book getBookTable string string string -> \
+                arg0:12:76:1:lb:11:|arg0:76:80:4:lw:1 \
+                arg0:80:144:1:lb:11:|arg0:144:148:4:lw:1 \
+                arg0:148:212:1:lb:11:|arg0:212:216:4:lw:1 \
+                arg0:216:280:1:lb:11:|arg0:280:284:4:lw:1 \
+                arg0:284:348:1:lb:11:|arg0:348:352:4:lw:1 \
+                arg0:352:416:1:lb:11:|arg0:416:420:4:lw:1 \
+                arg0:420:484:1:lb:11:|arg0:484:488:4:lw:1 \
+                arg0:488:552:1:lb:11:|arg0:552:556:4:lw:1 \
+                arg0:556:620:1:lb:11:|arg0:620:624:4:lw:1 int int
 delete_book getBookTable string -> \
                 arg0:12:76:1:lb:11:|arg0:76:80:4:lw:1 \
                 arg0:80:144:1:lb:11:|arg0:144:148:4:lw:1 \
@@ -413,15 +422,15 @@ add_book
 "9780553214830"
 "The Declaration of Independence"
 "Founding Fathers"
-
-
-
-
-9780553214830The Declaration of IndepFounding Fathers
-
-
-
-
+0
+0
+0
+0
+9780553214830The Declaration of IndepFounding Fathers 0
+0
+0
+0
+0
 4
 1
 
@@ -472,15 +481,15 @@ add_book
 "9781620610090"
 "Opal (Lux, #3)"
 "Jennifer L. Armentrout"
-
-9780446695660Double WhammyCarl Hiaasen
-
-
-9780553214830The Declaration of IndepFounding Fathers
-9788433914260HollywoodCharles Bukowski
-9780345527780Wicked Business (Lizzy &Janet Evanovich
-9781620610090Opal (Lux, #3)Jennifer L. Armentrout
-
+0
+9780446695660Double WhammyCarl Hiaasen 0
+0
+0
+9780553214830The Declaration of IndepFounding Fathers 14
+9788433914260HollywoodCharles Bukowski 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9781620610090Opal (Lux, #3)Jennifer L. Armentrout 0
+0
 7
 1
 
@@ -529,15 +538,15 @@ add_book
 "9781416971700"
 "Out of My Mind"
 "Sharon M. Draper"
-9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl
-
-
-
-9780064408330Joey Pigza Swallowed theJack Gantos
-9780312577220Fly Away (Firefly Lane, Kristin Hannah
-9781416971700Out of My MindSharon M. Draper
-
-
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
+0
+0
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+9781416971700Out of My MindSharon M. Draper 0
+0
+0
 6
 2
 
@@ -603,15 +612,15 @@ add_book
 "9781455525930"
 "Crimson Shore (Pendergast, #15)"
 "Douglas Preston, Lincoln Child"
-
-9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl
-9781416971700Out of My MindSharon M. Draper
-9780156948780The Waste Land and OtherT.S. Eliot
-9780670032080Financial Peace RevisiteDave Ramsey
-9780064408330Joey Pigza Swallowed theJack Gantos
-9780312577220Fly Away (Firefly Lane, Kristin Hannah
-9781455525930Crimson Shore (PendergasDouglas Preston, Lincoln
-
+0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 251
+9781416971700Out of My MindSharon M. Draper 0
+9780156948780The Waste Land and OtherT.S. Eliot 0
+9780670032080Financial Peace RevisiteDave Ramsey 422
+9780064408330Joey Pigza Swallowed theJack Gantos 1251
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 734
+9781455525930Crimson Shore (PendergasDouglas Preston, Lincoln 0
+0
 7
 3
 
@@ -664,15 +673,15 @@ add_book
 "9780451230230"
 "The Pacific"
 "Hugh Ambrose"
-9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl
-
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 7777
+0
 -1
-9780670032080Financial Peace RevisiteDave Ramsey
-9780064408330Joey Pigza Swallowed theJack Gantos
-9780451230230The PacificHugh Ambrose
-9781416971700Out of My MindSharon M. Draper
-
-
+9780670032080Financial Peace RevisiteDave Ramsey 222
+9780064408330Joey Pigza Swallowed theJack Gantos 333
+9780451230230The PacificHugh Ambrose 0
+9781416971700Out of My MindSharon M. Draper 0
+0
+0
 5
 3
 
