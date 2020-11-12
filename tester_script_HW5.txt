@@ -12,7 +12,7 @@ board la 4
 .def
 init_list CardList -> arg0:0:8:4:lw:1
 append_card CardList int -> rec:arg0:1 int
-create_deck -> rec:v0:34 int
+create_deck -> rec:v0:11
 deal_starting_cards board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
                     rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
                     rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34
@@ -86,6 +86,17 @@ node253109:
 6570802
 |6574898 7685168 6572086 7684917 7689011 6570802|
 6
+
+.end_check
+
+
+################################### PART 3 ###################################
+################################### PART 3 ###################################
+################################### PART 3 ###################################
+.start_check
+
+create_deck
+|0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd|
 
 .end_check
 
