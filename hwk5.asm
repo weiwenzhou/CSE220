@@ -8,17 +8,22 @@
 
 .text
 
-init_list:
-   jr $ra
+init_list: # void init_list(CardList* card_list)
+    # $a0 : address to cardlist struct
+    # set size and head to 0
+    sw $0, 0($a0)
+    sw $0, 4($a0)
+
+    jr $ra
 
 append_card:
-   jr $ra
+    jr $ra
 
 create_deck:
-   jr $ra
+    jr $ra
 
 deal_starting_cards:
-   jr $ra
+    jr $ra
 
 get_card:
     jr $ra
