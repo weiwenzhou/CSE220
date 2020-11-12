@@ -11,7 +11,7 @@ board la 4
 
 .def
 init_list CardList -> arg0:0:8:4:lw:1
-append_card CardList int -> rec:arg0:11 int
+append_card CardList int -> rec:arg0:1 int
 create_deck -> rec:v0:34 int
 deal_starting_cards board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
                     rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
@@ -54,12 +54,13 @@ init_list
 ################################### PART 2 ###################################
 ################################### PART 2 ###################################
 
+.start_check
+
 append_card
 .word 0  # list's size
 .word 0  # address of list's head (null)
 .end_type
 6570802
-
 |6570802|
 1
 
@@ -83,10 +84,12 @@ node253109:
 .word node411020
 .end_type
 6570802
-
 |6574898 7685168 6572086 7684917 7689011 6570802|
 6
 
+.end_check
+
+exit
 
 ################################### PART 5 ###################################
 ################################### PART 5 ###################################
