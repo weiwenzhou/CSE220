@@ -194,7 +194,32 @@ get_card: # int, int get_card(CardList* card_list, int index)
 
     jr $ra
 
-check_move:
+check_move: # int check_move(CardList* board[], CardList* deck, int moves)
+    # check if move is valid
+
+
+    # byte #3 is 0 or 1
+    lbu $t0, 3($a2)
+    srl $t1, $t0, 1
+    beqz $t1, check_move_valid_deal_num
+    li $v0, -1
+    jr $ra # not valid
+
+    check_move_valid_deal_num:
+        andi $t0, $t0, 1 # keep the first bit since that is the only relevant part left
+        seq $t1, $t0, $0 # $t1 = 1 if t0 == 0 otherwise 0
+        lbu $t2, 0($a2) 
+        lbu $t3, 0($a2) 
+        add $t2, $t2, $t3
+        lbu $t3, 0($a2) 
+        add $t2, $t2, $t3 # sum of the 3 bytes (for valid deal move should be 0)
+        mul $t2, $t2, $t0 
+        add $t2, $t2, $t1 # if 1 then 1*0+0 else 0*(don't care)+1
+        
+        bnez $t2, check_move_not_deal_move # if t2 == 0 then deal move else not a deal move
+
+    check_move_not_deal_move:
+    
     jr $ra
 
 clear_full_straight:
