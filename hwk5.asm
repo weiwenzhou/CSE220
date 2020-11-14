@@ -38,6 +38,7 @@ append_card: # int append_card(CardList* card_list, int card_num)
         syscall # srbk to allocate 8 bytes in the heap -> v0 = address
 
         sw $a1, 0($v0) # add new node value
+        sw $0, 4($v0) # 0 out the end
         sw $v0, 4($t1) # have previous tail node point to new node 
 
     # increment card_list size and return it 
@@ -49,11 +50,11 @@ append_card: # int append_card(CardList* card_list, int card_num)
 
 create_deck: # void create_deck()
     # -> v0: address of card_list for the deck
-    # allocate memory on the stack for s1, s2, s3, $ra (4 registers)
+    # allocate memory on the stack for s0, s1, s2, $ra (4 registers)
     addi $sp, $sp, -16
-    sw $s1, 0($sp)
-    sw $s2, 4($sp)
-    sw $s3, 8($sp)
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
     sw $ra, 12($sp)
 
     # create card_list
@@ -61,42 +62,46 @@ create_deck: # void create_deck()
     li $v0, 9
     syscall # srbk to allocate 8 bytes in the heap -> v0 = address
 
-    move $s3, $v0
-    move $a0, $s3
-    jal init_list # init_list(card_list:s3)
+    move $s2, $v0
+    move $a0, $s2
+    jal init_list # init_list(card_list:s2)
 
     # loop 8
-    li $s1, 8
+    li $s0, 8
     create_deck_eight_set:
-        li $s2, 10
-        addi $s1, $s1, -1 # decremen
+        li $s1, 10
+        addi $s0, $s0, -1 # decremen
         # loop 10
         create_deck_ten_ranks:
 
-            addi $s2, $s2, -1 # decrement
+            addi $s1, $s1, -1 # decrement
 
-            move $a0, $s3
+            move $a0, $s2
             li $a1, 0x00645339
-            sub $a1, $a1, $s2
-            jal append_card # append_card(card_list:s3, num:0x00645339 - s2)
+            sub $a1, $a1, $s1
+            jal append_card # append_card(card_list:s2, num:0x00645339 - s2)
 
-            bnez $s2, create_deck_ten_ranks
+            bnez $s1, create_deck_ten_ranks
 
-        bnez $s1, create_deck_eight_set 
+        bnez $s0, create_deck_eight_set 
 
-    # return card_list:s3
-    move $v0, $s3
+    # return card_list:s2
+    move $v0, $s2
 
-    # deallocate memory on the stack for s1, s2, s3, $ra (4 registers)
-    lw $s1, 0($sp)
-    lw $s2, 4($sp)
-    lw $s3, 8($sp)
+    # deallocate memory on the stack for s0, s1, s2, $ra (4 registers)
+    lw $s0, 0($sp)
+    lw $s1, 4($sp)
+    lw $s2, 8($sp)
     lw $ra, 12($sp)
     addi $sp, $sp, 16
 
     jr $ra
 
-deal_starting_cards:
+deal_starting_cards: # void deal_starting_cards(CardList* board[], CardList* deck)
+    # a0: an array of size 9 of CardList* structs 
+    # a1: a deck of size 80 cards
+    
+
     jr $ra
 
 get_card:
