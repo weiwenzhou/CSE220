@@ -100,7 +100,68 @@ create_deck: # void create_deck()
 deal_starting_cards: # void deal_starting_cards(CardList* board[], CardList* deck)
     # a0: an array of size 9 of CardList* structs 
     # a1: a deck of size 80 cards
-    
+    # allocate memory on the stack for s0-4, $ra (6 registers)
+    addi $sp, $sp, -24
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $s4, 16($sp)
+    sw $ra, 20($sp)
+
+    move $s0, $a0
+    move $s1, $a1
+    lw $s2, 4($s1) # first node
+    li $s3, 35 # 35 facedown cards
+    li $s4, 0 # index    
+
+    deal_starting_card_facedown:
+        add $a0, $s0, $s4
+        lw $a0, 0($a0)
+        lw $a1, 0($s2)
+        jal append_card # append_card(CardList*:s0+s4, int:0($s2)) 
+
+        lw $s2, 4($s2) # increment s2
+        addi $s4, $s4, 4 # increment s4
+        li $t0, 36
+        seq $t1, $s4, $t0 # if s4 = 36
+        mul $t1, $t1, $t0 # -> then s4 - 36
+        sub $s4, $s4, $t1
+        addi $s3, $s3, -1
+        bnez $s3, deal_starting_card_facedown
+
+    li $s3, 9
+    deal_starting_card_faceup:
+        add $a0, $s0, $s4
+        lw $a0, 0($a0)
+        lw $a1, 0($s2) # flip face up
+        li $t0, 0x00110000
+        add $a1, $a1, $t0
+        jal append_card # append_card(CardList*:s0+s4, int:0($s2)) 
+
+        lw $s2, 4($s2) # increment s2
+        addi $s4, $s4, 4 # increment s4
+        li $t0, 36
+        seq $t1, $s4, $t0 # if s4 = 36
+        mul $t1, $t1, $t0 # -> then s4 - 36
+        sub $s4, $s4, $t1 
+        addi $s3, $s3, -1
+        bnez $s3, deal_starting_card_faceup
+
+    # update cardList
+    lw $t0, 0($s1)
+    addi $t0, $t0, -44
+    sw $t0, 0($s1)
+    sw $s2, 4($s1) 
+
+    # deallocate memory on the stack for s0-4, $ra (6 registers)
+    lw $s0, 0($sp)
+    lw $s1, 4($sp)
+    lw $s2, 8($sp)
+    lw $s3, 12($sp)
+    lw $s4, 16($sp)
+    lw $ra, 20($sp)
+    addi $sp, $sp, 24
 
     jr $ra
 
