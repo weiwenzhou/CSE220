@@ -117,7 +117,6 @@ create_deck
 
 .end_check
 
-exit
 
 ################################### PART 5 ###################################
 ################################### PART 5 ###################################
@@ -250,5 +249,29 @@ node968934:
 7
 1
 6572083
+
+-> 6: Extra Testing : negative index
+get_card
+.word 5  # list's size
+.word node924757 # address of list's head
+node66998:
+.word 7689011
+.word 0
+node961940:
+.word 6572086
+.word node481511
+node481511:
+.word 7684917
+.word node66998
+node924757:
+.word 6574898
+.word node495556
+node495556:
+.word 7685168
+.word node961940
+.end_type
+-1
+-1
+-1
 
 .end_check
