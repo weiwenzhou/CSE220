@@ -165,7 +165,33 @@ deal_starting_cards: # void deal_starting_cards(CardList* board[], CardList* dec
 
     jr $ra
 
-get_card:
+get_card: # int, int get_card(CardList* card_list, int index)
+    # a0: linked list
+    # a1: int
+    # -> v0: -1 if invalid, 1 if facedown, 2 if faceup
+    # -> v1: -1 if invalid otherwise card_value at index
+
+    li $v0, -1
+    li $v1, -1
+    bltz $a1, get_card_done # index < 0
+    lw $t0, 0($a0) # length
+    bge $a1, $t0, get_card_done # index >= length
+
+    lw $t0, 4($a0) # head
+    get_card_search:
+        beqz $a1, get_card_found
+        lw $t0, 4($t0) # next node
+        addi $a1, $a1, -1 # decrement
+        j get_card_search
+
+    get_card_found:
+        lw $v1, 0($t0) # number
+        srl $v0, $v1, 16 
+        andi $v0, $v0, 15 # mask last 4 bits 0xXXXEXXXX
+        addi $v0, $v0, -3
+
+    get_card_done:
+
     jr $ra
 
 check_move:
