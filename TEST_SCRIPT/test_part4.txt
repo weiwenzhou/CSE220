@@ -15,7 +15,7 @@ append_card CardList int -> rec:arg0:11 int
 create_deck -> rec:v0:34 int
 deal_starting_cards board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
                     rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
-                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:11
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:11 arg1:0:4:4:lw:1
 get_card CardList int -> rec:arg0:1 int int
 check_move board CardList int -> int
 clear_full_straight board int -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
@@ -35,7 +35,23 @@ simulate_game string board CardList int[] -> rec:arg0:34:0 rec:arg0:34:4 rec:arg
                     rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34 int int
 .end
 
-
+.check_register
+$s0 800
+.check_register
+$s1 801
+.check_register
+$s2 802
+.check_register
+$s3 803
+.check_register
+$s4 804
+.check_register
+$s5 805
+.check_register
+$s6 806
+.check_register
+$s7 807
+.check_stack
 
 
 
@@ -355,6 +371,7 @@ node373:
 |0x00645338 0x00645331 0x00645334 0x00645334 0x00755335|
 |0x00645338 0x00645330 0x00645333 0x00755339|
 |7Sd 9Sd 1Sd 9Sd 4Sd 6Sd 5Sd 1Sd 7Sd 1Sd 5Sd 2Sd 6Sd 2Sd 8Sd 0Sd 3Sd 6Sd 5Sd 3Sd 9Sd 0Sd 5Sd 3Sd 4Sd 5Sd 5Sd 7Sd 3Sd 4Sd 7Sd 4Sd 3Sd 2Sd 2Sd 2Sd|
+36
 
 
 
@@ -677,5 +694,6 @@ node324908:
 |0x00645333 0x00645337 0x00645339 0x00645333 0x00755331|
 |0x00645337 0x00645330 0x00645332 0x00755334|
 |8Sd 9Sd 0Sd 0Sd 8Sd 6Sd 4Sd 0Sd 5Sd 0Sd 5Sd 1Sd 3Sd 5Sd 1Sd 7Sd 8Sd 1Sd 9Sd 6Sd 7Sd 0Sd 9Sd 9Sd 2Sd 2Sd 9Sd 7Sd 5Sd 3Sd 4Sd 6Sd 0Sd 2Sd 9Sd 3Sd|
+36
 
 .end_check
