@@ -15,7 +15,7 @@ append_card CardList int -> rec:arg0:11 int
 create_deck -> rec:v0:34 int
 deal_starting_cards board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
                     rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
-                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:11
 get_card CardList int -> rec:arg0:1 int int
 check_move board CardList int -> int
 clear_full_straight board int -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
@@ -44,7 +44,7 @@ simulate_game string board CardList int[] -> rec:arg0:34:0 rec:arg0:34:4 rec:arg
 ################################### Deal out a deck of shuffled cards ###################################
 ################################### Deal out a deck of shuffled cards ###################################
 
-
+.start_check
 
 deal_starting_cards
 .word card_list702266 card_list398332 card_list834324 card_list122769 card_list130757 card_list268251 card_list773371 card_list278845 card_list116
@@ -345,10 +345,16 @@ node373:
 .word 6574903
 .word node113898
 .end_type
-
-
-
-
+|0x00645336 0x00645332 0x00645330 0x00645331 0x00755338|
+|0x00645334 0x00645333 0x00645337 0x00645337 0x00755331|
+|0x00645331 0x00645339 0x00645337 0x00645336 0x00755338|
+|0x00645332 0x00645330 0x00645339 0x00645338 0x00755339|
+|0x00645338 0x00645337 0x00645335 0x00645331 0x00755336|
+|0x00645333 0x00645339 0x00645336 0x00645332 0x00755330|
+|0x00645334 0x00645330 0x00645338 0x00645330 0x00755336|
+|0x00645338 0x00645331 0x00645334 0x00645334 0x00755335|
+|0x00645338 0x00645330 0x00645333 0x00755339|
+|7Sd 9Sd 1Sd 9Sd 4Sd 6Sd 5Sd 1Sd 7Sd 1Sd 5Sd 2Sd 6Sd 2Sd 8Sd 0Sd 3Sd 6Sd 5Sd 3Sd 9Sd 0Sd 5Sd 3Sd 4Sd 5Sd 5Sd 7Sd 3Sd 4Sd 7Sd 4Sd 3Sd 2Sd 2Sd 2Sd|
 
 
 
@@ -661,3 +667,15 @@ node324908:
 .word 6574897
 .word node158838
 .end_type
+|0x00645338 0x00645337 0x00645331 0x00645332 0x00755338|
+|0x00645334 0x00645335 0x00645331 0x00645336 0x00755336|
+|0x00645336 0x00645339 0x00645332 0x00645330 0x00755337|
+|0x00645336 0x00645331 0x00645331 0x00645334 0x00755337|
+|0x00645335 0x00645333 0x00645334 0x00645332 0x00755332|
+|0x00645335 0x00645334 0x00645338 0x00645333 0x00755333|
+|0x00645334 0x00645338 0x00645336 0x00645338 0x00755335|
+|0x00645333 0x00645337 0x00645339 0x00645333 0x00755331|
+|0x00645337 0x00645330 0x00645332 0x00755334|
+|8Sd 9Sd 0Sd 0Sd 8Sd 6Sd 4Sd 0Sd 5Sd 0Sd 5Sd 1Sd 3Sd 5Sd 1Sd 7Sd 8Sd 1Sd 9Sd 6Sd 7Sd 0Sd 9Sd 9Sd 2Sd 2Sd 9Sd 7Sd 5Sd 3Sd 4Sd 6Sd 0Sd 2Sd 9Sd 3Sd|
+
+.end_check
