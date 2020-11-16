@@ -195,31 +195,77 @@ get_card: # int, int get_card(CardList* card_list, int index)
     jr $ra
 
 check_move: # int check_move(CardList* board[], CardList* deck, int moves)
+    # preamble s0-3, ra (4 registers)
+    addi $sp, $sp, -16
+    lw $s0, 0($sp) 
+    lw $s1, 4($sp) 
+    lw $s2, 8($sp)
+    lw $ra, 12($sp)
+
+    move $s0, $a0 # board
+    move $s1, $a1 # deck
+    # store a2 on the stack so I can load from it
+    addi $sp, $sp, -4 
+    sw $s2, 0($sp)
+    move $s2, $sp # move(address)
+
     # check if move is valid
-
-
     # byte #3 is 0 or 1
-    lbu $t0, 3($a2)
+    lbu $t0, 3($s2)
     srl $t1, $t0, 1
     beqz $t1, check_move_valid_deal_num
     li $v0, -1
-    jr $ra # not valid
+    j check_move_clean_up # byte #3 != 0/1 -> -1
 
-    check_move_valid_deal_num:
+    check_move_valid_deal_num: 
         andi $t0, $t0, 1 # keep the first bit since that is the only relevant part left
-        seq $t1, $t0, $0 # $t1 = 1 if t0 == 0 otherwise 0
-        lbu $t2, 0($a2) 
-        lbu $t3, 0($a2) 
-        add $t2, $t2, $t3
-        lbu $t3, 0($a2) 
-        add $t2, $t2, $t3 # sum of the 3 bytes (for valid deal move should be 0)
-        mul $t2, $t2, $t0 
-        add $t2, $t2, $t1 # if 1 then 1*0+0 else 0*(don't care)+1
+        beqz $t0, check_move_not_deal_move # if $t0 = 0 not deal move
+        # if deal move check the sum of the rest of the bytes
+        lbu $t1, 0($s2) 
+        lbu $t2, 0($s2) 
+        add $t1, $t1, $t2
+        lbu $t2, 0($s2) 
+        add $t1, $t1, $t2 # sum of the 3 bytes (for valid deal move should be 0)
         
-        bnez $t2, check_move_not_deal_move # if t2 == 0 then deal move else not a deal move
+        bnez $t1, check_move_deal_move_works # sum is 0
+        li $v0, -1 # sum != 0 not valid -> -1
+        j check_move_clean_up
+
+        check_move_deal_move_works: # if deck is empty or a column is empty -> -2 else 1
+            # check deck is not empty
+            lw $t0, 0($s1) # size of deck
+            beqz $t0, check_move_illegal_deal_move
+
+            li $t1, 9 # nine column
+            move $t2, $s0 # board
+            check_move_deal_move_columns:
+                lw $t0, 0($t2) # size of column
+                beqz $t0, check_move_illegal_deal_move 
+                addi $t2, $t2, 4 # increment to next column
+                addi $t1, $t1, -1 # decrement
+                bnez $t1, check_move_deal_move_columns # branch 8 times
+
+            li $v0, 1
+            j check_move_clean_up # legal deal move
+
+            check_move_illegal_deal_move:
+                li $v0, -2
+                j check_move_clean_up
 
     check_move_not_deal_move:
     
+
+    check_move_clean_up:
+        # deallocate space used for s2
+        addi $sp, $sp, 4
+
+        # postamble s0-3, ra (4 registers)
+        lw $s0, 0($sp)
+        lw $s1, 4($sp)
+        lw $s2, 8($sp)
+        lw $ra, 12($sp)
+        addi $sp, $sp, -16
+
     jr $ra
 
 clear_full_straight:
