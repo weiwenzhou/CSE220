@@ -197,16 +197,16 @@ get_card: # int, int get_card(CardList* card_list, int index)
 check_move: # int check_move(CardList* board[], CardList* deck, int moves)
     # preamble s0-3, ra (4 registers)
     addi $sp, $sp, -16
-    lw $s0, 0($sp) 
-    lw $s1, 4($sp) 
-    lw $s2, 8($sp)
-    lw $ra, 12($sp)
+    sw $s0, 0($sp) 
+    sw $s1, 4($sp) 
+    sw $s2, 8($sp)
+    sw $ra, 12($sp)
 
     move $s0, $a0 # board
     move $s1, $a1 # deck
     # store a2 on the stack so I can load from it
     addi $sp, $sp, -4 
-    sw $s2, 0($sp)
+    sw $a2, 0($sp)
     move $s2, $sp # move(address)
 
     # check if move is valid
@@ -227,7 +227,7 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         lbu $t2, 0($s2) 
         add $t1, $t1, $t2 # sum of the 3 bytes (for valid deal move should be 0)
         
-        bnez $t1, check_move_deal_move_works # sum is 0
+        beqz $t1, check_move_deal_move_works # sum is 0
         li $v0, -1 # sum != 0 not valid -> -1
         j check_move_clean_up
 
@@ -252,8 +252,36 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
                 li $v0, -2
                 j check_move_clean_up
 
-    check_move_not_deal_move:
-    
+    check_move_not_deal_move: # checks byte #0 and byte #2 is between [0,8] : if not -> -3
+        li $v0, -3
+        lbu $t0, 0($s2) # byte 0
+        bltz $t0, check_move_clean_up # byte 0 < 0
+        addi $t0, $t0, -8 # byte 0 - 8
+        bgtz $t0, check_move_clean_up # byte 0 > 8
+
+        lbu $t0, 2($s2) # byte 2
+        bltz $t0, check_move_clean_up # byte 2 < 0
+        addi $t0, $t0, -8 # byte 2 - 8
+        bgtz $t0, check_move_clean_up # byte 2 > 8
+
+        # checks byte #1 is valid for the byte #0 column in [0, column.size): if not -> -4
+        li $v0, -4
+        lbu $t0, 1($s2) # byte 1
+        bltz $t0, check_move_clean_up # row < 0
+        lbu $t1, 0($s2) # byte 0
+        li $t2, 4
+        mul $t1, $t1, $t2 # board_offset = 4 * byte 0
+        add $t1, $t1, $s0 
+        lw $t1, 0($t1) # column size
+        bge $t0, $t2, check_move_clean_up # byte 1 >= column.size
+
+
+        # checks byte #0 != byte #2 : if equal -> -5
+        lbu $t0, 0($s2) # byte 0
+        lbu $t1, 2($s2) # byte 2
+        li $v0, -5
+        beq $t0, $t1, check_move_clean_up 
+
 
     check_move_clean_up:
         # deallocate space used for s2
@@ -264,7 +292,7 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         lw $s1, 4($sp)
         lw $s2, 8($sp)
         lw $ra, 12($sp)
-        addi $sp, $sp, -16
+        addi $sp, $sp, 16
 
     jr $ra
 
