@@ -360,7 +360,76 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
 
     jr $ra
 
-clear_full_straight:
+clear_full_straight: # int clear_full_straight(CardList* board[], int col_num)
+    # preamble s0-1, ra (3 registers)
+    addi $sp, $sp, -12
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $ra, 8($sp)
+    
+    li $v0, -1 # col_num is invalid -> -1
+    bltz $a1, clear_full_straight_clean_up # col_num < 0
+    addi $t0, $a1, -8 # t0 = a1-8
+    bgtz $t0, clear_full_straight_clean_up # a1 > 8    
+
+    li $t0, 4
+    mul $t0, $a1, $t0 # offset
+    add $s0, $a0, $t0 # address of CardList
+    lw $s0, 0($s0) # cardlist
+
+    lw $t0, 0($s0) # size of column 
+    li $v0, -2 
+    li $t1, 10
+    blt $t0, $t1, clear_full_straight_clean_up # board size < 10 -> -2
+
+    # size is >= 10 
+    # check cards starting at the bottom and up 
+    li $s1, 0
+    clear_full_straight_check_straight:
+        move $a0, $s0
+        lw $a1, 0($s0)
+        addi $s1, $s1, 1 
+        sub $a1, $a1, $s1 # s1-offset from the bottom 1,2,...,9,10
+        jal get_card # get_card(column, index) -> if v0 = 1:facedown or  v1 - s1 + 1 != 0 -> -3
+
+        move $t1, $v0
+        li $v0, -3
+        li $t0, 1
+        beq $t1, $t0, clear_full_straight_clean_up # facedown
+
+        andi $v1, $v1, 0xF # bits 0-3
+        sub $v1, $v1, $s1
+        addi $v1, $v1, 1
+        bnez $v1, clear_full_straight_clean_up # v1-s1+1 != 0 -> -3
+
+        li $t0, 9
+        ble	$s1, $t0, clear_full_straight_check_straight # $s1 <= 9 
+        
+    # take size - 10 and that's the new size of the column
+    lw $t0, 0($s0)
+    addi $t0, $t0, -10 
+    sw $t0, 0($s0)
+    # take size and find new tail
+    seq $v0, $t0, $0 # convert size to v0: 1 if t0-10 == 0 else 0 
+    addi $v0, $v0, 1 # increment
+    move $t1, $s0 # current tail node
+
+    clear_full_find_tail:
+        beqz $t0, clear_full_found_tail
+        lw $t1, 4($t1)
+        addi $t0, $t0, -1
+        j clear_full_find_tail
+
+    clear_full_found_tail:
+        sw $0, 4($t1) # zero out the next node reference
+
+    clear_full_straight_clean_up:
+        # postamble s0-1, ra (3 registers)
+        lw $s0, 0($sp)
+        lw $s1, 4($sp)
+        lw $ra, 8($sp)
+        addi $sp, $sp, 12
+
     jr $ra
 
 deal_move:
