@@ -311,11 +311,14 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
             jal get_card # get_card(donor_column, next_index)
             move $t0, $v0
             li $v0, -7 
+            li $t1, -1 # invalid 
+            beq $t0, $t1, check_move_rest_of_column_done
             addi $s5, $s5, -1 # expected next value
             bne $t0, $s5, check_move_clean_up # not next smaller number -> -7
             lbu $t0, 0($t0) # size of column
             blt $s4, $t0, check_move_rest_of_column# index < column.size -> keep checking rest of cards
 
+        check_move_rest_of_column_done:
 
         # check if byte 2 column is empty : if empty -> 2
         li $v0, 2
