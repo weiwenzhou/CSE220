@@ -242,7 +242,8 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
             li $t1, 9 # nine column
             move $t2, $s0 # board
             check_move_deal_move_columns:
-                lw $t0, 0($t2) # size of column
+                lw $t0, 0($t2) # address of card_list
+                lw $t0, 0($t0) # size of column
                 beqz $t0, check_move_illegal_deal_move 
                 addi $t2, $t2, 4 # increment to next column
                 addi $t1, $t1, -1 # decrement
@@ -275,8 +276,9 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         li $t2, 4
         mul $t1, $t1, $t2 # board_offset = 4 * byte 0
         add $t1, $t1, $s0 
+        lw $t1, 0($t1) # cardlist
         lw $t1, 0($t1) # column size
-        bge $t0, $t2, check_move_clean_up # byte 1 >= column.size
+        bge $t0, $t1, check_move_clean_up # byte 1 >= column.size
 
 
         # checks byte #0 != byte #2 : if equal -> -5
@@ -289,7 +291,8 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         lbu $t1, 0($s2) # byte 0
         li $t2, 4
         mul $t1, $t1, $t2 # board_offset = 4 * byte 0
-        add $a0, $t1, $s0 # address of donor CardList
+        add $a0, $t1, $s0 
+        lw $a0, 0($a0) # address of donor CardList
         lbu $a1, 1($s2) # byte 1
         move $s3, $a0 # column
         move $s4, $a1 # index 
@@ -320,6 +323,7 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         li $t1, 4
         mul $t0, $t0, $t1 # board offset
         add $t0, $t0, $s0 
+        lw $t0, 0($t0) # address of cardlist
         lw $t1, 0($t0) # column size
         beqz $t1, check_move_clean_up # empty -> 2
 
