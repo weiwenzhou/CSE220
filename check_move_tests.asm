@@ -585,7 +585,7 @@ node255386:
 .word 0
 
 
-# Legal move of one card to a non-empty column
+# Legal move of one card to an empty column
 .data
 .align 2
 move: .word 66563
@@ -4022,5 +4022,4 @@ node414155:
 node343243:
 .word 6574900
 .word node801411
-
 
