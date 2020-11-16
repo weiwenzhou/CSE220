@@ -432,7 +432,43 @@ clear_full_straight: # int clear_full_straight(CardList* board[], int col_num)
 
     jr $ra
 
-deal_move:
+deal_move: # void deal_move(CardList* board[], CardList* deck)
+    # preamble s0-3, ra (5 registers) 
+    addi $sp, $sp, -20
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $ra, 16($sp)
+
+    move $s0, $a0
+    move $s1, $a1
+    lw $s2, 4($s1) # top card of the deck
+    li $s3, 9 # nine cards to deal
+
+    deal_move_loop:
+        lw $a0, 0($s0)
+        lw $a1, 0($s2) # value
+        jal append_card # append_card(CardList*, number)
+
+        addi $s0, $s0, 4 # increment
+        lw $s2, 4($s2) # next card
+        addi $s3, $s3, -1 # decrement
+        bnez $s3, deal_move_loop
+
+    # update deck size
+    lw $t0, 0($s0)
+    addi $t0, $t0, -9 # decrement by 9
+    sw $t0, 0($s0)
+    sw $t2, 4($s2) # point to new head
+
+    # postamble s0-3, ra (5 registers)
+    lw $s0, 0($sp)
+    lw $s1, 4($sp)
+    lw $s2, 8($sp)
+    lw $s3, 12($sp)
+    lw $ra, 16($sp)
+    addi $sp, $sp, 20
     jr $ra
 
 move_card:
