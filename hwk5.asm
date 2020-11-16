@@ -334,14 +334,13 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         addi $a1, $t1, -1 # decrement index by one to get tail value
         jal get_card # get_card(recipent, length-1)
 
-        addi $s5, $v0, -1 # expect value at donor column [row]
+        addi $s5, $v1, -1 # expect value at donor column [row]
         move $a0, $s3 # donor column 
         lbu $a1 1($s2) # row
         jal get_card # get_card(donor, row)
 
-        move $t0, $v0
         li $v0, 3
-        beq $t0, $s5, check_move_clean_up # tail is one greater  -> 3
+        beq $v1, $s5, check_move_clean_up # tail is one greater  -> 3
         li $v0, -8 # else -> -8
 
 
