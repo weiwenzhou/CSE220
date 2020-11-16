@@ -457,10 +457,10 @@ deal_move: # void deal_move(CardList* board[], CardList* deck)
         bnez $s3, deal_move_loop
 
     # update deck size
-    lw $t0, 0($s0)
+    lw $t0, 0($s1)
     addi $t0, $t0, -9 # decrement by 9
-    sw $t0, 0($s0)
-    sw $t2, 4($s2) # point to new head
+    sw $t0, 0($s1)
+    sw $s2, 4($s1) # point to new head
 
     # postamble s0-3, ra (5 registers)
     lw $s0, 0($sp)
