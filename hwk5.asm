@@ -282,6 +282,19 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         li $v0, -5
         beq $t0, $t1, check_move_clean_up 
 
+        # check if card at the donor column and row encoded in move is face-down (get_card -> v0 = 1:face-down, 2:face-up, -1:invalid[not_possible]): if facedown -> -6
+        lbu $t1, 0($s2) # byte 0
+        li $t2, 4
+        mul $t1, $t1, $t2 # board_offset = 4 * byte 0
+        add $a0, $t1, $s0 # address of donor CardList
+        lbu $a1, 1($s2) # byte 1
+        jal get_card # get_card(donor_column, index:byte#1)
+
+        addi $t0, $v0, -1 # v0-1 -> 0:facedown 1:face-up
+        li $v0, -6
+        beqz $t0, check_move_clean_up
+
+        
 
     check_move_clean_up:
         # deallocate space used for s2
