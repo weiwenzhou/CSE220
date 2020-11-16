@@ -195,12 +195,15 @@ get_card: # int, int get_card(CardList* card_list, int index)
     jr $ra
 
 check_move: # int check_move(CardList* board[], CardList* deck, int moves)
-    # preamble s0-3, ra (4 registers)
-    addi $sp, $sp, -16
+    # preamble s0-5, ra (7 registers)
+    addi $sp, $sp, -28
     sw $s0, 0($sp) 
     sw $s1, 4($sp) 
     sw $s2, 8($sp)
-    sw $ra, 12($sp)
+    sw $s3, 12($sp)
+    sw $s4, 16($sp)
+    sw $s5, 20($sp)
+    sw $ra, 24($sp)
 
     move $s0, $a0 # board
     move $s1, $a1 # deck
@@ -288,24 +291,67 @@ check_move: # int check_move(CardList* board[], CardList* deck, int moves)
         mul $t1, $t1, $t2 # board_offset = 4 * byte 0
         add $a0, $t1, $s0 # address of donor CardList
         lbu $a1, 1($s2) # byte 1
+        move $s3, $a0 # column
+        move $s4, $a1 # index 
         jal get_card # get_card(donor_column, index:byte#1)
 
         addi $t0, $v0, -1 # v0-1 -> 0:facedown 1:face-up
         li $v0, -6
         beqz $t0, check_move_clean_up
 
-        
+        # check if donor column is in descending order: if not -> -7
+        move $s5, $v1 # the first card value
+        check_move_rest_of_column:
+            addi $s4, $s4, 1 # increment index
+            move $a0, $s3
+            move $a1, $s4
+            jal get_card # get_card(donor_column, next_index)
+            move $t0, $v0
+            li $v0, -7 
+            addi $s5, $s5, -1 # expected next value
+            bne $t0, $s5, check_move_clean_up # not next smaller number -> -7
+            lbu $t0, 0($t0) # size of column
+            blt $s4, $t0, check_move_rest_of_column# index < column.size -> keep checking rest of cards
+
+
+        # check if byte 2 column is empty : if empty -> 2
+        li $v0, 2
+        lbu $t0, 2($s2) 
+        li $t1, 4
+        mul $t0, $t0, $t1 # board offset
+        add $t0, $t0, $s0 
+        lw $t1, 0($t0) # column size
+        beqz $t1, check_move_clean_up # empty -> 2
+
+        # not empty: check if the tail node value is one greater than donor column and row in move: if not -> -8 else 3
+        move $a0, $t0 # recipent column
+        addi $a1, $t1, -1 # decrement index by one to get tail value
+        jal get_card # get_card(recipent, length-1)
+
+        addi $s5, $v0, -1 # expect value at donor column [row]
+        move $a0, $s3 # donor column 
+        lbu $a1 1($s2) # row
+        jal get_card # get_card(donor, row)
+
+        move $t0, $v0
+        li $v0, 3
+        beq $t0, $s5, check_move_clean_up # tail is one greater  -> 3
+        li $v0, -8 # else -> -8
+
 
     check_move_clean_up:
         # deallocate space used for s2
         addi $sp, $sp, 4
 
-        # postamble s0-3, ra (4 registers)
+        # postamble s0-5, ra (7 registers)
         lw $s0, 0($sp)
         lw $s1, 4($sp)
         lw $s2, 8($sp)
-        lw $ra, 12($sp)
-        addi $sp, $sp, 16
+        lw $s3, 12($sp)
+        lw $s4, 16($sp)
+        lw $s5, 20($sp)
+        lw $ra, 24($sp)
+        addi $sp, $sp, 28
 
     jr $ra
 
