@@ -799,7 +799,63 @@ load_game: # int, int load_game(string filename, CardList* board[], CardList* de
 
     jr $ra
 
-simulate_game:
+simulate_game: # int, int simulate_game(string filename, CardList* board[], CardList* deck, int[] moves)
+    # preamble s0-4, ra (6 registers)
+    addi $sp, $sp, -24
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $s4, 16($sp)
+    sw $ra, 20($sp)
+
+    move $s0, $a1
+    move $s1, $a2
+    move $s2, $a3
+    li $s4, 0
+
+    jal load_game # load_game on the provided arguments
+    bltz $v0, simulate_game_clean_up # if -1[,-1] then return -1, -1
+
+    move $s3, $v1 # num of moves
+
+    simulate_game_move_loop:
+        move $a0, $s0
+        move $a1, $s1
+        lw $a2, 0($s2)
+        jal move_card # move_card(board:s0, deck,:s1, move:0(s2))
+        sgt $t0, $v0, $0 # t0 = 1 if v0 > 0 (1) else v0 <= 0 (-1) -> 0
+        add $s4, $s4, $t0 # increment if v0 == 1
+        addi $s2, $s2, 4 # increment
+        addi $s3, $s3, -1 # decrement
+        bnez $s3, simulate_game_move_loop
+
+    move $v0, $s4 # num of moves executed
+    li $v1, -2 # if sum of size of CardLists is not 0
+
+    lw $t0, 0($s1) # size of deck
+    bnez $t0, simulate_game_clean_up
+    
+    li $t0, 9
+    simulate_game_check_empty_board:
+        lw $t1, 0($s0) # address of CardList
+        lw $t1, 0($t1) # size of CardList
+        bnez $t1, simulate_game_clean_up 
+        addi $s0, $s0, 4 # increment board
+        addi $t0, $t0, -1 # decrement
+        bnez $t0, simulate_game_check_empty_board
+
+    li $v1, 1 # all 0s -> win (1)
+    
+    simulate_game_clean_up:
+        # postamble s0-4, ra (6 registers)
+        lw $s0, 0($sp)
+        lw $s1, 4($sp)
+        lw $s2, 8($sp)
+        lw $s3, 12($sp)
+        lw $s4, 16($sp)
+        lw $ra, 20($sp)
+        addi $sp, $sp, 24
     jr $ra
 
 ############################ DO NOT CREATE A .data SECTION ############################
