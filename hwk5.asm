@@ -578,7 +578,225 @@ move_card: # int move_card(CardList* board[], CardList* deck, int moves)
         addi $sp, $sp, 20
     jr $ra
 
-load_game:
+load_game: # int, int load_game(string filename, CardList* board[], CardList* deck, int[] moves)
+    # preamble s0-5, ra (7 registers)
+    addi $sp, $sp, -28
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $s4, 16($sp)
+    sw $s5, 20($sp)
+    sw $ra, 24($sp)
+
+    move $s0, $a0 # filename
+    move $s1, $a1 # board
+    move $s2, $a2 # deck
+    move $s3, $a3 # moves array
+    li $s4, 0 # 0
+    li $s5, 0 # start at index 0
+
+    # open file
+    move $a0, $s0 # filename
+    li $a1, 0 # read-only
+    li $a2, 0 # mode is ignored
+    li $v0, 13 
+    syscall # open file 
+
+    move $s0, $v0 # -> s0 = v0:file descriptor (no longer need filename)
+    li $v0, -1
+    li $v1, -1
+    bltz $s0, load_game_clean_up # s0 < 0 -> error return -1, -1
+
+    # allocate 4 bytes on the stack for reading file
+    addi $sp, $sp, -4
+
+    # load game deck
+    move $a0, $s2 
+    jal init_list # init_list(deck:s2)
+
+    # set up board
+    lw $a0, 0($s1) # address of cardlist 0
+    jal init_list 
+    lw $a0, 4($s1) # address of cardlist 1
+    jal init_list 
+    lw $a0, 8($s1) # address of cardlist 2
+    jal init_list 
+    lw $a0, 12($s1) # address of cardlist 3
+    jal init_list 
+    lw $a0, 16($s1) # address of cardlist 4
+    jal init_list 
+    lw $a0, 20($s1) # address of cardlist 5
+    jal init_list 
+    lw $a0, 24($s1) # address of cardlist 6
+    jal init_list 
+    lw $a0, 28($s1) # address of cardlist 7
+    jal init_list 
+    lw $a0, 32($s1) # address of cardlist 8
+    jal init_list 
+
+    load_game_load_deck:
+        move $a0, $s0 # file_desc
+		move $a1, $sp # buffer
+		li $a2, 1 # read 1 character
+		li $v0, 14 # syscall for read
+		syscall
+
+        beqz $v0, load_game_close_file # end of file shouldn't occur but just checking
+		bltz $v0, load_game_close_file_error # error while reading shouldn't occur but just checking
+
+        lbu $t0, 0($sp) # char read
+        li $t1, '\r'
+        beq $t0, $t1, load_game_load_deck # if char == '\r' ignored
+        li $t1, '\n'
+        beq $t0, $t1, load_game_load_moves # if char == '\n' -> done loading deck
+
+        # else t0 is the byte #0 of the card to add -> read another character to get byte #2
+        move $a0, $s0 # file_desc
+		move $a1, $sp # buffer
+		li $a2, 1 # read 1 character
+		li $v0, 14 # syscall for read
+		syscall
+
+        beqz $v0, load_game_close_file # end of file shouldn't occur but just checking
+		bltz $v0, load_game_close_file_error # error while reading shouldn't occur but just checking
+
+        lbu $t1, 0($sp) # can't be '\r' or '\n'
+
+        move $a0, $s2
+        sll $a1, $t1, 16 # to byte #2 location
+        add $a1, $t0, $a1 # combine byte#2 and 0
+        addi $a1, $a1, 0x5300 # byte #1 is always spade = 0x53
+        jal append_card # append_card(deck, num)
+
+        j load_game_load_deck
+
+
+    load_game_load_moves:
+        move $a0, $s0 # file_desc
+		move $a1, $sp # buffer
+		li $a2, 1 # read 1 character
+		li $v0, 14 # syscall for read
+		syscall
+
+        beqz $v0, load_game_close_file # end of file shouldn't occur but just checking
+		bltz $v0, load_game_close_file_error # error while reading shouldn't occur but just checking
+
+        lbu $t0, 0($sp) # char read
+        li $t1, ' '
+        beq $t0, $t1, load_game_load_moves # if char == ' ' -> check next 
+        li $t1, '\r'
+        beq $t0, $t1, load_game_load_moves # if char == '\r' ignored
+        li $t1, '\n'
+        beq $t0, $t1, load_game_load_board # if char == '\n' -> done loading deck
+
+        # new move -> grab the next 3 characters to complete the move instruction
+        move $a0, $s0 # file_desc
+		move $a1, $sp # buffer
+		li $a2, 3 # read 3 character
+		li $v0, 14 # syscall for read
+		syscall
+
+        beqz $v0, load_game_close_file # end of file shouldn't occur but just checking
+		bltz $v0, load_game_close_file_error # error while reading shouldn't occur but just checking
+
+        li $t1, '0' # using to convert char to integer value
+        
+        lbu $t2, 2($sp) # byte 3
+        sub $t2, $t2, $t1 
+        sll, $t2, $t2, 8 # shift left 1 byte
+        lbu $t3, 1($sp) # byte 2
+        sub $t3, $t3, $t1
+        add $t2, $t2, $t3
+        sll, $t2, $t2, 8 # shift left 1 byte
+        lbu $t3, 0($sp) # byte 1
+        sub $t3, $t3, $t1
+        add $t2, $t2, $t3
+        sll, $t2, $t2, 8 # shift left 1 byte
+        sub $t0, $t0, $t1 # integer value (byte 0)
+        add $t2, $t2, $t0 
+        
+        sw $t2, 0($s3) # store in moves array
+        addi $s3, $s3, 4 # increment
+        addi $s4, $s4, 1 # counter for v1:increment
+
+        j load_game_load_moves
+
+    load_game_load_board:
+        move $a0, $s0 # file_desc
+        move $a1, $sp # buffer
+        li $a2, 1 # read 1 character
+        li $v0, 14 # syscall for read
+        syscall
+
+        beqz $v0, load_game_done # end of file shouldn't occur
+        bltz $v0, load_game_close_file_error # error while reading shouldn't occur but just checking
+
+        lbu $t0, 0($sp) # char read
+        li $t1, '\r'
+        beq $t0, $t1, load_game_load_board # if char == '\r' ignored
+        li $t1, '\n'
+        beq $t0, $t1, load_game_load_board_reset # if char == '\n' -> done loading deck
+
+        # check next char
+        move $a0, $s0 # file_desc
+        move $a1, $sp # buffer
+        li $a2, 1 # read 1 character
+        li $v0, 14 # syscall for read
+        syscall
+
+        add $a0, $a0, $s1 # column address
+        lw $a0, 0($a0) # cardList address
+        addi $s5, $s5, 4 # increment to next column
+
+        li $t2, ' '
+        beq $t0, $t2, load_game_load_moves # if char == ' ' -> check next (if t0 is ' ' then t1 is also ' ')
+
+        lbu $t1, 0($sp) # char read
+        sll $a1, $t1, 16 # to byte #2 location
+        add $a1, $t0, $a1 # combine byte#2 and 0
+        addi $a1, $a1, 0x5300 # byte #1 is always spade = 0x53
+        jal append_card # append_card(deck, num)
+
+        j load_game_load_board
+
+
+        load_game_load_board_reset:
+            li $s5, 0
+            j load_game_load_board
+
+    load_game_done:
+        li $t8, 1
+        move $t9, $s4
+        j load_game_close_file
+
+    load_game_close_file_error:
+        li $t8, -1
+        li $t9, -1
+
+    load_game_close_file:
+        move $a0, $s0 # file_desc
+		li $v0, 16 # syscall for close file
+        syscall
+
+        # deallocate 4 bytes on the stack for reading file
+        addi $sp, $sp, 4
+
+        # correct the v0 and v1
+        move $v0, $t8
+        move $v1, $t9
+
+    load_game_clean_up:
+        # postamble s0-5, ra (7 registers)
+        lw $s0, 0($sp)
+        lw $s1, 4($sp)
+        lw $s2, 8($sp)
+        lw $s3, 12($sp)
+        lw $s4, 16($sp)
+        lw $s5, 20($sp)
+        lw $ra, 24($sp)
+        addi $sp, $sp, 28
+
     jr $ra
 
 simulate_game:
