@@ -529,6 +529,13 @@ move_card: # int move_card(CardList* board[], CardList* deck, int moves)
         move_card_new_tail_found:
             lw $t9, 4($t0) # the node to move to recipent
             sw $0, 4($t0) # zero out the donor
+            lbu $t1, 2($t0) # flip facedown card up
+            li $t2, 'd' # facedown
+            bne $t1, $t2, move_card_not_facedown
+            addi $t1, $t1, 0x11
+            sb $t1, 2($t0)
+
+            move_card_not_facedown:
 
             srl $t0, $s2, 16
             andi $t0, $t0, 0xFF # mask byte #2
