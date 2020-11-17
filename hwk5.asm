@@ -745,12 +745,12 @@ load_game: # int, int load_game(string filename, CardList* board[], CardList* de
         li $v0, 14 # syscall for read
         syscall
 
-        add $a0, $a0, $s1 # column address
+        add $a0, $s1, $s5 # column address
         lw $a0, 0($a0) # cardList address
         addi $s5, $s5, 4 # increment to next column
 
         li $t2, ' '
-        beq $t0, $t2, load_game_load_moves # if char == ' ' -> check next (if t0 is ' ' then t1 is also ' ')
+        beq $t0, $t2, load_game_load_board # if char == ' ' -> check next (if t0 is ' ' then t1 is also ' ')
 
         lbu $t1, 0($sp) # char read
         sll $a1, $t1, 16 # to byte #2 location
