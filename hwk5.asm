@@ -449,6 +449,8 @@ deal_move: # void deal_move(CardList* board[], CardList* deck)
     deal_move_loop:
         lw $a0, 0($s0)
         lw $a1, 0($s2) # value
+        li $t0, 0x00110000
+        add $a1, $a1, $t0 # flip card
         jal append_card # append_card(CardList*, number)
 
         addi $s0, $s0, 4 # increment
