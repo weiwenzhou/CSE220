@@ -471,7 +471,102 @@ deal_move: # void deal_move(CardList* board[], CardList* deck)
     addi $sp, $sp, 20
     jr $ra
 
-move_card:
+move_card: # int move_card(CardList* board[], CardList* deck, int moves)
+    # preamble s0-3, ra (5 registers) 
+    addi $sp, $sp, -20
+    sw $s0, 0($sp)
+    sw $s1, 4($sp)
+    sw $s2, 8($sp)
+    sw $s3, 12($sp)
+    sw $ra, 16($sp)
+
+    move $s0, $a0
+    move $s1, $a1
+    move $s2, $a2
+
+    jal check_move # check_move(board[], deck, move) if v0 < 0 exit and return v0 -> -1
+    move $t0, $v0
+    li $v0, -1
+    bltz $t0, move_card_clean_up
+    # valid move
+    addi $t0, $t0, -1 # decrement by 1 for valid moves: 0 = deal move, 1: empty recipent, 2:non-empty recipent 
+    bnez $t0, move_card_not_deal_move
+
+    move $a0, $s0
+    move $a1, $s1
+    jal deal_move # deal_move 
+
+    li $s3, 9 # 9 columns to call clear full straight on
+    move_card_deal_move_clear:
+        addi $s3, $s3, -1
+        move $a0, $s0
+        move $a1, $s3
+        jal clear_full_straight
+        bnez $s3,  move_card_deal_move_clear
+    li $v0, 1
+    j move_card_clean_up
+
+    move_card_not_deal_move: 
+        andi $t0, $s2, 0xFF # byte 0
+        li $t4, 4
+        mul $t0, $t0, $t4 # donor column offset
+        add $t0, $t0, $s0 # donor column address
+        lw $t0, 0($t0) # donor cardList address
+        lw $t1, 0($t0) # donor column size
+        srl $t2, $s2, 8 # byte 1
+        andi $t2, $t2, 0xFF # donor row
+        sub $t8, $t1, $t2 # number of cards to move 
+        sub $t2, $t1, $t8 # new length
+        
+        sw $t2, 0($t0) # store new length
+
+        move_card_new_tail:
+            beqz $t2, move_card_new_tail_found
+            lw $t0, 4($t0) # next node
+            addi $t2, $t2, -1 # decrement
+            bnez $t2, move_card_new_tail
+
+        move_card_new_tail_found:
+            lw $t9, 4($t0) # the node to move to recipent
+            sw $0, 4($t0) # zero out the donor
+
+            srl $t0, $s2, 16
+            andi $t0, $t0, 0xFF # mask byte #2
+            li $t4, 4
+            mul $t0, $t0, $t4 # recipent column offset
+            add $t0, $t0, $s0 # recipent column address
+            lw $t0, 0($t0) # recipent cardList address
+            lw $t1, 0($t0) # donor column size
+            add $t2, $t1, $t8 # new donor size
+            sw $t2, 0($t0) 
+
+            # find 
+            move_card_new_tail_donor:
+                beqz $t1, move_card_new_tail_donor_found
+                lw $t0, 4($t0) # next node
+                addi $t1, $t1, -1 # decrement
+                bnez $t1, move_card_new_tail_donor
+
+            move_card_new_tail_donor_found:
+                sw $t9, 4($t0)
+
+        # move_card_not_deal_move_clear:
+        move $a0, $s0
+        srl $a1, $s2, 16 
+        andi $a1, $a1, 0xFF # mask byte#2
+        jal clear_full_straight
+
+    li $v0, 1 # success
+
+
+    move_card_clean_up:
+        # postamble s0-3, ra (5 registers)
+        lw $s0, 0($sp)
+        lw $s1, 4($sp)
+        lw $s2, 8($sp)
+        lw $s3, 12($sp)
+        lw $ra, 16($sp)
+        addi $sp, $sp, 20
     jr $ra
 
 load_game:
