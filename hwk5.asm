@@ -422,6 +422,13 @@ clear_full_straight: # int clear_full_straight(CardList* board[], int col_num)
 
     clear_full_found_tail:
         sw $0, 4($t1) # zero out the next node reference
+        lbu $t2, 2($t1) # flip facedown card up
+        li $t3, 'd' # facedown
+        seq $t4, $t2, $t3 # t4 = 1 if t2 = 'd' else 0 
+        li $t3, 0x11
+        mul $t4, $t4, $t3 # t4 = 0x11 if t2 == 'd' else 0
+        add $t2, $t2, $t4
+        sb $t2, 2($t1)
 
     clear_full_straight_clean_up:
         # postamble s0-1, ra (3 registers)
@@ -846,7 +853,7 @@ simulate_game: # int, int simulate_game(string filename, CardList* board[], Card
         bnez $t0, simulate_game_check_empty_board
 
     li $v1, 1 # all 0s -> win (1)
-    
+
     simulate_game_clean_up:
         # postamble s0-4, ra (6 registers)
         lw $s0, 0($sp)
