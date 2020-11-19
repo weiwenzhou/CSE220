@@ -78,7 +78,7 @@ append_card
 .word 0  # address of list's head (null)
 .end_type
 6570802
-|6570802|
+SIZE 1 |6570802|
 1
 1
 
@@ -102,7 +102,7 @@ node253109:
 .word node411020
 .end_type
 6570802
-|6574898 7685168 6572086 7684917 7689011 6570802|
+SIZE 6 |6574898 7685168 6572086 7684917 7689011 6570802|
 6
 6
 
@@ -115,7 +115,7 @@ node253109:
 .start_check
 
 create_deck
-|0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd|
+SIZE 80 |0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd|
 
 .end_check
 
