@@ -278,6 +278,62 @@ SIZE 9 |9Sd 8Sd 7Sd 6Sd 5Sd 4Sd 3Sd 2Sd 1Sd|
 1
 33
 
+.end_check
+
+-> # Fake file
+load_game
+"junk.txt"
+.word card_list601262 card_list492090 card_list806140 card_list547011 card_list216912 card_list669785 card_list848653 card_list417583 card_list677543 
+# column #3
+.align 2
+card_list547011:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #7
+.align 2
+card_list417583:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #1
+.align 2
+card_list492090:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #5
+.align 2
+card_list669785:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #8
+.align 2
+card_list677543:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #4
+.align 2
+card_list216912:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #0
+.align 2
+card_list601262:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #6
+.align 2
+card_list848653:
+.word 0  # list's size
+.word 0 # address of list's head
+# column #2
+.align 2
+card_list806140:
+.word 0  # list's size
+.word 0 # address of list's head
 
 
 
+.align 2
+.end_type
+.word 0 0
+.end_type
+"zxggtxmxcoaxhzrmdtfrehalyllybsxlrsxrsxhvbiqrlfpbxsmiddfjwhiyskzlrbusmhuhjfhunbdqtzpdfgsoxjbnvnjfnyimijuvyrtduzicueoywytqndqbzozynvzp"
