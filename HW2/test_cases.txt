@@ -1,0 +1,227 @@
+*Note use asciiz or add a null termintor for these
+** Doesn't include printing instructions
+
+Part 1:
+"College of Engineering and Applied Sciences\0"
+-> 43 (224)**
+
+"Wolfie Seawolf!!! 2020??"* 
+-> 24 (129)**
+
+"MIPS"*
+-> 4 (29)**
+
+""*
+-> 0 (9)**
+
+Part 2: 
+Note to self (instruction increase by 1 for some) haha memory leaks :( 
+"CSE 220 COVID-19 Edition\0", 'V', 3
+-> 10 (186)**
+
+"CSE 220 COVID-19 Edition\0", 'V', 13
+-> -1 (215)**
+
+"CSE 220 COVID-19 Edition\0", 'n', 5
+-> 23 (247)**
+
+"CSE 220 COVID-19 Edition\0", 'n', -5
+-> -1 (21)**
+
+"\0", 'z', 0
+-> -1 (40)**
+
+Bonus:
+"CSE 220\0", 'E', 10
+-> -1 (67)**
+
+Part 3:
+"Stony Brook University"*
+-> 3  (173)
+
+"UNIVERSITY"*
+-> 10 (121)
+
+"2020-2021"*
+-> 0  (56)
+
+""*
+-> 0  (11)
+
+Part 4:
+Note to self I should make this better than n^2 lol
+
+keyphrase = "Stony Brook University"*
+------> "StonyBrkUivesabcdfghjlmpquwxzACDEFGHIJKLMNOPQRTVWXYZ0123456789"
+(45529) "StonyBrkUivesabcdfghjlmpquwxzACDEFGHIJKLMNOPQRTVWXYZ0123456789"
+(37848) "StonyBrkUivesabcdfghjlmpquwxzACDEFGHIJKLMNOPQRTVWXYZ0123456789"
+(25437) "StonyBrkUivesabcdfghjlmpquwxzACDEFGHIJKLMNOPQRTVWXYZ0123456789"
+(24171)	"StonyBrkUivesabcdfghjlmpquwxzACDEFGHIJKLMNOPQRTVWXYZ0123456789"
+(6004)	"StonyBrkUivesabcdfghjlmpquwxzACDEFGHIJKLMNOPQRTVWXYZ0123456789"
+(1427)	"StonyBrkUivesabcdfghjlmpquwxzACDEFGHIJKLMNOPQRTVWXYZ0123456789"
+275+5+5253+463+8
+keyphrase = "Monday, September 21st, 2020 4:39 PM EDT"*
+------> "MondaySeptmbr21s0439PEDTcfghijklquvwxzABCFGHIJKLNOQRUVWXYZ5678"
+(50999) "MondaySeptmbr21s0439PEDTcfghijklquvwxzABCFGHIJKLNOQRUVWXYZ5678"
+(39306) "MondaySeptmbr21s0439PEDTcfghijklquvwxzABCFGHIJKLNOQRUVWXYZ5678"
+(30512) "MondaySeptmbr21s0439PEDTcfghijklquvwxzABCFGHIJKLNOQRUVWXYZ5678"
+(27575)	"MondaySeptmbr21s0439PEDTcfghijklquvwxzABCFGHIJKLNOQRUVWXYZ5678"
+(11389)	"MondaySeptmbr21s0439PEDTcfghijklquvwxzABCFGHIJKLNOQRUVWXYZ5678"
+(1659)	"MondaySeptmbr21s0439PEDTcfghijklquvwxzABCFGHIJKLNOQRUVWXYZ5678"
+
+keyphrase = "suPeRcalIfrAgiListICexPiaLIdoCIOus"*
+------> "suPeRcalIfrAgiLtCxdoObhjkmnpqvwyzBDEFGHJKMNQSTUVWXYZ0123456789"
+(52227) "suPeRcalIfrAgiLtCxdoObhjkmnpqvwyzBDEFGHJKMNQSTUVWXYZ0123456789"
+(39671) "suPeRcalIfrAgiLtCxdoObhjkmnpqvwyzBDEFGHJKMNQSTUVWXYZ0123456789"
+(29287) "suPeRcalIfrAgiLtCxdoObhjkmnpqvwyzBDEFGHJKMNQSTUVWXYZ0123456789"
+(26275)	"suPeRcalIfrAgiLtCxdoObhjkmnpqvwyzBDEFGHJKMNQSTUVWXYZ0123456789"
+(8416)	"suPeRcalIfrAgiLtCxdoObhjkmnpqvwyzBDEFGHJKMNQSTUVWXYZ0123456789"
+(1757)	"suPeRcalIfrAgiLtCxdoObhjkmnpqvwyzBDEFGHJKMNQSTUVWXYZ0123456789"
+
+Part 5:
+
+message = "The specialization in artificial intelligence and data science emphasizes modern approaches for building intelligent systems using machine learning.\0"
+-----> 129 counts: 12 1 7 4 16 2 5 4 18 0 0 8 4 14 4 4 0 5 9 7 2 0 0 1 2
+(2661) 129 counts: 12 1 7 4 16 2 5 4 18 0 0 8 4 14 4 4 0 5 9 7 2 0 0 1 2
+
+message = "We can only see a short distance ahead, but we can see plenty there that needs to be done. -Alan Turing\0"
+-----> 77 counts: 8 2 3 4 15 0 1 4 2 0 0 3 0 9 4 1 0 3 5 8 2 0 1 0 2 0
+(1715) 77 counts: 8 2 3 4 15 0 1 4 2 0 0 3 0 9 4 1 0 3 5 8 2 0 1 0 2 0 
+
+Part 6:
+
+counts: 28 13 24 2 28 19 12 2 0 10 23 14 3 28 1 2 21 4 4 25 29 0 9 29 13 18
+	a  b  c  d e   f g  h i j  k  l  m n  o p q  r s t  u  v w x  y  z
+-> sorted_alphabet: "uxaentckqfzlbygjwrsmdhpoiv"
+(7223) 		    "uxaentckqfzlbygjwrsmdhpoiv"
+
+counts: 21 17 20 25 21 19 28 26 15 16 21 13 11 16 1 27 24 20 5 23 26 2 29 15 21 8
+	a  b  c  d  e  f  g  h  i  j  k  l  m  n  o p  q  r  s t  u  v w  x  y  z
+-> sorted_alphabet: "wgphudqtaekycrfbjnixlmzsvo"
+(7071)              "wgphudqtaekycrfbjnixlmzsvo"
+
+counts: 23 26 29 1 20 9 15 30 24 20 23 7 17 15 5 4 17 14 12 24 14 1 0 4 14 6
+	a  b  c  d e  f g  h  i  j  k  l m  n  o p q  r  s  t  u  v w x y  z
+-> sorted_alphabet: "hcbitakejmqgnruysflzopxdvw"
+(4940)		    "hcbitakejmqgnruysflzopxdvw"
+
+Part 7:
+
+sorted_alphabet = "egljhotupvfsxawqkrmzdyncib"*
+-----> "abcdeeeeeeeeefgggggggghhhhhijjjjjjklllllllmnoooopqrstttuuvwxyz"
+(6185) "abcdeeeeeeeeefgggggggghhhhhijjjjjjklllllllmnoooopqrstttuuvwxyz"
+
+sorted_alphabet = "eznovrqbdatjghlwmskyipcxfu"*
+-----> "abbcdeeeeeeeeefghijklmnnnnnnnoooooopqqqrrrrstuvvvvvwxyzzzzzzzz"
+(6185) "abbcdeeeeeeeeefghijklmnnnnnnnoooooopqqqrrrrstuvvvvvwxyzzzzzzzz"
+
+sorted_alphabet = "jmhoxqzgityudwsecvfalnkrbp"*
+-----> "abcdefgghhhhhhhijjjjjjjjjklmmmmmmmmnoooooopqqqqrstuvwxxxxxyzzz"
+(6185) "abcdefgghhhhhhhijjjjjjjjjklmmmmmmmmnoooooopqqqqrstuvwxxxxxyzzz"
+
+Part 8: 
+
+plaintext_letter: .byte 'u'
+letter_index: .word 3
+plaintext_alphabet: .ascii "abbbbbbbbcdefffffffgggghiiijkklmnopqrstuuuuuvvvvvvwxxxxxxxxxyz\0"
+ciphertext_alphabet: .ascii "StonyBrkUivesNwYadfAmcbghjlpquxzCDEFGHIJKLMOPQRTVWXZ0123456789\0"
+-> 77 ('M')
+-> 77 ('M') 602
+
+plaintext_letter: .byte 'p'
+letter_index: .word 46
+plaintext_alphabet: .ascii  "abcdeeefghijkkkkkkkllllllmmnoppppppppqrstuvvvvvwxyyyyzzzzzzzzz\0"
+ciphertext_alphabet: .ascii "StonyBrkUivesNwYadfAmcbghjlpquxzCDEFGHIJKLMOPQRTVWXZ0123456789\0"
+-> 70 ('F')
+-> 70 ('F') 567
+
+plaintext_letter: .byte 'x'
+letter_index: .word 37
+plaintext_alphabet: .ascii  "abcccccdeeeeeeeeeffffffffgghijkkklmnoppppqrstuvwxxxxxxyzzzzzzz\0"
+ciphertext_alphabet: .ascii "StonyBrkUivesNwYadfAmcbghjlpquxzCDEFGHIJKLMOPQRTVWXZ0123456789\0"
+-> 87 ('W')
+-> 87 ('W') 652
+
+plaintext_letter: .byte 'n'
+letter_index: .word 15
+plaintext_alphabet: .ascii  "abccccccccdddddefghiiiiiijjjjjjjjjklmmnopqrstuvwwwwwwwxyyyyzzz\0"
+ciphertext_alphabet: .ascii "StonyBrkUivesNwYadfAmcbghjlpquxzCDEFGHIJKLMOPQRTVWXZ0123456789\0"
+-> 73 ('I')
+-> 73 ('I') 577
+
+Bonus:
+plaintext_letter: .byte 'n'
+letter_index: .word 0
+plaintext_alphabet: .ascii  "aaaaabcdeeeeeeeeefghhhhhhiijklmnnnnooooooopqrsssttttttttuvwxyz\0"
+ciphertext_alphabet: .ascii "Ilhaveyouknwtsbdmcrif20gjpqxzABCDEFGHJKLMNOPQRSTUVWXYZ13456789\0"
+-> 68 ('D')
+
+
+Part 9: 
+
+ciphertext: .ascii "drfXArg153cyIJvv2dkivJvSpka5BXf4MyeauUCg5cfQjiY6bs6BKEqE1cXtvHZEn0MO"
+plaintext: .ascii "never trust a computer you can't throw out a window. -steve wozniak\0"
+keyphrase: .ascii "I'll have you know that I stubbed my toe last week and only cried for 20 minutes.\0"
+corpus: .ascii "When in the Course of human events, it becomes necessary for one people to dissolve the political bands which have connected them with another, and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.\0"
+
+------> Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA
+(88996) Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA
+(88187)	Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA
+(81567)	Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA
+(78928)	Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA
+(56157)	Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA
+	never trust a computer you can't throw out a window. -steve wozniak
+------> v0 = 53, v1 = 14 
+(56157)	v0 = 53, v1 = 14 (88996) (88187)(81567)	(78928)
+
+-> Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA
+   Dn5tQ 3Q4SX a yJBO4YwQ 8L4 yvE'U WjQJ6 M4W v 6qCoH6. -SUw5s 6N9Cqlz (90617)
+   never trust a computer you can't throw out a window. -steve wozniak
+    e e  t  st a  om  tn   o   a  t th o  o t a   n o    ste e  o n ak
+
+plaintext = "The trouble with having an open mind, of course, is that people will insist on coming along and trying to put things in it. -Terry Pratchett"
+keyphrase = "What's the difference between ignorance and apathy? I don't know and I don't care."
+corpus = "Call me Ishmael. Some years ago - never mind how long precisely - having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation."
+------>	"Xjc 1UN4dDn 6xXj jW5vJk WJ ORcK GmKf, PI iO4TVn, mV 0jW3 RwQREy 6mDE xKVlV1 NJ iMGqLk aDPJk aJf 2U8uHk 2Q R40 2jlJkV xK lZ. -3rUT8 RThYijc23"
+(109992)"Xjc 1UN4dDn 6xXj jW5vJk WJ ORcK GmKf, PI iO4TVn, mV 0jW3 RwQREy 6mDE xKVlV1 NJ iMGqLk aDPJk aJf 2U8uHk 2Q R40 2jlJkV xK lZ. -3rUT8 RThYijc23
+(86372)	"Xjc 1UN4dDn 6xXj jW5vJk WJ ORcK GmKf, PI iO4TVn, mV 0jW3 RwQREy 6mDE xKVlV1 NJ iMGqLk aDPJk aJf 2U8uHk 2Q R40 2jlJkV xK lZ. -3rUT8 RThYijc23"
+-> v0 = 111, v1 = 29
+
+plaintext = "If debugging is the process of removing software bugs, then programming must be the process of putting them in. -Edsger Dijkstra"
+keyphrase = "What is the sum of 12 and 37? The answer, CLEARLY, is 49!"
+corpus = "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way - in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only."
+------>	"L7 e1iXTTAkT 9K MCu zFxsnGH x7 F2jxZEkT Gy7P0hDo iXTI, VCfk zFqTDhjj4kT jXKP in Mwm zFqsdKG q7 zXNOEkT VCnj Rk. -2eGTuD eAbcKSDt"
+(101889)"L7 e1iXTTAkT 9K MCu zFxsnGH x7 F2jxZEkT Gy7P0hDo iXTI, VCfk zFqTDhjj4kT jXKP in Mwm zFqsdKG q7 zXNOEkT VCnj Rk. -2eGTuD eAbcKSDt"
+(86848)	"L7 e1iXTTAkT 9K MCu zFxsnGH x7 F2jxZEkT Gy7P0hDo iXTI, VCfk zFqTDhjj4kT jXKP in Mwm zFqsdKG q7 zXNOEkT VCnj Rk. -2eGTuD eAbcKSDt"
+-> v0 = 105, v1 = 23
+
+Part 10:
+
+ciphertext: .ascii "Dk5wQ 1Q4RW h yLCO4XnQ 8H4 yaE'3 VpQH6 L4V a 6qGoJ6. -R3n5t 6J9GqIA\0"
+keyphrase: .ascii "I'll have you know that I stubbed my toe last week and only cried for 20 minutes.\0"
+corpus: .ascii "When in the Course of human events, it becomes necessary for one people to dissolve the political bands which have connected them with another, and to assume among the powers of the earth, the separate and equal station to which the Laws of Nature and of Nature's God entitle them, a decent respect to the opinions of mankind requires that they should declare the causes which impel them to the separation.\0"
+-----> "never trust a computer you can't throw out a window. -steve wozniak"
+(95379) never trust a computer you can't throw out a window. -steve wozniak
+(94571) never trust a computer you can't throw out a window. -steve wozniak
+(87951)	never trust a computer you can't throw out a window. -steve wozniak
+(85312) never trust a computer you can't throw out a window. -steve wozniak
+(62534)	never trust a computer you can't throw out a window. -steve wozniak
+(62534)	v0= 53, v1 = 14  
+
+
+ciphertext = "Xjc 1UN4dDn 6xXj jW5vJk WJ ORcK GmKf, PI iO4TVn, mV 0jW3 RwQREy 6mDE xKVlV1 NJ iMGqLk aDPJk aJf 2U8uHk 2Q R40 2jlJkV xK lZ. -3rUT8 RThYijc23"
+keyphrase = "What's the difference between ignorance and apathy? I don't know and I don't care."
+corpus = "Call me Ishmael. Some years ago - never mind how long precisely - having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation."
+----->  "the trouble with having an open mind, of course, is that people will insist on coming along and trying to put things in it. -terry pratchett"
+(122355)"the trouble with having an open mind, of course, is that people will insist on coming along and trying to put things in it. -terry pratchett"
+(98728)	"the trouble with having an open mind, of course, is that people will insist on coming along and trying to put things in it. -terry pratchett"
+-----> v0 = 111, v1 = 29
+
+ciphertext = "L7 e1iXTTAkT 9K MCu zFxsnGH x7 F2jxZEkT Gy7P0hDo iXTI, VCfk zFqTDhjj4kT jXKP in Mwm zFqsdKG q7 zXNOEkT VCnj Rk. -2eGTuD eAbcKSDt"
+keyphrase = "What is the sum of 12 and 37? The answer, CLEARLY, is 49!"
+corpus = "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way - in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only."
+----->  "if debugging is the process of removing software bugs, then programming must be the process of putting them in. -edsger dijkstra"
+(110955)"if debugging is the process of removing software bugs, then programming must be the process of putting them in. -edsger dijkstra"
+(95914)	"if debugging is the process of removing software bugs, then programming must be the process of putting them in. -edsger dijkstra"
+-----> v0 = 105, v1 = 23
+96303
