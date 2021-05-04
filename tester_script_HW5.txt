@@ -1,0 +1,279 @@
+.test_file
+hwk5.asm
+
+.type
+string asciiz la 4
+int word lw 1
+int[] word la 1
+CardList la 1
+board la 4
+.end
+
+.def
+init_list CardList -> arg0:0:8:4:lw:1
+append_card CardList int -> rec:arg0:1 int arg0:0:4:4:lw:1
+create_deck -> rec:v0:11
+deal_starting_cards board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34
+get_card CardList int -> int int
+check_move board CardList int -> int
+clear_full_straight board int -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 int
+deal_move board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34
+move_card board CardList int -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34 int
+load_game string board CardList int[]-> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34 int int
+simulate_game string board CardList int[] -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34 int int
+.end
+
+.check_register
+$s0 800
+.check_register
+$s1 801
+.check_register
+$s2 802
+.check_register
+$s3 803
+.check_register
+$s4 804
+.check_register
+$s5 805
+.check_register
+$s6 806
+.check_register
+$s7 807
+.check_stack
+
+################################### PART 1 ###################################
+################################### PART 1 ###################################
+################################### PART 1 ###################################
+.start_check
+
+init_list
+.word 16832383 14472030  # garbage
+.end_type
+0 0
+
+.end_check
+
+
+
+################################### PART 2 ###################################
+################################### PART 2 ###################################
+################################### PART 2 ###################################
+
+.start_check
+
+append_card
+.word 0  # list's size
+.word 0  # address of list's head (null)
+.end_type
+6570802
+SIZE 1 |6570802|
+1
+1
+
+append_card
+.word 5  # list's size
+.word node537691 # address of list's head
+node299116:
+.word 7689011
+.word 0
+node411020:
+.word 6572086
+.word node171407
+node537691:
+.word 6574898
+.word node253109
+node171407:
+.word 7684917
+.word node299116
+node253109:
+.word 7685168
+.word node411020
+.end_type
+6570802
+SIZE 6 |6574898 7685168 6572086 7684917 7689011 6570802|
+6
+6
+
+.end_check
+
+
+################################### PART 3 ###################################
+################################### PART 3 ###################################
+################################### PART 3 ###################################
+.start_check
+
+create_deck
+SIZE 80 |0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd 0Sd 1Sd 2Sd 3Sd 4Sd 5Sd 6Sd 7Sd 8Sd 9Sd|
+
+.end_check
+
+
+################################### PART 5 ###################################
+################################### PART 5 ###################################
+################################### PART 5 ###################################
+
+.start_check
+
+-> 1: Attempt to get a card from an empty list
+get_card
+.word 0  # list's size
+.word 0  # address of list's head (null)
+.end_type
+0
+-1
+-1
+
+
+-> 2: Illegal index
+get_card
+.word 5  # list's size
+.word node924757 # address of list's head
+node66998:
+.word 7689011
+.word 0
+node961940:
+.word 6572086
+.word node481511
+node481511:
+.word 7684917
+.word node66998
+node924757:
+.word 6574898
+.word node495556
+node495556:
+.word 7685168
+.word node961940
+.end_type
+5
+-1
+-1
+
+
+-> 3: Get a card at index 0
+get_card
+.word 5  # list's size
+.word node384567 # address of list's head
+node68483:
+.word 7685168
+.word node25
+node352830:
+.word 7689011
+.word 0
+node25:
+.word 6572086
+.word node661935
+node661935:
+.word 7684917
+.word node352830
+node384567:
+.word 6574898
+.word node68483
+.end_type
+0
+1
+6574898
+
+
+-> 4: Get a card in the middle of a list
+get_card
+.word 8  # list's size
+.word node434155 # address of list's head
+node880296:
+.word 7689011
+.word node831465
+node831465:
+.word 6574898
+.word node970496
+node434155:
+.word 6574898
+.word node519944
+node365336:
+.word 7684917
+.word node880296
+node378857:
+.word 6572083
+.word 0
+node970496:
+.word 7684912
+.word node378857
+node519944:
+.word 7685168
+.word node329863
+node329863:
+.word 6572086
+.word node365336
+.end_type
+3
+2
+7684917
+
+-> 5: Get the last card in the list
+get_card
+.word 8  # list's size
+.word node85405 # address of list's head
+node930524:
+.word 6574898
+.word node968934
+node265857:
+.word 7689011
+.word node930524
+node45000:
+.word 6572086
+.word node38905
+node870030:
+.word 6572083
+.word 0
+node579585:
+.word 7685168
+.word node45000
+node85405:
+.word 6574898
+.word node579585
+node38905:
+.word 7684917
+.word node265857
+node968934:
+.word 7684912
+.word node870030
+.end_type
+7
+1
+6572083
+
+-> 6: Extra Testing : negative index
+get_card
+.word 5  # list's size
+.word node924757 # address of list's head
+node66998:
+.word 7689011
+.word 0
+node961940:
+.word 6572086
+.word node481511
+node481511:
+.word 7684917
+.word node66998
+node924757:
+.word 6574898
+.word node495556
+node495556:
+.word 7685168
+.word node961940
+.end_type
+-1
+-1
+-1
+
+.end_check

@@ -1,0 +1,347 @@
+.test_file
+hwk5.asm
+
+.type
+string asciiz la 4
+int word lw 1
+int[] ascii la 4
+CardList la 1
+board la 4
+.end
+
+.def
+init_list CardList -> arg0:0:8:4:lw:1
+append_card CardList int -> rec:arg0:11 int
+create_deck -> rec:v0:34 int
+deal_starting_cards board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:11 arg1:0:4:4:lw:1
+get_card CardList int -> rec:arg0:1 int int
+check_move board CardList int -> int
+clear_full_straight board int -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 int
+deal_move board CardList -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:34
+move_card board CardList int -> rec:arg0:34:0 rec:arg0:34:4 rec:arg0:34:8 \
+                    rec:arg0:34:12 rec:arg0:34:16 rec:arg0:34:20 \
+                    rec:arg0:34:24 rec:arg0:34:28 rec:arg0:34:32 rec:arg1:11 arg1:0:4:4:lw:1 int 
+load_game string board CardList int[]-> rec:arg1:34:0 rec:arg1:34:4 rec:arg1:34:8 \
+                    rec:arg1:34:12 rec:arg1:34:16 rec:arg1:34:20 \
+                    rec:arg1:34:24 rec:arg1:34:28 rec:arg1:34:32 rec:arg2:11 arg3:0:28:4:lw:34 int int
+simulate_game string board CardList int[] -> int int rec:arg1:11:0 rec:arg1:11:4 rec:arg1:11:8 \
+                    rec:arg1:11:12 rec:arg1:11:16 rec:arg1:11:20 \
+                    rec:arg1:11:24 rec:arg1:11:28 rec:arg1:11:32 rec:arg2:11
+.end
+
+.check_register
+$s0 800
+.check_register
+$s1 801
+.check_register
+$s2 802
+.check_register
+$s3 803
+.check_register
+$s4 804
+.check_register
+$s5 805
+.check_register
+$s6 806
+.check_register
+$s7 807
+.check_stack
+
+
+
+
+.start_check
+
+
+-> # Simulate game01.txt - results in a win
+simulate_game
+"game01.txt"
+.word card_list91422 card_list279502 card_list944976 card_list397541 card_list348335 card_list54423 card_list353598 card_list735776 card_list1752 
+# column #1
+.align 2
+card_list279502:
+.word 806310  # list's size
+.word 427024 # address of list's head
+# column #7
+.align 2
+card_list735776:
+.word 588212  # list's size
+.word 350011 # address of list's head
+# column #2
+.align 2
+card_list944976:
+.word 112932  # list's size
+.word 879235 # address of list's head
+# column #8
+.align 2
+card_list1752:
+.word 257073  # list's size
+.word 171733 # address of list's head
+# column #0
+.align 2
+card_list91422:
+.word 54908  # list's size
+.word 280680 # address of list's head
+# column #3
+.align 2
+card_list397541:
+.word 917322  # list's size
+.word 40008 # address of list's head
+# column #5
+.align 2
+card_list54423:
+.word 357353  # list's size
+.word 893478 # address of list's head
+# column #6
+.align 2
+card_list353598:
+.word 167419  # list's size
+.word 141619 # address of list's head
+# column #4
+.align 2
+card_list348335:
+.word 562249  # list's size
+.word 589634 # address of list's head
+
+
+.align 2
+.end_type
+.word 47261019 91944629
+.end_type
+"wTffB5aYIyeISOzbuq9EcWJvAwbOOk49AeT3RjxQpVf04OdWHyItj6PX6sX1yxiIvHhOkZLyBdViDQbwC3VVUTQCtBYXbkHu3HGJivGgIUxo5Kvfr7Gpn4uqzc8Gf9mGmW55bmrKofMufvJIi74Z7IiY5EFUzXbqT11K3Fvz6o1G7iNOa5YYMMFvSLhSdx3Dx9Q2AuwnXCvZWm0lyZd1AyGq17l2Jyxe6sh6qG0Mud8ydLytgDKW9TupPCr1CKKwp8SDGK57rv9dlhbBQFUiEIcEIju3x58oM3cDG564MX8sTL5auUyoS4e3qskAwBcMaFRkmcrHkWV7H1mtF34DosHfgCNIJrZmH87eO8zAZYChdKBWPBHwjFim7npcp6nez7baAPuJbc78pU442BSs7lthsQP0unGbVxYjDoAoGQ6BzJmye5F3csiEUU6gihD73wJNbCHwsxny7dgG14WgLQuVfXQn9ylAi4Ei23akYYfvcgjoDB7mQzddjhDSfiQcwC9Z0n0ppYBvQjfRasuQzwYo0ddJeh7pspiJYaY4M5XP342Iq6AJx"
+20
+1
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+
+
+
+
+-> #2 Simulate game02.txt - results in a win
+simulate_game
+"game02.txt"
+.word card_list601262 card_list492090 card_list806140 card_list547011 card_list216912 card_list669785 card_list848653 card_list417583 card_list677543 
+# column #3
+.align 2
+card_list547011:
+.word 319918  # list's size
+.word 360147 # address of list's head
+# column #7
+.align 2
+card_list417583:
+.word 330578  # list's size
+.word 13158 # address of list's head
+# column #1
+.align 2
+card_list492090:
+.word 500091  # list's size
+.word 278210 # address of list's head
+# column #5
+.align 2
+card_list669785:
+.word 861167  # list's size
+.word 638481 # address of list's head
+# column #8
+.align 2
+card_list677543:
+.word 936317  # list's size
+.word 806648 # address of list's head
+# column #4
+.align 2
+card_list216912:
+.word 840431  # list's size
+.word 506422 # address of list's head
+# column #0
+.align 2
+card_list601262:
+.word 955411  # list's size
+.word 451557 # address of list's head
+# column #6
+.align 2
+card_list848653:
+.word 552679  # list's size
+.word 592251 # address of list's head
+# column #2
+.align 2
+card_list806140:
+.word 878537  # list's size
+.word 38529 # address of list's head
+
+
+
+.align 2
+.end_type
+.word 49752558 84042193
+.end_type
+"GWaPsfyUlNuC3gUM9VImzORemnUwBXEsP4JIkybqUbW65ORkXmxlgiTMgrh56exd6qxiqAfNqHYJ3hQIh6vsZZO3WQtC9paf1hNg7XC1y0745w8Rl05iyaAnp6aZAiZ2flIrAkX4y0te3bhYKzrKdORITm4ttMJYQvbQjts49mBnFcBe3ZZjkQdJo51eCL9mzKT03BTI8xe813nfCc8I7tSbnRcj2PHgTd1AZU4ENyvQlPQzBQRgfcnjQZPiYTQLtxGATqsA2lIH2Q7Jf27a4LMTjHWM8QMgD6PpOZ0JEbxsZWDxPVs1IWKLPYvmkcxdLgFZxWAQl5gQNeoKyiGRTgW7F7HWo4OYHFvu8MO2AY55WPrvRElpgUT1dSHTXjx7cijZPkRRzVZlXJ4pG8PlXFGQaEjrwRGOCoeBV24EzudOB3ASfuCDahcTwxuXpSJSR6JEUX0LSvQocliPCm0R1EBO1aw8P7ir97wItRewnYdhJiHaMFGAzTFeZmlwovSAVFhzewG8ygmqfShxlmf3eB0PP6C7UB8C"
+107
+1
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+
+
+
+
+-> #3 Simulate game03.txt - results in a win (some invalid moves in the moves[] array)
+simulate_game
+"game03.txt"
+.word card_list390186 card_list780261 card_list921603 card_list794887 card_list563648 card_list958108 card_list960311 card_list876269 card_list132614 
+# column #7
+.align 2
+card_list876269:
+.word 305340  # list's size
+.word 813835 # address of list's head
+# column #0
+.align 2
+card_list390186:
+.word 712038  # list's size
+.word 150979 # address of list's head
+# column #2
+.align 2
+card_list921603:
+.word 82184  # list's size
+.word 864821 # address of list's head
+# column #1
+.align 2
+card_list780261:
+.word 701247  # list's size
+.word 246378 # address of list's head
+# column #8
+.align 2
+card_list132614:
+.word 408168  # list's size
+.word 386388 # address of list's head
+# column #6
+.align 2
+card_list960311:
+.word 687795  # list's size
+.word 809975 # address of list's head
+# column #5
+.align 2
+card_list958108:
+.word 321036  # list's size
+.word 153239 # address of list's head
+# column #4
+.align 2
+card_list563648:
+.word 543893  # list's size
+.word 406018 # address of list's head
+# column #3
+.align 2
+card_list794887:
+.word 658005  # list's size
+.word 59936 # address of list's head
+
+
+
+.align 2
+.end_type
+.word 19298388 25838983
+.end_type
+"HkoF5VhgtOlSbFUXO7QzoJOZoYNB6T3eYrqJtrp9jNnmaQT5fAGtFelDuGeBItgWCObjqviCZVUD2thSFEwx2how97SqrKHfgaPTwx1CCyjlplPRvnUCWj0XRJpVZBxykqKx14XzISBRPaT6oEoRMoj9MwCZTNuTaPDvDQdpbqiZrlFlQXP6kpHilPrYzJEdyKAqYSQuYieoVXCPt5f6xk9Ar8XDIVENcdpjDXBogHFc62N1N6Yx2i8mobS9eeGIGEIOFsO7muZzZOPmHNn0mcQRH4mO3tr3EsiI0zuipje8xOo9xgNC2dTWbxNW2KcPNz9UXVvPgkOm0X930tPApCLOtmLvs7ELSXRq6OFxGLxkDFHePijOBVdQxzRFPnnvbnPok3NiqpBi6LGyyVm6aeVOL9TM5o96Qkpd3FvvnRzzJ96eItPXy8Sl1KBluowIULLRclWBOvXDYThbFbN7SdzekT8givPm4qpmWpCbceGnEvJiSkV9FVELQNphBgDeQVw23Q4e"
+20
+1
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+SIZE 0 ||
+
+
+
+-> # Simulate game04.txt - results in a loss
+simulate_game
+"game04.txt"
+.word card_list541949 card_list144045 card_list109868 card_list386926 card_list597883 card_list284952 card_list255055 card_list337702 card_list45115 
+# column #7
+.align 2
+card_list337702:
+.word 213147  # list's size
+.word 929558 # address of list's head
+# column #2
+.align 2
+card_list109868:
+.word 360261  # list's size
+.word 524417 # address of list's head
+# column #0
+.align 2
+card_list541949:
+.word 340637  # list's size
+.word 913724 # address of list's head
+# column #5
+.align 2
+card_list284952:
+.word 356601  # list's size
+.word 97368 # address of list's head
+# column #1
+.align 2
+card_list144045:
+.word 539723  # list's size
+.word 583615 # address of list's head
+# column #4
+.align 2
+card_list597883:
+.word 235830  # list's size
+.word 936833 # address of list's head
+# column #6
+.align 2
+card_list255055:
+.word 974983  # list's size
+.word 530896 # address of list's head
+# column #3
+.align 2
+card_list386926:
+.word 571954  # list's size
+.word 761609 # address of list's head
+# column #8
+.align 2
+card_list45115:
+.word 277400  # list's size
+.word 417512 # address of list's head
+
+
+
+.align 2
+.end_type
+.word 19159058 60556872
+.end_type
+"f3rXNtgppaRqx6x4hpG6taZeSVTrfXQSHPYHzpx2v6D3NnJBFceYXd1gg5EzmH1SHTVa6JUQn9wU5ji9S24KkN3LPSt2qe783Cb3fr2GeqAQUZQDvhiDQiYN6I7MNtIVJ5u4FOP37K8skmXoYPDuefE43pCzpSytuIW6IT8rQ4JLJUbUHgCRiiE4Bi9QDU9h34riZpfgN91L7sviu7RBsfp63KVd4HzxBX0Ocq32osDQInDenn3RkG3Rtiulsfzw0pA8U0CWkasGNa2ToCBk0sttX9XdU5p4Coa2cxs1j4B51VQ14KemWD1kb0Jjhjl9YJ2J6I1Had4fpD8EQ089X1HGwlSA3Fgb2SMqn5OyMOvVGKbIllm5sYlFbz2iuNFY5IDUs1jZhXoZLESu4e4nxQUbntF99QAcW2WT05M0W89EDon2yhKJMywgPmmcoHX1P2ZXH7VmlqAsWQVRlLgatJqBQfauQzA04PK2wKt9DX9Fyj9VXl8f6BRfxn5UdS21a6AlMP77g"
+100
+-2
+SIZE 3 |6Sd 8Sd 8Su|
+SIZE 5 |9Sd 1Sd 9Sd 5Su 4Su|
+SIZE 3 |2Sd 3Sd 0Su|
+SIZE 4 |0Sd 9Sd 0Sd 5Su|
+SIZE 4 |3Sd 2Sd 9Sd 4Su|
+SIZE 4 |1Sd 4Sd 0Sd 0Su|
+SIZE 4 |7Sd 1Sd 2Sd 7Su|
+SIZE 4 |1Sd 5Sd 3Sd 8Su|
+SIZE 3 |3Sd 6Sd 6Su|
+SIZE 36 |6Sd 0Sd 5Sd 4Sd 7Sd 4Sd 6Sd 2Sd 2Sd 4Sd 8Sd 2Sd 9Sd 7Sd 0Sd 9Sd 1Sd 2Sd 1Sd 5Sd 8Sd 4Sd 6Sd 7Sd 5Sd 6Sd 7Sd 8Sd 5Sd 9Sd 8Sd 3Sd 7Sd 3Sd 3Sd 1Sd|
