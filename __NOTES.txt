@@ -1,0 +1,68 @@
+Data structs defined:
+struct Book {
+   string isbn;     // 13-character, null-terminated string [14 bytes]
+   string title;    // 25-byte buffer to store the null-terminated title  
+   string author;   // 25-byte buffer to store the null-terminated author 
+   int times_sold;  // 4-byte integer the stores # of sales of this book
+}
+
+struct BookSale {
+   string isbn;      // 13-character, null-terminated string [14 bytes]
+   byte[2] padding;  // 2 bytes of zeros
+   int customer_id;  // 4-byte customer ID#
+   int sale_date;    // date of sale as # of days since 1/1/1600 [4 bytes]
+   int sale_price;   // 4 bytes
+}
+
+struct Hashtable {
+   int capacity;       // maximum # of elements in hashtable [4 bytes]
+   int size;           // # of elements in hashtable [4 bytes]
+   int element_size;   // size of one element in the hashtable [4 bytes]
+   object[] elements;  // objects stored in the hashtable
+                       // consumes (capacity*element_size) bytes
+}
+
+
+Part 1: int memcpy(byte[] dest, byte[] src, int n)
+- assume dest is at least n bytes in size
+----- assume src is at least n bytes in size?
+
+Part 2: int strcmp(string str1, string str2)
+
+Part 3: int initialize_hashtable(Hashtable* hashtable, int capacity, 
+                         int element_size)
+
+Part 4: int hash_book(Hashtable* books, string isbn)
+- hash function = sum of ASCII codes of the 13 characters 
+				mod books.capacity
+
+Part 5: int, int get_book(Hashtable* books, string isbn)
+- call hash_book, strcmp
+
+Part 6: int, int add_book(Hashtable* books, string isbn, string title, 
+                  string author)
+- call get_book, has_book, memcpy
+- if full return -1,-1
+
+Part 7: int delete_book(Hashtable* books, string isbn)
+- call get_book
+
+Part 8: int hash_booksale(Hashtable* sales, string isbn, int customer_id)
+- hash function = sum of ASCII codes of the 13 characters + customer_id mod sales.capacity
+
+Part 9: int is_leap_year(int year) 
+- leap year = after 1582 and is divisible by 4 
+	except centenary years not divisible by 400 (1700, 1800, 1900, 2100 <- not leap years)
+
+Part 10: int datestring_to_num_days(string start_date, string end_date)
+- call is_leap_year
+
+Part 11: int, int sell_book(Hashtable* sales, Hashtable* books, string isbn, 
+                   int customer_id, string sale_date, int sale_price)
+- call get_book, datestring_to_num_days, hash_booksale, memcpy, strcmp
+
+Part 12: int compute_scenario_revenue(BookSale[] sales_list, int num_sales, 
+                             int scenario)
+
+Part 13: int maximize_revenue(BookSale[] sales_list, int num_sales) 
+

@@ -1,0 +1,1057 @@
+.test_file
+hwk4.asm
+
+.type
+string asciiz la 4
+char byte lbu 11
+byte byte lb 1
+int word lw 1
+int[] word la 1
+byte[] asciiz la 4
+Hashtable word byte la 1
+HashBookTable align word la 1 
+HashSalesTable align word la 1 
+getBookTable la 4
+addBookTable la 4
+.end
+
+.def
+hash_book HashBookTable string -> int
+get_book getBookTable string -> int int
+add_book getBookTable string string string -> \
+                arg0:12:76:1:lb:11:|arg0:76:80:4:lw:1 \
+                arg0:80:144:1:lb:11:|arg0:144:148:4:lw:1 \
+                arg0:148:212:1:lb:11:|arg0:212:216:4:lw:1 \
+                arg0:216:280:1:lb:11:|arg0:280:284:4:lw:1 \
+                arg0:284:348:1:lb:11:|arg0:348:352:4:lw:1 \
+                arg0:352:416:1:lb:11:|arg0:416:420:4:lw:1 \
+                arg0:420:484:1:lb:11:|arg0:484:488:4:lw:1 \
+                arg0:488:552:1:lb:11:|arg0:552:556:4:lw:1 \
+                arg0:556:620:1:lb:11:|arg0:620:624:4:lw:1 int int
+delete_book getBookTable string -> \
+                arg0:12:76:1:lb:11:|arg0:76:80:4:lw:1 \
+                arg0:80:144:1:lb:11:|arg0:144:148:4:lw:1 \
+                arg0:148:212:1:lb:11:|arg0:212:216:4:lw:1 \
+                arg0:216:280:1:lb:11:|arg0:280:284:4:lw:1 \
+                arg0:284:348:1:lb:11:|arg0:348:352:4:lw:1 \
+                arg0:352:416:1:lb:11:|arg0:416:420:4:lw:1 \
+                arg0:420:484:1:lb:11:|arg0:484:488:4:lw:1 int 
+.end
+
+.check_register
+$s0 800
+.check_register
+$s1 801
+.check_register
+$s2 802
+.check_register
+$s3 803
+.check_register
+$s4 804
+.check_register
+$s5 805
+.check_register
+$s6 806
+.check_register
+$s7 807
+.check_stack
+
+
+.start_check
+
+############################ PART 5
+############################ PART 5
+############################ PART 5
+
+# Attempt to get a book from an empty hash table
+get_book
+.align 2
+.word 9 0 68
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9780553214830"
+-1
+1
+
+# Get a book that is present in the hash table at the expected index
+get_book
+.align 2
+.word 7 5 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780440060670"
+3
+1
+
+# Attempt to get a value that is not present in the hash table; expected location is empty
+get_book
+.align 2
+.word 7 5 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780007201780"
+-1
+1
+
+# Get a book that is not present in the hash table; expected location is deleted (hash table not full); probing required
+get_book
+.align 2
+.word 7 5 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780060182980"
+-1
+6
+
+# Get a book that is present in a full hash table but at a probed index
+get_book
+.align 2
+.word 7 7 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345419580\0"
+.ascii "Moreta: Dragonlady of Pe\0"
+.ascii "Anne McCaffrey\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780140168130\0"
+.ascii "Big Sur\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Jack Kerouac, Aram Saroy\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780064408330"
+4
+1
+
+# Get a book that is present in the hash table at a probed index; one or more available slots encountered during probing
+get_book
+.align 2
+.word 7 5 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345419580\0"
+.ascii "Moreta: Dragonlady of Pe\0"
+.ascii "Anne McCaffrey\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9780140168130\0"
+.ascii "Big Sur\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Jack Kerouac, Aram Saroy\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780140168130"
+5
+6
+
+
+# Attempt to get a book that is not present in the hash table; hash table is full
+get_book
+.align 2
+.word 7 7 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345419580\0"
+.ascii "Moreta: Dragonlady of Pe\0"
+.ascii "Anne McCaffrey\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9781516865870\0"
+.ascii "Beacon 23: The Complete \0"
+.ascii "Hugh Howey\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9781573451990\0"
+.ascii "Rumors of War (Children \0"
+.ascii "Dean Hughes\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780140168130\0"
+.ascii "Big Sur\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Jack Kerouac, Aram Saroy\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780316905750"
+-1
+7
+
+
+############################ PART 6
+############################ PART 6
+############################ PART 6
+
+# 1 Add a book to an empty hash table.
+add_book
+.align 2
+.word 9 0 68
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9780553214830"
+"The Declaration of Independence"
+"Founding Fathers"
+0
+0
+0
+0
+9780553214830The Declaration of IndepFounding Fathers 0
+0
+0
+0
+0
+4
+1
+
+# 2: Add a book to a hash table with existing values; no collisions
+add_book
+.align 2
+.word 9 4 68
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780446695660\0"
+.ascii "Double Whammy\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Carl Hiaasen\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780553214830\0"
+.ascii "The Declaration of Indep\0"
+.ascii "Founding Fathers\0\0\0\0\0\0\0\0\0"
+.word 14
+# Book struct start
+.align 2
+.ascii "9788433914260\0"
+.ascii "Hollywood\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Charles Bukowski\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345527780\0"
+.ascii "Wicked Business (Lizzy &\0"
+.ascii "Janet Evanovich\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9781620610090"
+"Opal (Lux, #3)"
+"Jennifer L. Armentrout"
+0
+9780446695660Double WhammyCarl Hiaasen 0
+0
+0
+9780553214830The Declaration of IndepFounding Fathers 14
+9788433914260HollywoodCharles Bukowski 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9781620610090Opal (Lux, #3)Jennifer L. Armentrout 0
+0
+7
+1
+
+# 3 Add a book to a hash table with existing values; collision with one probe required
+add_book
+.align 2
+.word 7 3 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# filler
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9781416971700"
+"Out of My Mind"
+"Sharon M. Draper"
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
+0
+0
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+9781416971700Out of My MindSharon M. Draper 0
+0
+0
+6
+2
+
+# 4 Add a book to a hash table with existing values; collisions with multiple probes required
+add_book
+.align 2
+.word 11 7 68
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 251
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780156948780\0"
+.ascii "The Waste Land and Other\0"
+.ascii "T.S. Eliot\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 422
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 1251
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 734
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9781455525930"
+"Crimson Shore (Pendergast, #15)"
+"Douglas Preston, Lincoln Child"
+0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 251
+9781416971700Out of My MindSharon M. Draper 0
+9780156948780The Waste Land and OtherT.S. Eliot 0
+9780670032080Financial Peace RevisiteDave Ramsey 422
+9780064408330Joey Pigza Swallowed theJack Gantos 1251
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 734
+9781455525930Crimson Shore (PendergasDouglas Preston, Lincoln 0
+0
+7
+3
+
+# 5 Add book to hash table with existing values; multiple "deleted" slots
+add_book
+.align 2
+.word 7 4 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 7777
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+# supposed to be -1 but I can't print -1 0xff
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 222
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 333
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 0 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+# filler
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9780451230230"
+"The Pacific"
+"Hugh Ambrose"
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 7777
+0
+-1
+9780670032080Financial Peace RevisiteDave Ramsey 222
+9780064408330Joey Pigza Swallowed theJack Gantos 333
+9780451230230The PacificHugh Ambrose 0
+9781416971700Out of My MindSharon M. Draper 0
+0
+0
+5
+3
+
+
+############################ PART 7
+############################ PART 7
+############################ PART 7
+
+# 1 Attempt to delete a book from an empty hash table
+delete_book
+.align 2
+.word 7 0 68
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9780553214830"
+0
+0
+0
+0
+0
+0
+0
+-1
+
+# 2 Delete a book that is present in the hash table at the expected index
+delete_book
+.align 2
+.word 7 5 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345527780\0"
+.ascii "Wicked Business (Lizzy &\0"
+.ascii "Janet Evanovich\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9780060855900"
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
+-1
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+0
+2
+
+# 3 Attempt to delete a book that is not present in the hash table; expected location is empty
+delete_book
+.align 2
+.word 7 5 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345527780\0"
+.ascii "Wicked Business (Lizzy &\0"
+.ascii "Janet Evanovich\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9781439164630"
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+0
+-1
+
+
+# 4 Delete a book that is not present in the hash table; expected location is deleted (hash table not full); probing required
+delete_book
+.align 2
+.word 7 3 68
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345527780\0"
+.ascii "Wicked Business (Lizzy &\0"
+.ascii "Janet Evanovich\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+"9780064410150"
+0
+-1
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+-1
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+0
+-1
+
+# 5 Attempt to delete a book not present in the hash table; hash table is full
+delete_book
+.align 2
+.word 7 7 68
+# Book struct start
+.align 2
+.ascii "9780553214830\0"
+.ascii "The Declaration of Indep\0"
+.ascii "Founding Fathers\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780446695660\0"
+.ascii "Double Whammy\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Carl Hiaasen\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780345527780\0"
+.ascii "Wicked Business (Lizzy &\0"
+.ascii "Janet Evanovich\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9788433914260\0"
+.ascii "Hollywood\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Charles Bukowski\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9781620610090\0"
+.ascii "Opal (Lux, #3)\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Jennifer L. Armentrout\0\0\0"
+.word 0
+.end_type
+"9780802122550"
+9780553214830The Declaration of IndepFounding Fathers 0
+9780446695660Double WhammyCarl Hiaasen 0
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780345527780Wicked Business (Lizzy &Janet Evanovich 0
+9788433914260HollywoodCharles Bukowski 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+9781620610090Opal (Lux, #3)Jennifer L. Armentrout 0
+-1
+
+.end_check
+
+exit
+# discord test cases remove exit to test rest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+get_book
+books:
+.align 2
+.word 7 7 68
+# Book struct start, 0
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# Book struct start, 1
+.align 2
+.ascii "9780345419580\0"
+.ascii "Moreta: Dragonlady of Pe\0"
+.ascii "Anne McCaffrey\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 2
+.align 2
+.ascii "9781516865870\0"
+.ascii "Beacon 23: The Complete \0"
+.ascii "Hugh Howey\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 3
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 4
+.align 2
+.ascii "9781573451990\0"
+.ascii "Rumors of War (Children \0"
+.ascii "Dean Hughes\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 5, start here
+.align 2
+.ascii "9780140168130\0"
+.ascii "Big Sur\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Jack Kerouac, Aram Saroy\0"
+.word 0
+# Book struct start, 6
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780316905750"
+
+get_book
+.align 2
+.word 7 7 68
+# Book struct start, 0
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start, 1
+.align 2
+.ascii "9780316905750\0"
+.ascii "Moreta: Dragonlady of Pe\0"
+.ascii "Anne McCaffrey\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 2
+.align 2
+.ascii "9781516865870\0"
+.ascii "Beacon 23: The Complete \0"
+.ascii "Hugh Howey\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 3
+.align 2
+.ascii "9780440060670\0"
+.ascii "The Other Side of Midnig\0"
+.ascii "Sidney Sheldon\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 4
+.align 2
+.ascii "9781573451990\0"
+.ascii "Rumors of War (Children \0"
+.ascii "Dean Hughes\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start, 5, start here
+.align 2
+.ascii "9780140168130\0"
+.ascii "Big Sur\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Jack Kerouac, Aram Saroy\0"
+.word 0
+# Book struct start, 6
+.align 2
+.ascii "9780316934750\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780316905750"

@@ -1,0 +1,1138 @@
+.test_file
+hwk4.asm
+
+.type
+string asciiz la 4
+char byte lbu 11
+byte byte lb 1
+int word lw 1
+int[] word la 1
+byte[] asciiz la 4
+Hashtable word byte la 1
+HashBookTable align word la 1 
+HashSalesTable align word la 1 
+getBookTable la 4
+getSalesTable la 4
+BookSale[] la 4
+.end
+
+.def
+hash_book HashBookTable string -> int
+sell_book getSalesTable getBookTable string int string int -> \
+                arg0:12:26:1:lb:11:|arg0:28:40:4:lw:1 \
+                arg0:40:54:1:lb:11:|arg0:56:68:4:lw:1 \
+                arg0:68:82:1:lb:11:|arg0:84:96:4:lw:1 \
+                arg0:96:110:1:lb:11:|arg0:112:124:4:lw:1 \
+                arg0:124:138:1:lb:11:|arg0:140:152:4:lw:1 \
+                arg0:152:166:1:lb:11:|arg0:168:180:4:lw:1 \
+                arg0:180:194:1:lb:11:|arg0:196:208:4:lw:1 \
+                arg0:208:222:1:lb:11:|arg0:224:236:4:lw:1 \
+                arg0:236:250:1:lb:11:|arg0:252:264:4:lw:1 \
+                arg1:12:76:1:lb:11:|arg1:76:80:4:lw:1 \
+                arg1:80:144:1:lb:11:|arg1:144:148:4:lw:1 \
+                arg1:148:212:1:lb:11:|arg1:212:216:4:lw:1 \
+                arg1:216:280:1:lb:11:|arg1:280:284:4:lw:1 \
+                arg1:284:348:1:lb:11:|arg1:348:352:4:lw:1 \
+                arg1:352:416:1:lb:11:|arg1:416:420:4:lw:1 \
+                arg1:420:484:1:lb:11:|arg1:484:488:4:lw:1 int int
+compute_scenario_revenue BookSale[] int int -> int 
+maximize_revenue BookSale[] int -> int
+.end
+
+arg0:12:26:1:lb:11: 
+arg0:40:54:1:lb:11:
+arg0:68:82:1:lb:11:
+arg0:96:110:1:lb:11:
+arg0:124:138:1:lb:11:
+arg0:152:166:1:lb:11:
+arg0:180:194:1:lb:11:
+arg0:208:222:1:lb:11:
+arg0:236:250:1:lb:11:
+
+arg1:12:76:1:11: arg1:80:144:1:11: arg1:148:212:1:11: arg1:216:280:1:11: arg1:284:348:1:11: arg1:352:416:1:11: arg1:420:484:1:11:
+
+
+.check_register
+$s0 800
+.check_register
+$s1 801
+.check_register
+$s2 802
+.check_register
+$s3 803
+.check_register
+$s4 804
+.check_register
+$s5 805
+.check_register
+$s6 806
+.check_register
+$s7 807
+.check_stack
+
+
+.start_check
+
+############################ PART 11
+############################ PART 11
+############################ PART 11
+
+# 1: sales hash table is empty
+sell_book
+.align 2
+.align 2
+.word 9 0 28
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+.align 2
+.word 7 6 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 0
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 0
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 0
+.end_type
+"9780670032080"
+12345
+"2020-09-14"
+50
+0 0 0
+0 0 0
+0 0 0
+0 0 0
+0 0 0
+9780670032080 12345 153659 50
+0 0 0
+0 0 0
+0 0 0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 0
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 0
+9780670032080Financial Peace RevisiteDave Ramsey 1
+9780064408330Joey Pigza Swallowed theJack Gantos 0
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 0
+9781416971700Out of My MindSharon M. Draper 0
+5
+1
+
+
+# 2 sales hash table contains some entries; a few steps of linear probing required to insert the BookSale struct
+sell_book
+.align 2
+.word 9 4 28
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# BookSale struct start
+.align 2
+.ascii "9781416971700\0"
+.byte 0 0
+.word 2323432
+.word 155033
+.word 22
+# BookSale struct start
+.align 2
+.ascii "9780060855900\0"
+.byte 0 0
+.word 920192
+.word 158610
+.word 61
+# BookSale struct start
+.align 2
+.ascii "9780345501330\0"
+.byte 0 0
+.word 81321
+.word 151269
+.word 192
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# BookSale struct start
+.align 2
+.ascii "9780312577220\0"
+.byte 0 0
+.word 2424
+.word 151912
+.word 125
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+.end_type
+.align 2
+.word 7 6 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 1
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 103
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 61
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 44
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 812
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 1
+.end_type
+"9780670032080"
+6123
+"2019-11-04"
+1032
+0 0 0
+9781416971700 2323432 155033 22
+9780060855900 920192 158610 61
+9780345501330 81321 151269 192
+9780670032080 6123 153344 1032
+9780312577220 2424 151912 125
+0 0 0
+0 0 0
+0 0 0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 1
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 103
+9780670032080Financial Peace RevisiteDave Ramsey 62
+9780064408330Joey Pigza Swallowed theJack Gantos 44
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 812
+9781416971700Out of My MindSharon M. Draper 1
+4
+3
+
+
+# 3 provided ISBN does not exist in the books hash table
+sell_book
+.align 2
+.word 9 4 28
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# BookSale struct start
+.align 2
+.ascii "9781416971700\0"
+.byte 0 0
+.word 2323432
+.word 155033
+.word 22
+# BookSale struct start
+.align 2
+.ascii "9780060855900\0"
+.byte 0 0
+.word 920192
+.word 158610
+.word 61
+# BookSale struct start
+.align 2
+.ascii "9780345501330\0"
+.byte 0 0
+.word 81321
+.word 151269
+.word 192
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# BookSale struct start
+.align 2
+.ascii "9780312577220\0"
+.byte 0 0
+.word 2424
+.word 151912
+.word 125
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+.end_type
+.align 2
+.word 7 6 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 1
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 103
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 61
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 44
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 812
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 1
+.end_type
+"9780679744400"
+5123
+"2029-11-04"
+987
+0 0 0
+9781416971700 2323432 155033 22
+9780060855900 920192 158610 61
+9780345501330 81321 151269 192
+0 0 0
+9780312577220 2424 151912 125
+0 0 0
+0 0 0
+0 0 0
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 1
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 103
+9780670032080Financial Peace RevisiteDave Ramsey 61
+9780064408330Joey Pigza Swallowed theJack Gantos 44
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 812
+9781416971700Out of My MindSharon M. Draper 1
+-2
+-2
+
+# 4 the sales hash table is full
+sell_book
+.align 2
+.word 9 9 28
+# BookSale struct start
+.align 2
+.ascii "9780345501330\0"
+.byte 0 0
+.word 723341
+.word 155229
+.word 55
+# BookSale struct start
+.align 2
+.ascii "9781416971700\0"
+.byte 0 0
+.word 2323432
+.word 155033
+.word 22
+# BookSale struct start
+.align 2
+.ascii "9780060855900\0"
+.byte 0 0
+.word 920192
+.word 158610
+.word 61
+# BookSale struct start
+.align 2
+.ascii "9780345501330\0"
+.byte 0 0
+.word 81321
+.word 151269
+.word 192
+# BookSale struct start
+.align 2
+.ascii "9780312577220\0"
+.byte 0 0
+.word 777233
+.word 155229
+.word 55
+# BookSale struct start
+.align 2
+.ascii "9780312577220\0"
+.byte 0 0
+.word 2424
+.word 151912
+.word 125
+# BookSale struct start
+.align 2
+.ascii "9780345501330\0"
+.byte 0 0
+.word 26234
+.word 155229
+.word 55
+# BookSale struct start
+.align 2
+.ascii "9780312577220\0"
+.byte 0 0
+.word 12312
+.word 155229
+.word 55
+# BookSale struct start
+.align 2
+.ascii "9780064408330\0"
+.byte 0 0
+.word 73123
+.word 155229
+.word 55
+.end_type
+.align 2
+.word 7 6 68
+# Book struct start
+.align 2
+.ascii "9780345501330\0"
+.ascii "Fairy Tail, Vol. 1 (Fair\0"
+.ascii "Hiro Mashima, William Fl\0"
+.word 3
+# empty or deleted entry starts here
+.align 2
+.byte 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+# Book struct start
+.align 2
+.ascii "9780060855900\0"
+.ascii "Equal Rites (Discworld, \0"
+.ascii "Terry Pratchett\0\0\0\0\0\0\0\0\0\0"
+.word 103
+# Book struct start
+.align 2
+.ascii "9780670032080\0"
+.ascii "Financial Peace Revisite\0"
+.ascii "Dave Ramsey\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 61
+# Book struct start
+.align 2
+.ascii "9780064408330\0"
+.ascii "Joey Pigza Swallowed the\0"
+.ascii "Jack Gantos\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+.word 45
+# Book struct start
+.align 2
+.ascii "9780312577220\0"
+.ascii "Fly Away (Firefly Lane, \0"
+.ascii "Kristin Hannah\0\0\0\0\0\0\0\0\0\0\0"
+.word 814
+# Book struct start
+.align 2
+.ascii "9781416971700\0"
+.ascii "Out of My Mind\0\0\0\0\0\0\0\0\0\0\0"
+.ascii "Sharon M. Draper\0\0\0\0\0\0\0\0\0"
+.word 1
+.end_type
+"9781416971700"
+1523
+"2022-10-14"
+323
+9780345501330 723341 155229 55
+9781416971700 2323432 155033 22
+9780060855900 920192 158610 61
+9780345501330 81321 151269 192
+9780312577220 777233 155229 55
+9780312577220 2424 151912 125
+9780345501330 26234 155229 55
+9780312577220 12312 155229 55
+9780064408330 73123 155229 55
+9780345501330Fairy Tail, Vol. 1 (FairHiro Mashima, William Fl 3
+0
+9780060855900Equal Rites (Discworld, Terry Pratchett 103
+9780670032080Financial Peace RevisiteDave Ramsey 61
+9780064408330Joey Pigza Swallowed theJack Gantos 45
+9780312577220Fly Away (Firefly Lane, Kristin Hannah 814
+9781416971700Out of My MindSharon M. Draper 1
+-1
+-1
+
+
+############################ PART 12
+############################ PART 12
+############################ PART 12
+
+# Test case #1
+compute_scenario_revenue
+# BookSale struct start
+.align 2
+.ascii "0000000000000\0"
+.byte 0 0
+.word 12345
+.word 153789
+.word 2
+# BookSale struct start
+.align 2
+.ascii "1111111111111\0"
+.byte 0 0
+.word 52321
+.word 153789
+.word 4
+# BookSale struct start
+.align 2
+.ascii "2222222222222\0"
+.byte 0 0
+.word 41231
+.word 153789
+.word 6
+# BookSale struct start
+.align 2
+.ascii "3333333333333\0"
+.byte 0 0
+.word 12523
+.word 153789
+.word 2
+# BookSale struct start
+.align 2
+.ascii "4444444444444\0"
+.byte 0 0
+.word 51231
+.word 153789
+.word 5
+.end_type
+5
+12
+64
+
+# Test case #2
+compute_scenario_revenue
+# BookSale struct start
+.align 2
+.ascii "5688198170802\0"
+.byte 0 0
+.word 69170
+.word 1836
+.word 54
+# BookSale struct start
+.align 2
+.ascii "8174611363470\0"
+.byte 0 0
+.word 42817
+.word 1416
+.word 472
+# BookSale struct start
+.align 2
+.ascii "6771105776755\0"
+.byte 0 0
+.word 73451
+.word 1537
+.word 296
+# BookSale struct start
+.align 2
+.ascii "9694257705423\0"
+.byte 0 0
+.word 89692
+.word 1796
+.word 348
+# BookSale struct start
+.align 2
+.ascii "8148291072965\0"
+.byte 0 0
+.word 93505
+.word 1860
+.word 115
+# BookSale struct start
+.align 2
+.ascii "1537177706509\0"
+.byte 0 0
+.word 25366
+.word 1488
+.word 433
+# BookSale struct start
+.align 2
+.ascii "3918738489597\0"
+.byte 0 0
+.word 52178
+.word 1247
+.word 303
+# BookSale struct start
+.align 2
+.ascii "1856189180494\0"
+.byte 0 0
+.word 69428
+.word 1731
+.word 118
+# BookSale struct start
+.align 2
+.ascii "4206531586624\0"
+.byte 0 0
+.word 99857
+.word 1083
+.word 190
+.end_type
+9
+205
+12824
+
+
+
+# Test case #3
+compute_scenario_revenue
+# BookSale struct start
+.align 2
+.ascii "0043444591466\0"
+.byte 0 0
+.word 56274
+.word 1935
+.word 12
+# BookSale struct start
+.align 2
+.ascii "0912549927792\0"
+.byte 0 0
+.word 20150
+.word 1615
+.word 341
+# BookSale struct start
+.align 2
+.ascii "8208666153502\0"
+.byte 0 0
+.word 13570
+.word 1727
+.word 275
+# BookSale struct start
+.align 2
+.ascii "7891835066590\0"
+.byte 0 0
+.word 89612
+.word 1679
+.word 405
+# BookSale struct start
+.align 2
+.ascii "7850924139905\0"
+.byte 0 0
+.word 56805
+.word 1379
+.word 227
+# BookSale struct start
+.align 2
+.ascii "7172692040044\0"
+.byte 0 0
+.word 14473
+.word 1609
+.word 306
+# BookSale struct start
+.align 2
+.ascii "8881948157382\0"
+.byte 0 0
+.word 35983
+.word 1662
+.word 38
+# BookSale struct start
+.align 2
+.ascii "6319285981025\0"
+.byte 0 0
+.word 61086
+.word 1664
+.word 411
+# BookSale struct start
+.align 2
+.ascii "5218182478429\0"
+.byte 0 0
+.word 34089
+.word 1400
+.word 484
+# BookSale struct start
+.align 2
+.ascii "9545006833495\0"
+.byte 0 0
+.word 12400
+.word 1382
+.word 458
+# BookSale struct start
+.align 2
+.ascii "6178171431772\0"
+.byte 0 0
+.word 40266
+.word 1773
+.word 330
+.end_type
+11
+845
+19581
+
+# Test case #4
+compute_scenario_revenue
+# BookSale struct start
+.align 2
+.ascii "3318220944005\0"
+.byte 0 0
+.word 68169
+.word 1310
+.word 429
+# BookSale struct start
+.align 2
+.ascii "1790274371133\0"
+.byte 0 0
+.word 12055
+.word 1911
+.word 67
+# BookSale struct start
+.align 2
+.ascii "2323508691228\0"
+.byte 0 0
+.word 25027
+.word 1950
+.word 382
+# BookSale struct start
+.align 2
+.ascii "6580406620516\0"
+.byte 0 0
+.word 14457
+.word 1160
+.word 390
+# BookSale struct start
+.align 2
+.ascii "1220293838689\0"
+.byte 0 0
+.word 26212
+.word 1181
+.word 79
+# BookSale struct start
+.align 2
+.ascii "8838065641525\0"
+.byte 0 0
+.word 38406
+.word 1406
+.word 239
+# BookSale struct start
+.align 2
+.ascii "4140073652158\0"
+.byte 0 0
+.word 91560
+.word 1707
+.word 231
+# BookSale struct start
+.align 2
+.ascii "0358003692171\0"
+.byte 0 0
+.word 97221
+.word 1131
+.word 492
+# BookSale struct start
+.align 2
+.ascii "8102823570747\0"
+.byte 0 0
+.word 64311
+.word 1671
+.word 147
+# BookSale struct start
+.align 2
+.ascii "2694841805861\0"
+.byte 0 0
+.word 81769
+.word 1342
+.word 380
+# BookSale struct start
+.align 2
+.ascii "8985832671846\0"
+.byte 0 0
+.word 33475
+.word 1157
+.word 455
+# BookSale struct start
+.align 2
+.ascii "9649316844603\0"
+.byte 0 0
+.word 74921
+.word 1199
+.word 446
+# BookSale struct start
+.align 2
+.ascii "2768474273172\0"
+.byte 0 0
+.word 48218
+.word 1291
+.word 474
+.end_type
+13
+6989
+25886
+
+
+
+############################ PART 13
+############################ PART 13
+############################ PART 13
+
+# Test case #1
+maximize_revenue
+# BookSale struct start
+.align 2
+.ascii "0000000000000\0"
+.byte 0 0
+.word 12345
+.word 153789
+.word 2
+# BookSale struct start
+.align 2
+.ascii "1111111111111\0"
+.byte 0 0
+.word 52321
+.word 153789
+.word 4
+# BookSale struct start
+.align 2
+.ascii "2222222222222\0"
+.byte 0 0
+.word 41231
+.word 153789
+.word 6
+# BookSale struct start
+.align 2
+.ascii "3333333333333\0"
+.byte 0 0
+.word 12523
+.word 153789
+.word 2
+# BookSale struct start
+.align 2
+.ascii "4444444444444\0"
+.byte 0 0
+.word 51231
+.word 153789
+.word 5
+.end_type
+5
+64
+
+# Test case #2
+maximize_revenue
+# BookSale struct start
+.align 2
+.ascii "0845558347906\0"
+.byte 0 0
+.word 65818
+.word 1620
+.word 82
+# BookSale struct start
+.align 2
+.ascii "5577045702462\0"
+.byte 0 0
+.word 91689
+.word 1951
+.word 154
+# BookSale struct start
+.align 2
+.ascii "6354780489355\0"
+.byte 0 0
+.word 94530
+.word 1579
+.word 60
+# BookSale struct start
+.align 2
+.ascii "1999320995468\0"
+.byte 0 0
+.word 93964
+.word 1715
+.word 225
+# BookSale struct start
+.align 2
+.ascii "0145174318443\0"
+.byte 0 0
+.word 41570
+.word 1195
+.word 232
+# BookSale struct start
+.align 2
+.ascii "5871544817889\0"
+.byte 0 0
+.word 57193
+.word 1139
+.word 387
+# BookSale struct start
+.align 2
+.ascii "7106045480035\0"
+.byte 0 0
+.word 48631
+.word 1282
+.word 414
+# BookSale struct start
+.align 2
+.ascii "1730871923235\0"
+.byte 0 0
+.word 39311
+.word 1399
+.word 78
+# BookSale struct start
+.align 2
+.ascii "8122589552824\0"
+.byte 0 0
+.word 60637
+.word 1888
+.word 497
+.end_type
+9
+12980
+
+# Test case #3
+maximize_revenue
+# BookSale struct start
+.align 2
+.ascii "5289996563210\0"
+.byte 0 0
+.word 50402
+.word 1912
+.word 114
+# BookSale struct start
+.align 2
+.ascii "4878656880115\0"
+.byte 0 0
+.word 14181
+.word 1025
+.word 40
+# BookSale struct start
+.align 2
+.ascii "1545953167947\0"
+.byte 0 0
+.word 74773
+.word 1453
+.word 419
+# BookSale struct start
+.align 2
+.ascii "4163887205026\0"
+.byte 0 0
+.word 11881
+.word 1088
+.word 316
+# BookSale struct start
+.align 2
+.ascii "3994954632401\0"
+.byte 0 0
+.word 25708
+.word 1418
+.word 346
+# BookSale struct start
+.align 2
+.ascii "2840757350273\0"
+.byte 0 0
+.word 79850
+.word 1501
+.word 89
+# BookSale struct start
+.align 2
+.ascii "2690573805693\0"
+.byte 0 0
+.word 75967
+.word 1093
+.word 147
+# BookSale struct start
+.align 2
+.ascii "6412500793328\0"
+.byte 0 0
+.word 20379
+.word 1997
+.word 380
+# BookSale struct start
+.align 2
+.ascii "1956670228687\0"
+.byte 0 0
+.word 95494
+.word 1343
+.word 275
+# BookSale struct start
+.align 2
+.ascii "4719224196873\0"
+.byte 0 0
+.word 30863
+.word 1956
+.word 194
+# BookSale struct start
+.align 2
+.ascii "1049903854879\0"
+.byte 0 0
+.word 40347
+.word 1980
+.word 281
+.end_type
+11
+18092
+
+
+# Test case #4
+maximize_revenue
+# BookSale struct start
+.align 2
+.ascii "0969867337768\0"
+.byte 0 0
+.word 91339
+.word 1799
+.word 274
+# BookSale struct start
+.align 2
+.ascii "7167926219358\0"
+.byte 0 0
+.word 87431
+.word 1648
+.word 149
+# BookSale struct start
+.align 2
+.ascii "5856271181125\0"
+.byte 0 0
+.word 38069
+.word 1171
+.word 135
+# BookSale struct start
+.align 2
+.ascii "1739956344089\0"
+.byte 0 0
+.word 24120
+.word 1716
+.word 401
+# BookSale struct start
+.align 2
+.ascii "2423634816035\0"
+.byte 0 0
+.word 44091
+.word 1735
+.word 429
+# BookSale struct start
+.align 2
+.ascii "7323738407143\0"
+.byte 0 0
+.word 33518
+.word 1687
+.word 357
+# BookSale struct start
+.align 2
+.ascii "0790885414601\0"
+.byte 0 0
+.word 49219
+.word 1389
+.word 468
+# BookSale struct start
+.align 2
+.ascii "2095877382616\0"
+.byte 0 0
+.word 89257
+.word 1679
+.word 325
+# BookSale struct start
+.align 2
+.ascii "7788346465697\0"
+.byte 0 0
+.word 76118
+.word 1374
+.word 364
+# BookSale struct start
+.align 2
+.ascii "7903951955477\0"
+.byte 0 0
+.word 45362
+.word 1032
+.word 44
+# BookSale struct start
+.align 2
+.ascii "2668430009430\0"
+.byte 0 0
+.word 26427
+.word 1969
+.word 245
+# BookSale struct start
+.align 2
+.ascii "5802412331328\0"
+.byte 0 0
+.word 94001
+.word 1133
+.word 62
+# BookSale struct start
+.align 2
+.ascii "0689148237261\0"
+.byte 0 0
+.word 28651
+.word 1412
+.word 265
+.end_type
+13
+29443
+
+
+.end_check
